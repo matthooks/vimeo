@@ -4,6 +4,51 @@ This gem implements a full-featured ruby interface for the Vimeo API.
 
 Vimeo's API documentation is, in my opinion, pretty poor. I've done my best to implement all the functions that are described "here":http://vimeo.com/api-docs/advanced-api-docs.html. There are some extra functions described "here":http://vimeo.com/api/sandbox, but I can't be 100% sure what the correct parameters are for each method, so I'm going to omit them for the time being.
 
+h2. Use
+
+Right now there are two models:
+
+VimeoSimple and VimeoAdvanced
+
+h2. VimeoSimple
+
+VimeoSimple is comprised of class methods:
+
+* VimeoSimple.user_info(username)
+* VimeoSimple.user_clips(username)
+* VimeoSimple.user_likes(username)
+* VimeoSimple.user_appears_in(username)
+* VimeoSimple.user_all_clips(username)
+* VimeoSimple.user_subscriptions(username)
+* VimeoSimple.user_albums(username)
+* VimeoSimple.user_channels(username)
+* VimeoSimple.user_groups(username)
+* VimeoSimple.user_contacts_clips(username)
+* VimeoSimple.user_contacts_like(username)
+* VimeoSimple.clip_info(video_id)
+* VimeoSimple.activity_user_did(username)
+* VimeoSimple.activity_happened_to_user(username)
+* VimeoSimple.activity_contacts_did(username)
+* VimeoSimple.activity_happened_to_contacts(username)
+* VimeoSimple.activity_everyone_did(username)
+* VimeoSimple.group_clips(groupname)
+* VimeoSimple.group_users(groupname)
+* VimeoSimple.group_info(groupname)
+* VimeoSimple.channel_clips(channelname)
+* VimeoSimple.channel_info(channelname)
+* VimeoSimple.album_clips(album_id)
+* VimeoSimple.album_info(album_id)
+
+h2. VimeoAdvanced
+
+VimeoAdvanced must be instantiated with an your application's api key and secret:
+
+bc. v = VimeoAdvanced.new("api_key", "secret")
+
+Then you can make calls on the instance:
+
+bc. v.videos_get_list(user_id, options)
+
 h2. Todo
 
 * Implement options that allow you to specify a format (xml, json, PHP). Right now this is slightly complicated by the fact that Vimeo returns text/html for json and not application/json, so HTTParty can't auto-detect the content-type.
@@ -15,5 +60,6 @@ h2. Todo
 * Input verification? The alternative is to just let vimeo handle it.
 * May need to escape input in several cases
 * There's PLENTY of room to re-factor as there is a ton of duplication and I started passing inputs differently about halfway through.
+* Tests
 
 h3. Copyright (c) 2008 Matt Hooks. See LICENSE for details.
