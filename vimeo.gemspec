@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.date = %q{2008-12-29}
   s.description = %q{A full featured Ruby implementation of the Vimeo API.}
   s.email = %q{matthooks@gmail.com}
+  s.files = ["README.textile", "VERSION.yml", "lib/vimeo.rb", "test/test_helper.rb", "test/vimeo_test.rb"]
   s.homepage = %q{http://github.com/matthooks/vimeo}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
