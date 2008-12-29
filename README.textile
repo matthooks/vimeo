@@ -76,4 +76,8 @@ h2. Todo
 * There's PLENTY of room to re-factor as there is a ton of duplication and I started passing inputs differently about halfway through.
 * Tests
 
+h2. Thanks to
+
+* "HTTParty":http://github.com/jnunemaker/httparty/tree/master: Easily one of the best tools I have used since I started using Ruby.
+
 h3. Copyright (c) 2008 Matt Hooks. See LICENSE for details.
