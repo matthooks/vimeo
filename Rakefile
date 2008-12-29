@@ -7,11 +7,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "vimeo"
-    s.summary = "TODO"
+    s.summary = "A full featured Ruby implementation of the Vimeo API."
     s.email = "matthooks@gmail.com"
     s.homepage = "http://github.com/matthooks/vimeo"
-    s.description = "TODO"
+    s.description = "A full featured Ruby implementation of the Vimeo API."
     s.authors = ["Matt Hooks"]
+    s.add_dependency(%q<jnunemaker-httparty>, [">= 0.2.4"])
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
