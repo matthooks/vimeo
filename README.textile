@@ -16,7 +16,7 @@ Then, it's as easy as:
 
 Add the gem plugin to your Rails project by adding the following to your @environment.rb@ file:
 
-@config.gem "matthooks-vimeo", :source => "http://gems.github.com/"@
+@config.gem "matthooks-vimeo", :lib => "vimeo"@
 
 h2. Use
 
