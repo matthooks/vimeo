@@ -47,7 +47,7 @@ VimeoAdvanced must be instantiated with an your application's api key and secret
 
 Then you can make calls on the instance:
 
-@bc. v.videos_get_list(user_id, options)@
+@v.videos_get_list(user_id, options)@
 
 h2. Todo
 
