@@ -12,7 +12,13 @@ begin
     s.homepage = "http://github.com/matthooks/vimeo"
     s.description = "A full featured Ruby implementation of the Vimeo API."
     s.authors = ["Matt Hooks"]
-    s.add_dependency(%q<jnunemaker-httparty>, [">= 0.2.4"])
+
+    s.has_rdoc = true
+    s.rdoc_options = ['--main', 'README.rdoc']
+    s.rdoc_options << '--inline-source' << '--charset=UTF-8'
+    s.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
+    
+    s.add_dependency(%q<jnunemaker-httparty>, [">= 0.2.6"])
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"

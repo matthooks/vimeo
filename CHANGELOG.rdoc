@@ -1,0 +1,10 @@
+== 0.2.0, released 2009-01-06
+
+* Major re-factor of each request method.
+* Separated the simple and advanced APIs into their own modules.
+* Added some documentation.
+* Updated the README.
+
+== 0.1.2, released 2008-10-26
+
+* Initial release
