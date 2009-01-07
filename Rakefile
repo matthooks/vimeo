@@ -13,6 +13,8 @@ begin
     s.description = "A full featured Ruby implementation of the Vimeo API."
     s.authors = ["Matt Hooks"]
 
+    s.files = FileList["[A-Z]*.*", "{bin,generators,lib,test,spec}/**/*"]
+
     s.has_rdoc = true
     s.rdoc_options = ['--main', 'README.rdoc']
     s.rdoc_options << '--inline-source' << '--charset=UTF-8'
