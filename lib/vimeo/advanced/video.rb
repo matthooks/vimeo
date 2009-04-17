@@ -111,10 +111,9 @@ module Vimeo
       def search(q, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
         user_id = options[:user_id]
         contacts_only = options[:contacts_only]
-        escaped_query = CGI.escape(q)
 
         sig_options = {
-          :query => escaped_query,
+          :query => q,
           :page => options[:page],
           :per_page => options[:per_page],
           :fullResponse => options[:full_response],
@@ -158,11 +157,9 @@ module Vimeo
       end
 
       def set_title(video_id, title, auth_token)
-        escaped_title = CGI.escape(title)
-
         sig_options = {
           :video_id => video_id,
-          :title => escaped_title,
+          :title => title,
           :auth_token => auth_token,
           :method => "vimeo.videos.setTitle"
         }
@@ -171,11 +168,9 @@ module Vimeo
       end
 
       def set_caption(video_id, caption, auth_token)
-        escaped_caption = CGI.escape(caption)
-
         sig_options = {
           :video_id => video_id,
-          :caption => escaped_caption,
+          :caption => caption,
           :auth_token => auth_token,
           :method => "vimeo.videos.setCaption"
         }
