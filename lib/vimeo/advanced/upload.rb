@@ -22,6 +22,15 @@ module Vimeo
         make_request sig_options
       end
 
+
+      def signature_for_file_upload(ticket_id, auth_token)
+        sig_options = {
+          :ticket_id => ticket_id,
+          :auth_token => auth_token
+        }
+        generate_api_sig sig_options
+      end
+
     end
 
   end # Advanced
