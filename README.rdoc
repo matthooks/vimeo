@@ -43,9 +43,9 @@ The wrapper for the Simple API consists of the following classes and methods:
   Vimeo::Simple::User.contacts_videos(username)
   Vimeo::Simple::User.contacts_like(username)
 
-=== Vimeo::Simple::Clip
+=== Vimeo::Simple::Video
 
-  Vimeo::Simple::Clip.info(video_id)
+  Vimeo::Simple::Video.info(video_id)
 
 === Vimeo::Simple::Activity
 
