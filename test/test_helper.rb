@@ -3,11 +3,14 @@ require 'test/unit'
 
 gem 'thoughtbot-shoulda', ">= 2.10.2"
 gem 'fakeweb', ">= 1.2.6"
+gem 'crack', ">= 0.1.4"
+gem 'mocha', ">= 0.9.8"
 
 require 'shoulda'
 require 'fakeweb'
-require 'httparty'
 require 'Crack'
+require 'mocha'
+require 'ruby-prof'
 
 FakeWeb.allow_net_connect = false
 
@@ -28,6 +31,10 @@ def vimeo_url(url)
   "http://vimeo.com/api/v2#{url}"
 end
 
+def advanced_vimeo_url(url)
+  "http://vimeo.com/api/rest/v2#{url}"
+end
+
 def stub_get(url, filename, status=nil)
   # FIXME: We have to specify content type, otherwise HTTParty will not parse the 
   # body correctly. Is there any way we can get around this? Or is this a limitation
@@ -39,5 +46,5 @@ def stub_get(url, filename, status=nil)
 end
 
 def stub_post(url, filename)
-  FakeWeb.register_uri(:post, vimeo_url(url), :body => fixture_file(filename))
+  FakeWeb.register_uri(:post, advanced_vimeo_url(url), :body => fixture_file(filename), :content_type => 'application/json')
 end

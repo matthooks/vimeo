@@ -11,8 +11,9 @@ begin
     gem.homepage = "http://github.com/matthooks/vimeo"
     gem.authors = ["Matt Hooks"]
     gem.rubyforge_project = "vimeo"
-    gem.add_development_dependency "thoughtbot-shoulda"
-    gem.add_development_dependency "fakeweb"
+    gem.add_development_dependency "thoughtbot-shoulda", ">= 2.10.2"
+    gem.add_development_dependency "fakeweb", ">= 1.2.6"
+    gem.add_development_dependency "crack", ">= 0.1.4"
     
     # s.files = FileList["[A-Z]*.*", "{bin,generators,lib,test,spec}/**/*"]
     # 
@@ -22,11 +23,10 @@ begin
     # s.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
     
     gem.add_dependency "httparty", ">= 0.4.5"
+    gem.add_dependency "curb", ">= 0.5.4.0"
+    gem.add_dependency "json", ">= 1.1.9"
   end
   Jeweler::GemcutterTasks.new
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "rdoc"
-  end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end

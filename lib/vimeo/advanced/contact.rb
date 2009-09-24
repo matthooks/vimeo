@@ -1,18 +1,31 @@
 module Vimeo
   module Advanced
-
     class Contact < Vimeo::Advanced::Base
 
-      def get_list(user_id)
-        sig_options = {
-          :user_id => user_id,
-          :method => "vimeo.contacts.getList"
-        }
+      # Returns a list of a user's contacts.
+      create_api_method :get_all,
+                        "vimeo.contacts.getAll",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :sort]
 
-        make_request sig_options
-      end
+      # Returns a list of your mutual contacts with a user.
+      create_api_method :get_mutual,
+                        "vimeo.contacts.getMutual",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :sort]
 
-    end
+      # Returns a list of your contacts who are online.
+      # FIXME: Shouldn't this have optional params?
+      create_api_method :get_online,
+                        "vimeo.contacts.getOnline",
+                        :optional => [:page, :per_page, :sort]
+      
+      # Returns a list of users who added a user as a contact.
+      create_api_method :get_who_added,
+                        "vimeo.contacts.getWhoAdded",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :sort]
 
+    end # Contact
   end # Advanced
 end # Vimeo

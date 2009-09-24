@@ -1,0 +1,13 @@
+{
+  "generated_in":"0.9726",
+  "stat":"ok",
+  "auth":{
+    "token":"token",
+    "perms":"delete",
+    "user":{
+      "fullname":"Matt Hooks",
+      "id":"888046",
+      "username":"matthooks"
+    }
+  }
+}

@@ -1,322 +1,131 @@
 module Vimeo
   module Advanced
-
     class Video < Vimeo::Advanced::Base
 
-      def get_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0 })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :method => "vimeo.videos.getList"
-        }
-        
-        make_request sig_options
-      end
+      create_api_method :add_cast,
+                        "vimeo.videos.addCast",
+                        :required => [:auth_token, :video_id, :user_id],
+                        :optional => [:role]
 
-      def get_uploaded_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.getUploadedList"
-        }
-        
-        make_request sig_options
-      end
+      create_api_method :add_photos,
+                        "vimeo.videos.addPhotos",
+                        :required => [:auth_token, :video_id, :photo_urls]
 
-      def get_appears_in_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :method => "vimeo.videos.getAppearsInList"
-        }
-        
-        make_request sig_options
-      end
+      create_api_method :add_tags,
+                        "vimeo.videos.addTags",
+                        :required => [:auth_token, :video_id, :tags]
 
-      def get_subscriptions_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.getSubscriptionsList"
-        }
-        
-        make_request sig_options
-      end
+      create_api_method :clear_tags,
+                        "vimeo.videos.clearTags",
+                        :required => [:auth_token, :video_id]
 
-      def get_list_by_tag(tag, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        user_id = options[:user_id]
+      create_api_method :delete,
+                        "vimeo.videos.delete",
+                        :required => [:auth_token, :video_id]
 
-        sig_options = {
-          :tag => tag,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.getListByTag"
-        }
-        sig_options.merge! :user_id => user_id if !user_id.nil?
+      create_api_method :get_all,
+                        "vimeo.videos.getAll",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-        make_request sig_options
-      end
+      create_api_method :get_appears_in,
+                        "vimeo.videos.getAppearsIn",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-      def get_like_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.getLikeList"
-        }
+      create_api_method :get_by_tag,
+                        "vimeo.videos.getByTag",
+                        :required => [:tag],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-        make_request sig_options
-      end
+      create_api_method :get_cast,
+                        "vimeo.videos.getCast",
+                        :required => [:video_id],
+                        :optional => [:page, :per_page]
 
-      def get_contacts_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.getContactsList"
-        }
+      create_api_method :get_contacts_liked,
+                        "vimeo.videos.getContactsLiked",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-        make_request sig_options
-      end
+      create_api_method :get_contacts_uploaded,
+                        "vimeo.videos.getContactsUploaded",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-      def get_contacts_like_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        sig_options = {
-          :user_id => user_id,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.getContactsLikeList"
-        }
+      create_api_method :get_info,
+                        "vimeo.videos.getInfo",
+                        :required => [:video_id]
 
-        make_request sig_options
-      end
+      create_api_method :get_likes,
+                        "vimeo.videos.getLikes",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-      def search(q, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-        user_id = options[:user_id]
-        contacts_only = options[:contacts_only]
+      create_api_method :get_subscriptions,
+                        "vimeo.videos.getSubscriptions",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-        sig_options = {
-          :query => q,
-          :page => options[:page],
-          :per_page => options[:per_page],
-          :fullResponse => options[:full_response],
-          :auth_token => options[:auth_token],
-          :method => "vimeo.videos.search"
-        }
-        sig_options.merge! :user_id => user_id if !user_id.nil?
-        sig_options.merge! :contacts_only => contacts_only if !contacts_only.nil?
+      create_api_method :get_thumbnail_urls,
+                        "vimeo.videos.getThumbnailUrls",
+                        :required => [:video_id]
 
-        make_request sig_options
-      end
+      create_api_method :get_uploaded,
+                        "vimeo.videos.getUploaded",
+                        :required => [:user_id],
+                        :optional => [:page, :per_page, :full_response, :sort]
 
-      def get_info(video_id, auth_token=nil)
-        sig_options = {
-          :video_id => video_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.getInfo"
-        }
+      create_api_method :remove_cast,
+                        "vimeo.videos.removeCast",
+                        :required => [:auth_token, :video_id, :user_id]
 
-        make_request sig_options
-      end
+      create_api_method :remove_tag,
+                        "vimeo.videos.removeTag",
+                        :required => [:auth_token, :video_id, :tag_id]
 
-      def delete(video_id, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.delete"
-        }
+      create_api_method :search,
+                        "vimeo.videos.search",
+                        :required => [:query],
+                        :optional => [:page, :per_page, :full_response, :sort, :user_id]
 
-        make_request sig_options
-      end
+      create_api_method :set_description,
+                        "vimeo.videos.setDescription",
+                        :required => [:auth_token, :video_id, :description]
 
-      def get_thumbnail_url(video_id, size=100)
-        sig_options = {
-          :video_id => video_id,
-          :size => size,
-          :method => "vimeo.videos.getThumbnailUrl"
-        }
+      create_api_method :set_like,
+                        "vimeo.videos.setLike",
+                        :required => [:auth_token, :video_id, :like]
 
-        make_request sig_options
-      end
+      create_api_method :set_privacy,
+                        "vimeo.videos.setPrivacy",
+                        :required => [:auth_token, :video_id, :privacy],
+                        :optional => [:users, :password]
 
-      def set_title(video_id, title, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :title => title,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.setTitle"
-        }
+      create_api_method :set_title,
+                        "vimeo.videos.setTitle",
+                        :required => [:auth_token, :video_id, :title]
 
-        make_request sig_options
-      end
+      
+      # comments
+      create_api_method :add_comment,
+                        "vimeo.videos.comments.addComment",
+                        :required => [:auth_token, :video_id, :comment_text],
+                        :optional => [:reply_to_comment_id]
 
-      def set_caption(video_id, caption, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :caption => caption,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.setCaption"
-        }
+      create_api_method :delete_comment,
+                        "vimeo.videos.comments.deleteComment",
+                        :required => [:auth_token, :video_id, :comment_id]
 
-        make_request sig_options
-      end
+      create_api_method :edit_comment,
+                        "vimeo.videos.comments.editComment",
+                        :required => [:auth_token, :video_id, :comment_id, :comment_text]
 
-      def set_favorite(video_id, favorite, auth_token)
-        f = favorite ? true : false
+      create_api_method :get_comments_list,
+                        "vimeo.videos.comments.getList",
+                        :required => [:video_id],
+                        :optional => [:page, :per_page]
 
-        sig_options = {
-          :video_id => video_id,
-          :favorite => f,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.setFavorite"
-        }
-
-        make_request sig_options
-      end
-
-      def add_tags(video_id, tags, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :tags => tags,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.addTags"
-        }
-
-        make_request sig_options
-      end
-
-      def remove_tag(video_id, tag_id, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :tag_id => tag_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.removeTag"
-        }
-
-        make_request sig_options
-      end
-
-      def clear_tags(video_id, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.clearTags"
-        }
-
-        make_request sig_options
-      end
-
-      def add_cast(video_id, user_id, auth_token, options={})
-        role = options[:role]
-        
-        sig_options = {
-          :video_id => video_id,
-          :user_id => user_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.addCast"
-        }
-        sig_options.merge! :role => role unless role.nil?
-
-        make_request sig_options
-      end
-
-      def get_cast(video_id, auth_token=nil)
-        sig_options = {
-          :video_id => video_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.getCast"
-        }
-
-        make_request sig_options
-      end
-
-      def remove_cast(video_id, user_id, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :user_id => user_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.removeCast"
-        }
-
-        make_request sig_options
-      end
-
-      # TODO: Add ability to specify users
-      def set_privacy(video_id, privacy, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :privacy => privacy,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.setPrivacy"
-        }
-
-        make_request sig_options
-      end
-
-      def get_comments_list(video_id)
-        sig_options = {
-          :video_id => video_id,
-          :method => "vimeo.videos.comments.getList"
-        }
-
-        make_request sig_options
-      end
-
-      def add_comment(video_id, comment_text, auth_token, options={})
-        reply_to_comment_id = options[:reply_to_comment_id]
-
-        sig_options = {
-          :video_id => video_id,
-          :comment_text => comment_text,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.comments.addComment"
-        }
-        sig_options.merge! :reply_to_comment_id => reply_to_comment_id unless reply_to_comment_id.nil?
-
-        make_request sig_options
-      end
-
-      def delete_comment(video_id, comment_id, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :comment_id => comment_id,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.comments.deleteComment"
-        }
-
-        make_request sig_options
-      end
-
-      def edit_comment(video_id, comment_id, comment_text, auth_token)
-        sig_options = {
-          :video_id => video_id,
-          :comment_id => comment_id,
-          :comment_text => comment_text,
-          :auth_token => auth_token,
-          :method => "vimeo.videos.comments.editComment"
-        }
-
-        make_request sig_options
-      end
-
-    end
-
+    end # Video
   end # Advanced
 end # Vimeo
