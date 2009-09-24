@@ -7,24 +7,24 @@ module Vimeo
         get("/#{username}/info.json")
       end
       
-      # Returns this user's clips.
-      def self.clips(username)
-        get("/#{username}/clips.json")
+      # Returns this user's videos.
+      def self.videos(username)
+        get("/#{username}/videos.json")
       end
     
-      # Returns this user's liked clips.
+      # Returns this user's liked videos.
       def self.likes(username)
         get("/#{username}/likes.json")
       end
     
-      # Returns the clips this user appears in.
+      # Returns the videos this user appears in.
       def self.appears_in(username)
         get("/#{username}/appears_in.json")
       end
     
-      # Returns all clips related to this user.
-      def self.all_clips(username)
-        get("/#{username}/all_clips.json")
+      # Returns all videos related to this user.
+      def self.all_videos(username)
+        get("/#{username}/all_videos.json")
       end
     
       # Returns this user's subscriptions.
@@ -47,12 +47,12 @@ module Vimeo
         get("/#{username}/groups.json")
       end
     
-      # Returns this user's contact's clips.
-      def self.contacts_clips(username)
-        get("/#{username}/contacts_clips.json")
+      # Returns this user's contact's videos.
+      def self.contacts_videos(username)
+        get("/#{username}/contacts_videos.json")
       end
     
-      # Returns the clips that this user's contact's liked.
+      # Returns the videos that this user's contact's liked.
       def self.contacts_like(username)
         get("/#{username}/contacts_like.json")
       end

@@ -2,9 +2,9 @@ module Vimeo
   module Simple
 
     class Group < Vimeo::Simple::Base
-      # Returns this group's clips.
-      def self.clips(groupname)
-        get("/group/#{groupname}/clips.json")
+      # Returns this group's videos.
+      def self.videos(groupname)
+        get("/group/#{groupname}/videos.json")
       end
 
       # Returns this group's users.

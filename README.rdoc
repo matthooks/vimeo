@@ -32,15 +32,15 @@ The wrapper for the Simple API consists of the following classes and methods:
 === Vimeo::Simple::User
 
   Vimeo::Simple::User.info(username)
-  Vimeo::Simple::User.clips(username)
+  Vimeo::Simple::User.videos(username)
   Vimeo::Simple::User.likes(username)
   Vimeo::Simple::User.appears_in(username)
-  Vimeo::Simple::User.all_clips(username)
+  Vimeo::Simple::User.all_videos(username)
   Vimeo::Simple::User.subscriptions(username)
   Vimeo::Simple::User.albums(username)
   Vimeo::Simple::User.channels(username)
   Vimeo::Simple::User.groups(username)
-  Vimeo::Simple::User.contacts_clips(username)
+  Vimeo::Simple::User.contacts_videos(username)
   Vimeo::Simple::User.contacts_like(username)
 
 === Vimeo::Simple::Clip
@@ -57,18 +57,18 @@ The wrapper for the Simple API consists of the following classes and methods:
 
 === Vimeo::Simple::Group
 
-  Vimeo::Simple::Group.clips(groupname)
+  Vimeo::Simple::Group.videos(groupname)
   Vimeo::Simple::Group.users(groupname)
   Vimeo::Simple::Group.info(groupname)
 
 === Vimeo::Simple::Channel
 
-  Vimeo::Simple::Channel.clips(channelname)
+  Vimeo::Simple::Channel.videos(channelname)
   Vimeo::Simple::Channel.info(channelname)
 
 === Vimeo::Simple::Album
 
-  Vimeo::Simple::Album.clips(album_id)
+  Vimeo::Simple::Album.videos(album_id)
   Vimeo::Simple::Album.info(album_id)
 
 == Advanced API

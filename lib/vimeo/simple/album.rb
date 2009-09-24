@@ -2,9 +2,9 @@ module Vimeo
   module Simple
 
     class Album < Vimeo::Simple::Base
-      # Returns this album's clips.
-      def self.clips(album_id)
-        get("/album/#{album_id}/clips.json")
+      # Returns this album's videos.
+      def self.videos(album_id)
+        get("/album/#{album_id}/videos.json")
       end
 
       # Returns this album's information.
