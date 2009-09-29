@@ -75,32 +75,32 @@ The wrapper for the {Simple API}[http://www.vimeo.com/api/docs/simple-api] consi
   
 === Vimeo::Simple::Channel
 
-  Vimeo::Simple::Channel.videos(channelname)
-  Vimeo::Simple::Channel.info(channelname)
+  Vimeo::Simple::Channel.videos("channelname")
+  Vimeo::Simple::Channel.info("channelname")
 
 === Vimeo::Simple::Group
 
-  Vimeo::Simple::Group.videos(groupname)
-  Vimeo::Simple::Group.users(groupname)
-  Vimeo::Simple::Group.info(groupname)
+  Vimeo::Simple::Group.videos("groupname")
+  Vimeo::Simple::Group.users("groupname")
+  Vimeo::Simple::Group.info("groupname")
 
 === Vimeo::Simple::User
 
-  Vimeo::Simple::User.info(username)
-  Vimeo::Simple::User.videos(username)
-  Vimeo::Simple::User.likes(username)
-  Vimeo::Simple::User.appears_in(username)
-  Vimeo::Simple::User.all_videos(username)
-  Vimeo::Simple::User.subscriptions(username)
-  Vimeo::Simple::User.albums(username)
-  Vimeo::Simple::User.channels(username)
-  Vimeo::Simple::User.groups(username)
-  Vimeo::Simple::User.contacts_videos(username)
-  Vimeo::Simple::User.contacts_like(username)
+  Vimeo::Simple::User.info("username")
+  Vimeo::Simple::User.videos("username")
+  Vimeo::Simple::User.likes("username")
+  Vimeo::Simple::User.appears_in("username")
+  Vimeo::Simple::User.all_videos("username")
+  Vimeo::Simple::User.subscriptions("username")
+  Vimeo::Simple::User.albums("username")
+  Vimeo::Simple::User.channels("username")
+  Vimeo::Simple::User.groups("username")
+  Vimeo::Simple::User.contacts_videos("username")
+  Vimeo::Simple::User.contacts_like("username")
 
 === Vimeo::Simple::Video
 
-  Vimeo::Simple::Video.info(video_id)
+  Vimeo::Simple::Video.info("video_id")
 
 == Advanced API
 
@@ -110,7 +110,7 @@ The classes in Vimeo::Advanced must be instantiated with an your application's a
 
 Then you can make method calls on the instance. For example:
 
-  vimeo_video.get_list("matthooks", :page => 2, :per_page => 50)
+  vimeo_video.get_list("matthooks", :page => "2", :per_page => "50")
   
 Some methods have optional variables. You should pass as a hash at the end of a call.
 
@@ -319,4 +319,4 @@ There are a few steps along the way where things can go wrong.
 * {HTTParty}[http://github.com/jnunemaker/httparty/tree/master]: Easily one of the best tools I have used since I started using Ruby.
 * {Jeweler}[http://github.com/technicalpickles/jeweler/tree/master]: Great tool for creating gems for Github.
 
-=== Copyright (c) 2008 Matt Hooks. See LICENSE for details.
+=== Copyright (c) 2009 Matt Hooks. See LICENSE for details.
