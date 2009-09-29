@@ -7,16 +7,19 @@ things aren't working as they should -- in my experience the Vimeo API has a num
 
 == Install
 
-If you haven't already, add github's gem server to your sources:
+If you've got {Gemcutter}:[http://gemcutter.org] installed, you can simply:
+
+  sudo gem install vimeo
+  
+  # and add the following to your environment.rb file
+  gem.config "vimeo", :lib => "vimeo"
+
+Otherwise, make sure to add Github's gem server to your sources:
 
   gem sources -a http://gems.github.com
-
-Then, it's as easy as:
-
   sudo gem install matthooks-vimeo
-
-Add the gem plugin to your Rails project by adding the following to your @environment.rb@ file:
-
+  
+  # and add the following to your environment.rb file
   config.gem "matthooks-vimeo", :lib => "vimeo"
 
 == Use
@@ -273,7 +276,6 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
   video_embed.get_presets("auth_token", { :page => "1", :per_page => "25" })
   video_embed.set_preset("auth_token", "video_id", "preset_id")
-
 
 == Uploads
 
