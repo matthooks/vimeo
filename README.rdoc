@@ -7,7 +7,7 @@ things aren't working as they should -- in my experience the Vimeo API has a num
 
 == Install
 
-If you've got {Gemcutter}:[http://gemcutter.org] installed, you can simply:
+If you've got Gemcutter:[http://gemcutter.org] installed, you can simply:
 
   sudo gem install vimeo
   
@@ -117,7 +117,7 @@ Then you can make method calls on the instance. For example:
   
 Some methods have optional variables. You should pass as a hash at the end of a call.
 
-Some methods require authentication. Check out the guides for {Web Based authentication}[http://www.vimeo.com/api/docs/web-auth] and {Desktop Based authentication}[http://www.vimeo.com/api/docs/desktop-auth].
+Some methods require authentication. Check out Vimeo's guides for {Web Based authentication}[http://www.vimeo.com/api/docs/web-auth] and {Desktop Based authentication}[http://www.vimeo.com/api/docs/desktop-auth].
 
 The wrapper for the Advanced API consists of the following classes and methods:
 
@@ -208,21 +208,19 @@ The wrapper for the Advanced API consists of the following classes and methods:
   person = Vimeo::Advanced::Person.new("api_key", "secret")
 
   person.add_contact("auth_token", "user_id")
-  # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
-  person.add_subscription("auth_token", "user_id", "types")
+  person.add_subscription("auth_token", "user_id", "types") # Types is a comma-delimited string. Valid: "likes", "appears", "uploads"
   person.find_by_email("user_id")
   person.get_hd_embeds("auth_token")
   person.get_info("user_id")
   person.get_portrait_urls("user_id")
   person.remove_contact("auth_token", "user_id")
-  # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
-  person.remove_subscription("auth_token", "user_id", "types")
+  person.remove_subscription("auth_token", "user_id", "types") # Types is a comma-delimited string. Valid: "likes", "appears", "uploads"
 
 === Vimeo::Advanced::Test
 
   test = Vimeo::Advanced::Test.new("api_key", "secret")
 
-  test.echo(options={})
+  test.echo
   test.null(auth_token)
   test.login(auth_token)
 
