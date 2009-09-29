@@ -15,12 +15,10 @@ begin
     gem.add_development_dependency "fakeweb", ">= 1.2.6"
     gem.add_development_dependency "crack", ">= 0.1.4"
     
-    # s.files = FileList["[A-Z]*.*", "{bin,generators,lib,test,spec}/**/*"]
-    # 
-    # s.has_rdoc = true
-    # s.rdoc_options = ['--main', 'README.rdoc']
-    # s.rdoc_options << '--inline-source' << '--charset=UTF-8'
-    # s.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
+    gem.has_rdoc = true
+    
+    gem.rdoc_options = ['--main', 'README.rdoc', '--inline-source', '--charset=UTF-8']
+    gem.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
     
     gem.add_dependency "httparty", ">= 0.4.5"
     gem.add_dependency "curb", ">= 0.5.4.0"
