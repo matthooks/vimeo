@@ -2,57 +2,79 @@ module Vimeo
   module Simple
 
     class User < Vimeo::Simple::Base
-      # Returns this user's information.
+      # Returns a user's metadata.
+      #
+      # @param [String] username The user's id or username.
       def self.info(username)
         get("/#{username}/info.json")
       end
       
-      # Returns this user's videos.
+      # Returns a list of a user's videos.
+      #
+      # @param [String] username The user's id or username.
       def self.videos(username)
         get("/#{username}/videos.json")
       end
     
-      # Returns this user's liked videos.
+      # Returns a list of a user's liked videos.
+      #
+      # @param [String] username The user's id or username.
       def self.likes(username)
         get("/#{username}/likes.json")
       end
     
-      # Returns the videos this user appears in.
+      # Returns a list of the videos a user appears in.
+      #
+      # @param [String] username The user's id or username.
       def self.appears_in(username)
         get("/#{username}/appears_in.json")
       end
     
-      # Returns all videos related to this user.
+      # Returns a list of all videos that are related to a user.
+      #
+      # @param [String] username The user's id or username.
       def self.all_videos(username)
         get("/#{username}/all_videos.json")
       end
     
-      # Returns this user's subscriptions.
+      # Returns a list of a user's subscriptions.
+      #
+      # @param [String] username The user's id or username.
       def self.subscriptions(username)
         get("/#{username}/subscriptions.json")
       end
     
-      # Returns this user's albums.
+      # Returns a list of a user's albums.
+      #
+      # @param [String] username The user's id or username.
       def self.albums(username)
         get("/#{username}/albums.json")
       end
     
-      # Returns this user's channels.
+      # Returns a list of a user's channels.
+      #
+      # @param [String] username The user's id or username.
       def self.channels(username)
         get("/#{username}/channels.json")
       end
     
-      # Returns this user's groups.
+      # Returns a list of a user's groups.
+      #
+      # @param [String] username The user's id or username.
       def self.groups(username)
         get("/#{username}/groups.json")
       end
     
-      # Returns this user's contact's videos.
+      # Returns a list of a user's contact's videos.
+      #
+      # @param [String] username The user's id or username.
       def self.contacts_videos(username)
         get("/#{username}/contacts_videos.json")
       end
     
-      # Returns the videos that this user's contact's liked.
+      # Returns a list of videos that a user's contacts liked.
+      #
+      # @param [String] username The user's id or username.
       def self.contacts_like(username)
         get("/#{username}/contacts_like.json")
       end

@@ -9,6 +9,7 @@ module Vimeo
 
       # Creates an album.
       # FIXME: Nothing is returned if you add multiple videos to an album.
+      # The optional parameter videos is a comma-separated list of video ids.
       create_api_method :create,
                         "vimeo.albums.create",
                         :required => [:auth_token, :title, :video_id],

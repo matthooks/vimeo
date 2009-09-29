@@ -17,7 +17,7 @@ class PersonTest < Test::Unit::TestCase
     
     should "be able to get add a subscription" do
       stub_post("?api_key=12345&types=likes&auth_token=token&format=json&api_sig=f02dae35e4eb7a7e2ca0ad9c026ad311&method=vimeo.people.addSubscription&user_id=user_id", "advanced/person/add_subscription.json")
-      response = @person.add_subscription("token", "likes", "user_id")
+      response = @person.add_subscription("token", "user_id", "likes")
       
       assert_equal "ok", response["stat"]
     end
@@ -59,7 +59,7 @@ class PersonTest < Test::Unit::TestCase
     
     should "be able to remove you from a subscription" do
       stub_post("?api_key=12345&types=likes&auth_token=token&format=json&api_sig=8f63f6fc9988250db4ff4d92bbb2b9c1&method=vimeo.people.removeSubscription&user_id=user_id", "advanced/person/remove_subscription.json")
-      response = @person.remove_subscription("token", "likes", "user_id")
+      response = @person.remove_subscription("token", "user_id", "likes")
       
       assert_equal "ok", response["stat"]
     end

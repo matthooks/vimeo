@@ -2,17 +2,23 @@ module Vimeo
   module Simple
 
     class Group < Vimeo::Simple::Base
-      # Returns this group's videos.
+      # Returns a list of a group's videos.
+      #
+      # @param [String] group_name The groups's name.
       def self.videos(groupname)
         get("/group/#{groupname}/videos.json")
       end
 
-      # Returns this group's users.
+      # Returns a list of a group's users.
+      #
+      # @param [String] group_name The groups's name.
       def self.users(groupname)
         get("/group/#{groupname}/users.json")
       end
 
-      # Returns this group's information.
+      # Returns a group's metadata.
+      #
+      # @param [String] group_name The groups's name.
       def self.info(groupname)
         get("/group/#{groupname}/info.json")
       end

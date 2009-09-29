@@ -63,32 +63,6 @@ module Vimeo
                         "vimeo.groups.leave",
                         :required => [:auth_token, :group_id]
 
-      
-      # events
-      
-      
-      
-      def events_get_month
-        
-      end
-      
-      def events_get_past
-        
-      end
-      
-      def events_get_upcoming
-        
-      end
-      
-      # forums
-      def forums_get_topic_comments
-        
-      end
-      
-      def forums_get_topics
-        
-      end
-
     end # Group
   end # Advanced
 end # Vimeo

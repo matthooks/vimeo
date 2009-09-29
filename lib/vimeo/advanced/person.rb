@@ -11,7 +11,7 @@ module Vimeo
       # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
       create_api_method :add_subscription,
                         "vimeo.people.addSubscription",
-                        :required => [:auth_token, :types, :user_id]
+                        :required => [:auth_token, :user_id, :types]
 
       # Finds a user by their e-mail.
       create_api_method :find_by_email,
@@ -41,7 +41,7 @@ module Vimeo
       # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
       create_api_method :remove_subscription,
                         "vimeo.people.removeSubscription",
-                        :required => [:auth_token, :types, :user_id]
+                        :required => [:auth_token, :user_id, :types]
 
     end # Person
   end # Advanced

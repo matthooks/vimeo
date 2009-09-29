@@ -9,8 +9,7 @@ module Vimeo
                         :required => [:auth_token],
                         :optional => [:page, :per_page]
 
-      # Sets
-      
+      # Sets a preset for a video embed.
       create_api_method :set_preset,
                         "vimeo.video.embed.setPreset",
                         :required => [:auth_token, :video_id, :preset_id]

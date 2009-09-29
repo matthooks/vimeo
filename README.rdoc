@@ -1,8 +1,9 @@
 = Vimeo API Gem
 
-This gem implements a full-featured ruby interface for the Vimeo API.
+This gem implements a full-featured Ruby interface for the Vimeo API v2.
 
-Vimeo's API documentation is, in my opinion, pretty poor. I've done my best to implement all the functions that are described {here}[http://vimeo.com/api-docs/advanced-api-docs.html]. There are some extra functions described {here}[http://vimeo.com/api/sandbox], but I can't be 100% sure what the correct parameters are for each method, so I'm going to omit them for the time being.
+For a more in depth look at the API check out {Vimeo's Simple API Documentation}[http://www.vimeo.com/api/docs/simple-api] or {Vimeo's Advanced API Documentation}[http://www.vimeo.com/api/docs/advanced-api]. I would also recommend checking out the {API Forums}[http://www.vimeo.com/forum:api] if
+things aren't working as they should -- in my experience the Vimeo API has a number of bugs and oddities.
 
 == Install
 
@@ -27,7 +28,61 @@ There are two modules:
 
 == Simple API
 
-The wrapper for the Simple API consists of the following classes and methods:
+The wrapper for the {Simple API}[http://www.vimeo.com/api/docs/simple-api] consists of several classes. To use the Simple API, just call one of the class methods. For example:
+
+  user_info = Vimeo::Simple::User.info("matthooks")
+  # =>
+  # {
+  #   "id":"888046",
+  #   "display_name":"Matt Hooks",
+  #   "created_on":"2008-10-30 14:17:32",
+  #   "is_staff":"0",
+  #   "is_plus":"0",
+  #   "location":"Chicago, IL",
+  #   "url":"http:\/\/blackholeinthemidwest.com\/",
+  #   "bio":"",
+  #   "profile_url":"http:\/\/vimeo.com\/matthooks",
+  #   "videos_url":"http:\/\/vimeo.com\/matthooks\/videos",
+  #   "total_videos_uploaded":2,
+  #   "total_videos_appears_in":0,
+  #   "total_videos_liked":2,
+  #   "total_contacts":3,
+  #   "total_albums":0,
+  #   "total_channels":1,
+  #   "portrait_small":"http:\/\/images.vimeo.com\/11\/42\/16\/114216178\/114216178_30.jpg",
+  #   "portrait_medium":"http:\/\/images.vimeo.com\/11\/42\/16\/114216178\/114216178_75.jpg",
+  #   "portrait_large":"http:\/\/images.vimeo.com\/11\/42\/16\/114216178\/114216178_100.jpg",
+  #   "portrait_huge":"http:\/\/images.vimeo.com\/11\/42\/16\/114216178\/114216178_300.jpg"
+  # }
+
+  # That's right! The data returned will be parsed and ready to use.
+
+  user_info["location"]
+  # => "Chicago, IL"
+
+=== Vimeo::Simple::Activity
+
+  Vimeo::Simple::Activity.user_did("username")
+  Vimeo::Simple::Activity.happened_to_user("username")
+  Vimeo::Simple::Activity.contacts_did("username")
+  Vimeo::Simple::Activity.happened_to_contacts("username")
+  Vimeo::Simple::Activity.everyone_did("username")
+
+=== Vimeo::Simple::Album
+
+  Vimeo::Simple::Album.videos("album_id")
+  Vimeo::Simple::Album.info("album_id")
+  
+=== Vimeo::Simple::Channel
+
+  Vimeo::Simple::Channel.videos(channelname)
+  Vimeo::Simple::Channel.info(channelname)
+
+=== Vimeo::Simple::Group
+
+  Vimeo::Simple::Group.videos(groupname)
+  Vimeo::Simple::Group.users(groupname)
+  Vimeo::Simple::Group.info(groupname)
 
 === Vimeo::Simple::User
 
@@ -47,123 +102,221 @@ The wrapper for the Simple API consists of the following classes and methods:
 
   Vimeo::Simple::Video.info(video_id)
 
-=== Vimeo::Simple::Activity
-
-  Vimeo::Simple::Activity.user_did(username)
-  Vimeo::Simple::Activity.happened_to_user(username)
-  Vimeo::Simple::Activity.contacts_did(username)
-  Vimeo::Simple::Activity.happened_to_contacts(username)
-  Vimeo::Simple::Activity.everyone_did(username)
-
-=== Vimeo::Simple::Group
-
-  Vimeo::Simple::Group.videos(groupname)
-  Vimeo::Simple::Group.users(groupname)
-  Vimeo::Simple::Group.info(groupname)
-
-=== Vimeo::Simple::Channel
-
-  Vimeo::Simple::Channel.videos(channelname)
-  Vimeo::Simple::Channel.info(channelname)
-
-=== Vimeo::Simple::Album
-
-  Vimeo::Simple::Album.videos(album_id)
-  Vimeo::Simple::Album.info(album_id)
-
 == Advanced API
 
-The classes in Vimeo::Advanced must be instantiated with an your application's api key and secret. For example,
+The classes in Vimeo::Advanced must be instantiated with an your application's api key and secret. For example:
 
   vimeo_video = Vimeo::Advanced::Video.new("api_key", "secret")
 
-Then you can make calls on the instance:
+Then you can make method calls on the instance. For example:
 
   vimeo_video.get_list("matthooks", :page => 2, :per_page => 50)
+  
+Some methods have optional variables. You should pass as a hash at the end of a call.
+
+Some methods require authentication. Check out the guides for {Web Based authentication}[http://www.vimeo.com/api/docs/web-auth] and {Desktop Based authentication}[http://www.vimeo.com/api/docs/desktop-auth].
 
 The wrapper for the Advanced API consists of the following classes and methods:
 
+=== Vimeo::Advanced::Album
+
+  album = Vimeo::Advanced::Album.new("api_key", "secret")
+  
+  album.add_video("auth_token", "album_id", "video_id")
+  album.create("auth_token", "title", "video_id", { :description => "description", "videos" => "123,124,125" })
+  album.delete("auth_token", "album_id")
+  album.get_all("user_id", { :page => "1", :per_page => "25" })
+  album.get_videos("auth_token", "user_id", { :page => "1", :per_page => "25", :full_response => "0", :password => nil })
+  album.get_videos("auth_token", "album_id", "video_id")
+  album.set_description("auth_token", "album_id", "description")
+  album.get_password("auth_token", "album_id", "password")
+  album.get_title("auth_token", "album_id", "title")
+
 === Vimeo::Advanced::Auth
 
-  get_token(frob)
-  get_frob
-  check_token(auth_token)
+  auth = Vimeo::Advanced::Auth.new("api_key", "secret")
 
-=== Vimeo::Advanced::Test
+  auth.get_token("frob")
+  auth.get_frob
+  auth.check_token("auth_token")
+  
+=== Vimeo::Advanced::Base
 
-  echo(options={})
-  null(auth_token)
-  login(auth_token)
+  base = Vimeo::Advanced::Base.new("api_key", "secret")
 
-=== Vimeo::Advanced::Video
+  base.web_login_link("permissions")
+  base.desktop_login_link("permissions")
+  
+=== Vimeo::Advanced::Channel
 
-  get_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0 })
-  get_uploaded_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-  get_appears_in_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-  get_subscriptions_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-  get_list_by_tag(tag, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })@
-  get_like_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })@
-  get_contacts_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-  get_contacts_like_list(user_id, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-  search(q, options={ :page => 1, :per_page => 25, :full_response => 0, :auth_token => nil })
-  get_info(video_id, auth_token=nil)
-  delete(video_id, auth_token)
-  get_thumbnail_url(video_id, size=100)
-  set_title(video_id, title, auth_token)
-  set_caption(video_id, caption, auth_token)
-  set_favorite(video_id, favorite, auth_token)
-  add_tags(video_id, tags, auth_token)
-  remove_tag(video_id, tag_id, auth_token)
-  clear_tags(video_id, auth_token)
-  add_cast(video_id, user_id, auth_token, options={})
-  get_cast(video_id, auth_token=nil)
-  remove_cast(video_id, user_id, auth_token)
-  set_privacy(video_id, privacy, auth_token)
-  get_comments_list(video_id)
-  add_comment(video_id, comment_text, auth_token, options={})
-  delete_comment(video_id, comment_id, auth_token)
-  edit_comment(video_id, comment_id, comment_text, auth_token)
-
-=== Vimeo::Advanced::Person
-
-  find_by_user_name(username)
-  find_by_email(find_email)
-  get_info(user_id)
-  get_portrait_url(user_id, options={})
-  add_contact(user_id, auth_token)
-  remove_contact(user_id, auth_token)
-  get_upload_status(user_id, auth_token)
-  add_subscription(user_id, type, auth_token)
-  remove_subscription(user_id, type, auth_token)
+  channel = Vimeo::Advanced::Channel.new("api_key", "secret")
+  
+  channel.add_video("auth_token", "channel_id", "video_id")
+  channel.get_all({ :page => "1", :per_page => "25", :sort => "newest"})
+  channel.get_info(channel_id, { :page => "1", :per_page => "25" })
+  channel.get_moderators(channel_id, { :page => "1", :per_page => "25" })
+  channel.get_subscribers(channel_id, { :page => "1", :per_page => "25" })
+  channel.get_videos(channel_id, { :page => "1", :per_page => "25", :full_response => "0" })
+  channel.remove_video("auth_token", "channel_id", "video_id")
+  channel.subscribe("auth_token", "channel_id")
+  channel.unsubscribe("auth_token", "channel_id")
 
 === Vimeo::Advanced::Contact
 
-  get_list(user_id)
+  contact = Vimeo::Advanced::Contact.new("api_key", "secret")
+
+  contact.get_all(user_id, { :page => "1", :per_page => "25", :sort => "newest" })
+  contact.get_mutual(user_id, { :page => "1", :per_page => "25", :sort => "newest" })
+  contact.get_online({ :page => "1", :per_page => "25", :sort => "newest" })
+  contact.get_who_added(user_id, { :page => "1", :per_page => "25", :sort => "newest" })
 
 === Vimeo::Advanced::Group
 
-  get_members(group_id)
+  group = Vimeo::Advanced::Group.new("api_key", "secret")
+
+  group.add_video("auth_token", "group_id", "video_id")
+  group.get_all({ :page => "1", :per_page => "25", :sort => "newest" })
+  group.get_files("group_id", { :page => "1", :per_page => "25" })
+  group.get_info("group_id", { :page => "1", :per_page => "25" })
+  group.get_members("group_id", { :page => "1", :per_page => "25", :sort => "newest" })
+  group.get_moderators("group_id", { :page => "1", :per_page => "25" })
+  group.get_video_comments("group_id", "video_id", { :page => "1", :per_page => "25" })
+  group.get_videos("group_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  group.join("auth_token", "group_id")
+  group.leave("auth_token", "group_id")
+
+=== Vimeo::Advanced::GroupEvents
+
+  group_events = Vimeo::Advanced::GroupEvents.new("api_key", "secret")
+
+  group_events.get_month("group_id", { :page => "1", :per_page => "25", :month => nil, :year => nil })
+  group_events.get_past("group_id", { :page => "1", :per_page => "25" })
+  group_events.get_year("group_id", { :page => "1", :per_page => "25" })
+
+=== Vimeo::Advanced::GroupForums
+
+  group_forums = Vimeo::Advanced::GroupForums.new("api_key", "secret")
+
+  group_forums.get_topic_comments("group_id", "topic_id", { :page => "1", :per_page => "25" })
+  group_forums.get_topics("group_id", { :page => "1", :per_page => "25" })
+
+=== Vimeo::Advanced::Person
+
+  person = Vimeo::Advanced::Person.new("api_key", "secret")
+
+  person.add_contact("auth_token", "user_id")
+  # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
+  person.add_subscription("auth_token", "user_id", "types")
+  person.find_by_email("user_id")
+  person.get_hd_embeds("auth_token")
+  person.get_info("user_id")
+  person.get_portrait_urls("user_id")
+  person.remove_contact("auth_token", "user_id")
+  # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
+  person.remove_subscription("auth_token", "user_id", "types")
+
+=== Vimeo::Advanced::Test
+
+  test = Vimeo::Advanced::Test.new("api_key", "secret")
+
+  test.echo(options={})
+  test.null(auth_token)
+  test.login(auth_token)
 
 === Vimeo::Advanced::Upload
 
-  get_upload_ticket(auth_token)
-  check_upload_status(ticket_id, auth_token)
+  upload = Vimeo::Advanced::Upload.new("api_key", "secret")
+  
+  upload.confirm("auth_token", "ticket_id", "json_manifest")
+  upload.get_quota("auth_token")
+  upload.get_ticket("auth_token")
+  upload.upload("auth_token", "path_to_file", "ticket_id", "end_point")
+  upload.verify_manifest("auth_token", "ticket_id", "json_manifest")
+
+=== Vimeo::Advanced::Video
+
+  video = Vimeo::Advanced::Video.new("api_key", "secret")
+
+  video.add_cast("auth_token", "video_id", "user_id", { :role => nil })
+  video.add_photos("auth_token", "video_id", "photo_urls")
+  video.add_tags("auth_token", "video_id", "tags")
+  video.clear_tags("auth_token", "video_id")
+  video.delete("auth_token", "video_id")
+  video.get_all("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_appears_in("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_by_tag("tag", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_cast("video_id", { :page => "1", :per_page => "25" })
+  video.get_contacts_liked("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_contacts_uploaded("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_info("video_id")
+  video.get_likes("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_subscriptions("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.get_thumbnail_urls("video_id")
+  video.get_uploaded("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+  video.remove_cast("auth_token", "video_id", "user_id")
+  video.remove_tag("auth_token", "video_id", "tag_id")
+  video.search("query", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest", :user_id => nil })
+  video.set_description("auth_token", "video_id", "description")
+  video.set_like("auth_token", "video_id", "like")
+  video.set_privacy("auth_token", "video_id", "privacy", { :users => nil, :password => nil })
+  video.set_title("auth_token", "video_id", "title")
+
+  # comments
+  video.add_comment("auth_token", "video_id", "comment_text", { :reply_to_comment_id => nil })
+  video.delete_comment("auth_token", "video_id", "comment_id")
+  video.edit_comment("auth_token", "video_id", "comment_id", "comment_text")
+  video.get_comments_list("video_id", { :page => "1", :per_page => "25" })
+                  
+=== Vimeo::Advanced::VideoEmbed
+
+  video_embed = Vimeo::Advanced::VideoEmbed.new("api_key", "secret")
+
+  video_embed.get_presets("auth_token", { :page => "1", :per_page => "25" })
+  video_embed.set_preset("auth_token", "video_id", "preset_id")
+
+
+== Uploads
+
+Uploads are a little bit tricky, so I figured I'd help you guys with a short tutorial.
+
+  # Start by creating an instance of the Upload class.
+  upload = Vimeo::Advanced::Upload.new("api_key", "secret")
+  # I'm going to assume you've got that user's auth token stored somewhere and that they have upload access.
+  auth_token = "..."
+  
+  # Let's check the user's quota.
+  # You should let the user know if they don't have enough quota free and/or if their video can be uploaded in HD
+  quota = upload.get_quota(auth_token)
+  free_space = quota["user"]["upload_space"]["free"]
+  hd = quota["user"]["hq_quota"]
+  
+  # Now let's get an upload ticket.
+  ticket = upload.get_ticket(auth_token)
+  ticket_id = get_ticket["ticket"]["id"]
+  endpoint = get_ticket["ticket"]["endpoint"]
+
+  # Cool! Let's post the video.
+  # The file path should be absolute.
+  file_path = "..."
+  json_manifest = upload.upload(auth_token, file_path, ticket_id, endpoint)
+  
+  # After the upload completes...
+  upload.confirm(auth_token, ticket_id, json_manifest)
+  
+There are a few steps along the way where things can go wrong.
 
 == Todo
 
-* Implement options that allow you to specify a format (xml, json, PHP). Right now this is slightly complicated by the fact that Vimeo returns text/html for json and not application/json, so HTTParty can't auto-detect the content-type.
-* Better initialize method for the advanced api that takes the auth_token into account.
-* Define a method that returns the correct form URL for uploading videos.
-* video_set_privacy needs the ability to specify users.
-* Some methods are not implemented by vimeo or don't seem to work.
-* Input verification? The alternative is to just let vimeo handle it.
-* May need to escape input in several cases
+* Better structure. There's too many classes. Is there a way to simplify the Advanced API?
+* Advanced classes should be able to take the authentication token as a parameter so you don't have to pass it to the methods that require authentication.
+* Error handling.
+* Some methods are not implemented by Vimeo or don't seem to work.
 * More re-factoring.
-* Tests
+* Make tests more robust and faster. If anyone has any ideas let me know.
 
 == Thanks to
 
 * {HTTParty}[http://github.com/jnunemaker/httparty/tree/master]: Easily one of the best tools I have used since I started using Ruby.
-* {Jeweler}[http://github.com/technicalpickles/jeweler/tree/master]: Great tool for creating gems for github.
+* {Jeweler}[http://github.com/technicalpickles/jeweler/tree/master]: Great tool for creating gems for Github.
 
 === Copyright (c) 2008 Matt Hooks. See LICENSE for details.
