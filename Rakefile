@@ -21,7 +21,6 @@ begin
     gem.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
     
     gem.add_dependency "httparty", ">= 0.4.5"
-    gem.add_dependency "curb", ">= 0.5.4.0"
     gem.add_dependency "json", ">= 1.1.9"
   end
   Jeweler::GemcutterTasks.new
