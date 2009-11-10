@@ -33,21 +33,18 @@ module Vimeo
                         :optional => [:page, :per_page, :sort]
       
       # Returns a list of the moderators of a group.
-      # FIXME: Should this have sort?
       create_api_method :get_moderators,
                         "vimeo.groups.getModerators",
                         :required => [:group_id],
                         :optional => [:page, :per_page]
 
       # Returns a list of the comments on a video in a group.
-      # FIXME: Should this have sort?
       create_api_method :get_video_comments,
                         "vimeo.groups.getVideoComments",
                         :required => [:group_id, :video_id],
                         :optional => [:page, :per_page]
                         
       # Returns a list of the videos in a group.
-      # FIXME: Should this have sort?
       create_api_method :get_videos,
                         "vimeo.groups.getVideos",
                         :required => [:group_id],

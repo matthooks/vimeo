@@ -51,7 +51,6 @@ module Vimeo
                         :required => [:auth_token, :ticket_id],
                         :unsigned => [:json_manifest]
 
-
       # TODO: Make this more flexible for split uploads?
       def self.create_json_manifest(md5s)
         { :files => md5s.map { |md5| { :md5 => md5 } } }.to_json

@@ -7,20 +7,13 @@ things aren't working as they should -- in my experience the Vimeo API has a num
 
 == Install
 
-If you've got Gemcutter:[http://gemcutter.org] installed, you can simply:
+First, install Gemcutter:[http://gemcutter.org], then you can:
 
   sudo gem install vimeo
   
-  # and add the following to your environment.rb file
-  gem.config "vimeo", :lib => "vimeo"
+Don't forget to add the following to your environment.rb file:
 
-Otherwise, make sure to add Github's gem server to your sources:
-
-  gem sources -a http://gems.github.com
-  sudo gem install matthooks-vimeo
-  
-  # and add the following to your environment.rb file
-  config.gem "matthooks-vimeo", :lib => "vimeo"
+  config.gem "vimeo", :lib => "vimeo"
 
 == Use
 
