@@ -307,6 +307,11 @@ There are a few steps along the way where things can go wrong.
 * More re-factoring.
 * Make tests more robust and faster. If anyone has any ideas let me know.
 
+== Contributors
+
+* matthooks:[http://github.com/matthooks]
+* sirlantis:[http://github.com/sirlantis]
+
 == Thanks to
 
 * {HTTParty}[http://github.com/jnunemaker/httparty/tree/master]: Easily one of the best tools I have used since I started using Ruby.
