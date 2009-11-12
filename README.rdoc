@@ -309,8 +309,8 @@ There are a few steps along the way where things can go wrong.
 
 == Contributors
 
-* matthooks:[http://github.com/matthooks]
-* sirlantis:[http://github.com/sirlantis]
+* {matthooks}[http://github.com/matthooks]
+* {sirlantis}[http://github.com/sirlantis]
 
 == Thanks to
 
