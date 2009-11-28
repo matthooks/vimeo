@@ -12,6 +12,9 @@ module CreateApiMethod
   def create_api_method(method, vimeo_method, options={})
     options = { :required => [], :optional => [], :unsigned => [] }.merge(options)
     
+    method = method.to_s
+    camelized_method = camelize(method, false)
+    
     raise ArgumentError, 'Required parameters must be an array.' unless options[:required].is_a? Array
     raise ArgumentError, 'Optional parameters must be an array.' unless options[:optional].is_a? Array
     raise ArgumentError, 'Unsigned parameters must be an array.' unless options[:optional].is_a? Array
@@ -22,7 +25,7 @@ module CreateApiMethod
     unsigned_hash = options[:unsigned].map { |u| ":#{u} => #{u}" }.join(",")
     
     parameters = "(#{required unless required.blank?}#{',' unless required.blank?}options={#{optional_hash}})"
-    
+      
     method_string = <<-method
 
       def #{method}#{parameters}
@@ -39,11 +42,23 @@ module CreateApiMethod
         make_request sig_options#{ ", :unsigned => {" + unsigned_hash + "}" unless options[:unsigned].empty? }
       end
       
+      alias #{camelized_method} #{method}
+      
     method
     
     class_eval method_string
   end
-
+  
+  protected
+  
+  # taken from ActiveSupport-2.3.4, activesupport/lib/active_support/inflector.rb, line 178
+  def camelize(lower_case_and_underscored_word, first_letter_in_uppercase = true)
+    if first_letter_in_uppercase
+      lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+    else
+      lower_case_and_underscored_word[0..0].downcase + camelize(lower_case_and_underscored_word)[1..-1]
+    end
+  end
 end
 
 module Vimeo

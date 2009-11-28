@@ -11,6 +11,12 @@ class BaseTest < Test::Unit::TestCase
     should "test something" do
       # TODO: add tests for authorization_url
     end
+    
+    should "allow camel-cased methods" do
+      [:check_access_token, :checkAccessToken].each do |method|
+        @base.send method
+      end
+    end
 
   end
 end
