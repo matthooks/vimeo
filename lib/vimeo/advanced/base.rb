@@ -8,6 +8,7 @@ module CreateApiMethod
   # @option options [Array] :required An array of required parameters.
   # @option options [Array] :optional An array of optional parameters.
   # @option options [Array] :unsigned An array of required parameters that should not be included in the api_sig.
+  # FIXME: remove unsigned options (not available with oauth API)
   def create_api_method(method, vimeo_method, options={})
     options = { :required => [], :optional => [], :unsigned => [] }.merge(options)
     
@@ -48,55 +49,49 @@ end
 module Vimeo
   module Advanced
 
-    class Base
-      include HTTParty
-      base_uri 'vimeo.com'
+    class RequestFailed < StandardError; end
+
+    class Base < OAuthClient::Client
+      http_method :post
+      site 'http://vimeo.com'
+
+      # schemes are [:body, :query_string, :header]
+      scheme :header
+      request_scheme :query_string
       extend CreateApiMethod
 
-      # TODO: Pass an auth token, if you've already got one
-      # TODO: implement format_options
       # Requires your API key and secret phrase.
       # The API key and secret are prepended to every request.
-      def initialize(api_key, secret, format_options={})
-        @auth = { :api_key => api_key }
-        @secret = secret
-      end
-      
-      # Generates a link that allows a user to authorize
-      # your web application to use the advanced API
-      def web_login_link(perms)
-        api_sig = generate_api_sig :perms => perms
-        "http://vimeo.com/services/auth/?api_key=#{@auth[:api_key]}&perms=#{perms}&api_sig=#{api_sig}"
-      end
-      
-      # Generates a link that allows a user to authorize
-      # your desktop application to use the advanced API
-      def desktop_login_link(perms, frob)
-        api_sig = generate_api_sig :frob => frob, :perms => perms
-        "http://vimeo.com/services/auth/?api_key=#{@auth[:api_key]}&perms=#{perms}&frob=#{frob}&api_sig=#{api_sig}"
+      def initialize(api_key, secret, options = {})
+        super(options.merge(:consumer_key => api_key, :consumer_secret => secret))
       end
       
       private
 
-      def make_request(sig_options, options={})
-        options = { :unsigned => [] }.merge(options)
-        unsigned = options[:unsigned]
-
-        api_sig = generate_api_sig sig_options
-        self.class.post "/api/rest/v2", :query => query(sig_options, api_sig), :body => unsigned
+      # FIXME remove all calls with the deprecated hash (see :unsigned)
+      def make_request(options, deprecated = {})
+        result = json.post "/api/rest/v2", (options || {})
+        validate_response! result
+        result
       end
 
-      # Generates a MD5 hashed API signature for Advanced API requests
-      def generate_api_sig(options={})
-        # Every request requires the api_key parameter
-        options.merge! @auth
-        # Keys must be sorted alphabetically
-        api_sig = options.sort { |a, b| a.to_s <=> b.to_s }.join
-        Digest::MD5.hexdigest("#{@secret}#{api_sig}")
-      end
+      create_api_method :check_access_token,
+        "vimeo.oauth.checkAccessToken"
       
-      def query(sig_options, api_sig)
-        sig_options.merge :api_key => @auth[:api_key], :api_sig => api_sig
+      # Raises an exception if the response does contain a +stat+ different from "ok"
+      def validate_response!(response)
+        raise "empty response" unless response
+        
+        status = response["stat"]
+                
+        if status and status != "ok"
+          error = response["err"]
+          if error
+            raise RequestFailed, "#{error["code"]}: #{error["msg"]}, explanation: #{error["expl"]}"
+          else
+            raise RequestFailed, "Error: #{status}, no error message"
+          end
+        end
       end
 
     end # Base
