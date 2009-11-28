@@ -27,12 +27,16 @@ def fixture_file(filename)
   File.read(file_path)
 end
 
-def vimeo_url(url)
-  "http://vimeo.com/api/v2#{url}"
+def vimeo_base_url(url = "/")
+  "http://vimeo.com#{url}"
 end
 
-def advanced_vimeo_url(url)
-  "http://vimeo.com/api/rest/v2#{url}"
+def vimeo_url(url = "")
+  vimeo_base_url("/api/v2#{url}")
+end
+
+def advanced_vimeo_url(url = "")
+  vimeo_base_url("/api/rest/v2#{url}")
 end
 
 def stub_get(url, filename, status=nil)
@@ -41,10 +45,17 @@ def stub_get(url, filename, status=nil)
   # of using FakeWeb?
   options = { :body => fixture_file(filename), :content_type => 'application/json' }
   options.merge!({:status => status}) unless status.nil?
-
   FakeWeb.register_uri(:get, vimeo_url(url), options)
 end
 
 def stub_post(url, filename)
-  FakeWeb.register_uri(:post, advanced_vimeo_url(url), :body => fixture_file(filename), :content_type => 'application/json')
+  FakeWeb.register_uri(:post, advanced_vimeo_url, :body => fixture_file(filename), :content_type => 'application/json')
+end
+
+def stub_custom_get(url, filename)
+  FakeWeb.register_uri(:get, vimeo_base_url(url), :body => fixture_file(filename), :content_type => 'application/json')
+end
+
+def stub_custom_post(url, filename)
+  FakeWeb.register_uri(:post, vimeo_base_url(url), :body => fixture_file(filename), :content_type => 'application/json')
 end
