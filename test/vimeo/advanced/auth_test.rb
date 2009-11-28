@@ -2,35 +2,27 @@ require 'test_helper'
 
 class AuthTest < Test::Unit::TestCase
   
-  context "vimeo advanced auth" do
+  TOKEN = "12345"
+  SECRET = "secret"
+
+  context "vimeo advanced" do
     
     setup do
-      @auth = Vimeo::Advanced::Auth.new("12345", "secret")
+      @auth = Vimeo::Advanced::Base.new(TOKEN, SECRET)
     end
     
-    context "making api calls" do
-      
-      should "check an auth token" do
-        stub_post("?format=json&api_key=12345&method=vimeo.auth.checkToken&auth_token=token&api_sig=868c600fda7509ae9d92bff9edc74a3a", "advanced/auth/check_token.json")
-        auth = @auth.check_token("token")
-        
-        assert_equal "token", auth["auth"]["token"]
-      end
-      
-      should "get an auth frob" do
-        stub_post("?api_key=12345&format=json&method=vimeo.auth.getFrob&api_sig=de431996ca0bb2597d63aa2d5d3d1255", "advanced/auth/get_frob.json")
-        frob = @auth.get_frob
-        
-        assert_equal "frob", frob["frob"]
-      end
-      
-      should "get an auth token" do
-        stub_post("?format=json&frob=frob&api_key=12345&method=vimeo.auth.getToken&api_sig=4f60bcf463619418baa3d97ba900f083", "advanced/auth/get_token.json")
-        auth = @auth.get_token("frob")
-        
-        assert_equal "token", auth["auth"]["token"]
-      end
-      
+    should "recieve a valid OAuth url" do
+      stub_custom_post("/oauth/request_token", "advanced/auth/request_token.txt")
+      token = @auth.request_token
+      assert_equal true, token.callback_confirmed?
+      assert_equal "http://vimeo.com/oauth/authorize?oauth_token=#{TOKEN}", token.authorize_url
+    end
+
+    should "receive the user's credentials after checking the OAuth token" do
+      stub_post("", "advanced/auth/check_access_token.json")
+      auth = @auth.check_access_token
+      assert_equal "token", auth["token"]
+      assert_equal "write", auth["permission"]
     end
 
   end

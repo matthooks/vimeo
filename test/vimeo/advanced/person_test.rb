@@ -31,9 +31,10 @@ class PersonTest < Test::Unit::TestCase
     
     should "be able to get the remaining number of hd embeds" do
       stub_post("?api_key=12345&auth_token=token&format=json&api_sig=3ac165886cbfc8dbf0f5a1cbc49c2943&method=vimeo.people.getHDEmbeds", "advanced/person/get_hd_embeds.json")
-      response = @person.get_hd_embeds("token")
-      
-      assert_equal "fail", response["stat"]
+
+      assert_raise(Vimeo::Advanced::RequestFailed) do
+        response = @person.get_hd_embeds("token")
+      end
     end
     
     should "be able to get a user's info" do

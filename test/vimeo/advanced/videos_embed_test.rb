@@ -10,9 +10,10 @@ class VideoEmbedTest < Test::Unit::TestCase
 
     should "be able to get a list presets for video embeds" do
       stub_post("?api_key=12345&format=json&method=vimeo.video.embed.getPresets&auth_token=token&api_sig=37baebafad1eafc408b9789e9f0115be", "advanced/video_embed/get_presets.json")
-      response = @video_embed.get_presets("token")
-      
-      assert_equal "fail", response["stat"]
+
+      assert_raise(Vimeo::Advanced::RequestFailed) do
+        response = @video_embed.get_presets("token")
+      end
     end
     
     should "be able to set the preset of a video embed" do
