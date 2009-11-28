@@ -17,14 +17,14 @@ class TestTest < Test::Unit::TestCase
     
     should "be able to test if a user is logged in" do
       stub_post("?api_key=12345&auth_token=token&format=json&api_sig=9753d04b7b5b3c47101aace3f314ed84&method=vimeo.test.login", "advanced/test/login.json")
-      response = @test.login("token")
+      response = @test.login
       
       assert_equal "matthooks", response["user"]["username"]
     end
     
     should "be able to ping the Vimeo advanced API" do
       stub_post("?api_key=12345&auth_token=token&format=json&api_sig=5f45b34d1e7078636f5386b8db7408ee&method=vimeo.test.null", "advanced/test/null.json")
-      response = @test.null("token")
+      response = @test.null
       
       assert_equal "ok", response["stat"]
     end

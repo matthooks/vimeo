@@ -12,7 +12,7 @@ class ChannelTest < Test::Unit::TestCase
       
       should "be able to add a video to a channel" do
         stub_post("?auth_token=token&api_key=12345&api_sig=2065e5d5c0836428a2d2e945d160e504&format=json&method=vimeo.channels.addVideo&channel_id=channel_id&video_id=video_id", "advanced/channel/add_video.json")
-        response = @channel.add_video("token", "channel_id", "video_id")
+        response = @channel.add_video("channel_id", "video_id")
         
         assert_equal "ok", response["stat"]
       end
@@ -54,21 +54,21 @@ class ChannelTest < Test::Unit::TestCase
       
       should "be able to remove a video from a channel" do
         stub_post("?video_id=video_id&api_key=12345&auth_token=token&format=json&api_sig=0d2fe81099d253f45b25c85033507a6f&method=vimeo.channels.removeVideo&channel_id=channel_id", "advanced/channel/remove_video.json")
-        response = @channel.remove_video("token", "channel_id", "video_id")
+        response = @channel.remove_video("channel_id", "video_id")
         
         assert_equal "ok", response["stat"]
       end
       
       should "be able to subscribe a user to a channel" do
         stub_post("?api_key=12345&auth_token=token&format=json&api_sig=cb0c7a3eed35bdd06b575d734e61b815&method=vimeo.channels.subscribe&channel_id=channel_id", "advanced/channel/subscribe.json")
-        response = @channel.subscribe("token", "channel_id")
+        response = @channel.subscribe("channel_id")
         
         assert_equal "ok", response["stat"]
       end
       
       should "be able to unsubscribe a user from a channel" do
         stub_post("?api_key=12345&auth_token=token&format=json&api_sig=a6424de0df3134bf69390c9cb2e1653d&method=vimeo.channels.unsubscribe&channel_id=channel_id", "advanced/channel/unsubscribe.json")
-        response = @channel.unsubscribe("token", "channel_id")
+        response = @channel.unsubscribe("channel_id")
         
         assert_equal "ok", response["stat"]
       end

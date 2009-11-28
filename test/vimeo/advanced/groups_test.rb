@@ -10,7 +10,7 @@ class GroupTest < Test::Unit::TestCase
 
     should "be able to add a video to a group" do
       stub_post("?video_id=video_id&api_key=12345&auth_token=token&format=json&api_sig=e37ae534be5b03cdc1cb9ed28ed99317&method=vimeo.groups.addVideo&group_id=group_id", "advanced/group/add_video.json")
-      response = @group.add_video("token", "group_id", "video_id")
+      response = @group.add_video("group_id", "video_id")
       
       assert_equal "ok", response["stat"]
     end
@@ -66,14 +66,14 @@ class GroupTest < Test::Unit::TestCase
     
     should "be able to join a group" do
       stub_post("?api_key=12345&auth_token=token&format=json&api_sig=99114c85438cb286adbfba05a1b921ed&method=vimeo.groups.join&group_id=group_id", "advanced/group/join.json")
-      response = @group.join("token", "group_id")
+      response = @group.join("group_id")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to leave a group" do
       stub_post("?api_key=12345&auth_token=token&format=json&api_sig=a465333190c89f9eedc06a148db018be&method=vimeo.groups.leave&group_id=group_id", "advanced/group/leave.json")
-      response = @group.leave("token", "group_id")
+      response = @group.leave("group_id")
       
       assert_equal "ok", response["stat"]
     end

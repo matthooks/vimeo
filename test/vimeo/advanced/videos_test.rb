@@ -10,35 +10,35 @@ class VideoTest < Test::Unit::TestCase
 
     should "be able to add cast to a video" do
       stub_post("?video_id=video_id&api_key=12345&user_id=user_id&format=json&method=vimeo.videos.addCast&auth_token=token&api_sig=d4490b9ebe5914fe2e05756dd6fb1db0", "advanced/video/add_cast.json")
-      response = @video.add_cast("token", "video_id", "user_id")
+      response = @video.add_cast("video_id", "user_id")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to add photos to a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.addPhotos&photo_urls=photo_urls&auth_token=token&api_sig=25e09737829e9a0c3a57201ada350b03", "advanced/video/add_photos.json")
-      response = @video.add_photos("token", "video_id", "photo_urls")
+      response = @video.add_photos("video_id", "photo_urls")
       
       assert_equal "ok", response["stat"]
     end
 
     should "be able to add tags to a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.addTags&auth_token=token&tags=tags&api_sig=9969e062d985a91363630d2003843341", "advanced/video/add_tags.json")
-      response = @video.add_tags("token", "video_id", "tags")
+      response = @video.add_tags("video_id", "tags")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to clear tags from a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.clearTags&auth_token=token&api_sig=b901229a90f9f2d99d82d71da269573f", "advanced/video/clear_tags.json")
-      response = @video.clear_tags("token", "video_id")
+      response = @video.clear_tags("video_id")
       
       assert_equal "ok", response["stat"]
     end
 
     should "be able to delete a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.delete&auth_token=token&api_sig=55a6902be853ed835d5f9f359fd66719", "advanced/video/delete.json")
-      response = @video.delete("token", "video_id")
+      response = @video.delete("video_id")
       
       assert_equal "ok", response["stat"]
     end
@@ -122,14 +122,14 @@ class VideoTest < Test::Unit::TestCase
     
     should "be able to remove cast from a video" do
       stub_post("?video_id=video_id&api_key=12345&user_id=user_id&format=json&method=vimeo.videos.removeCast&auth_token=token&api_sig=31edc8eb16e2bc192d2b04405a7577c5", "advanced/video/remove_cast.json")
-      response = @video.remove_cast("token", "video_id", "user_id")
+      response = @video.remove_cast("video_id", "user_id")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to remove a tag from a video" do
       stub_post("?video_id=video_id&api_key=12345&tag_id=tag_id&format=json&method=vimeo.videos.removeTag&auth_token=token&api_sig=8a0f215d43a6cd5ecdb07525f19323d6", "advanced/video/remove_tag.json")
-      response = @video.remove_tag("token", "video_id", "tag_id")
+      response = @video.remove_tag("video_id", "tag_id")
       
       assert_equal "ok", response["stat"]
     end
@@ -143,28 +143,28 @@ class VideoTest < Test::Unit::TestCase
     
     should "be able to set the description of a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.setDescription&description=description&auth_token=token&api_sig=b80965c8c5f62f006c7d897fc9ce10b2", "advanced/video/set_description.json")
-      response = @video.set_description("token", "video_id", "description")
+      response = @video.set_description("video_id", "description")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to set the like of a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.setLike&like=like&auth_token=token&api_sig=55d3ad34bc4015cc4b0b8c1bf36ca68e", "advanced/video/set_like.json")
-      response = @video.set_like("token", "video_id", "like")
+      response = @video.set_like("video_id", "like")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to set the privacy for a video" do
       stub_post("?privacy=privacy&video_id=video_id&api_key=12345&format=json&method=vimeo.videos.setPrivacy&auth_token=token&api_sig=e34654e6260ca22869a39c0213938e80", "advanced/video/set_privacy.json")
-      response = @video.set_privacy("token", "video_id", "privacy")
+      response = @video.set_privacy("video_id", "privacy")
       
       assert_equal "ok", response["stat"]
     end
 
     should "be able to set the title of a video" do
       stub_post("?title=title&video_id=video_id&api_key=12345&format=json&method=vimeo.videos.setTitle&auth_token=token&api_sig=164cc69c87f1a460169875493623f9b4", "advanced/video/set_title.json")
-      response = @video.set_title("token", "video_id", "title")
+      response = @video.set_title("video_id", "title")
       
       assert_equal "ok", response["stat"]
     end
@@ -173,21 +173,21 @@ class VideoTest < Test::Unit::TestCase
     
     should "be able to add a comment to a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&comment_text=comment_text&method=vimeo.videos.comments.addComment&auth_token=token&api_sig=cd01f8a9ed97bd68a4e1da8be337d9df", "advanced/video/add_comment.json")
-      response = @video.add_comment("token", "video_id", "comment_text")
+      response = @video.add_comment("video_id", "comment_text")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to delete a comment" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.comments.deleteComment&auth_token=token&comment_id=comment_id&api_sig=aac80a3b34f94950f4000be7e337f1a8", "advanced/video/delete_comment.json")
-      response = @video.delete_comment("token", "video_id", "comment_id")
+      response = @video.delete_comment("video_id", "comment_id")
       
       assert_equal "ok", response["stat"]
     end
     
     should "be able to edit a comment" do
       stub_post("?video_id=video_id&api_key=12345&format=json&comment_text=comment_text&method=vimeo.videos.comments.editComment&auth_token=token&comment_id=comment_id&api_sig=4f2c2503cd53ead8f1203b55241259c8", "advanced/video/edit_comment.json")
-      response = @video.edit_comment("token", "video_id", "comment_id", "comment_text")
+      response = @video.edit_comment("video_id", "comment_id", "comment_text")
       
       assert_equal "ok", response["stat"]
     end

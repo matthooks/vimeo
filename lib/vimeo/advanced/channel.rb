@@ -5,7 +5,7 @@ module Vimeo
       # Adds a video to a channel.
       create_api_method :add_video,
                         "vimeo.channels.addVideo",
-                        :required => [:auth_token, :channel_id, :video_id]
+                        :required => [:channel_id, :video_id]
                         
       # Returns a list of all channels.
       create_api_method :get_all,
@@ -41,17 +41,17 @@ module Vimeo
       # Removes a video from a channel.
       create_api_method :remove_video,
                         "vimeo.channels.removeVideo",
-                        :required => [:auth_token, :channel_id, :video_id]
+                        :required => [:channel_id, :video_id]
       
       # Subscribes to a channel
       create_api_method :subscribe,
                         "vimeo.channels.subscribe",
-                        :required => [:auth_token, :channel_id]
+                        :required => [:channel_id]
       
       # Unsubscribes from a channel
       create_api_method :unsubscribe,
                         "vimeo.channels.unsubscribe",
-                        :required => [:auth_token, :channel_id]
+                        :required => [:channel_id]
 
     end # Channel
   end # Advanced
