@@ -102,7 +102,7 @@ The wrapper for the {Simple API}[http://www.vimeo.com/api/docs/simple-api] consi
 
 The classes in Vimeo::Advanced must be instantiated with an your application's api key and secret. For example:
 
-  vimeo_video = Vimeo::Advanced::Video.new("api_key", "secret")
+  vimeo_video = Vimeo::Advanced::Video.new("api_key", "secret", :token => "oauth_token", :secret => "oauth_secret")
 
 Then you can make method calls on the instance. For example:
 
@@ -110,13 +110,51 @@ Then you can make method calls on the instance. For example:
   
 Some methods have optional variables. You should pass as a hash at the end of a call.
 
-Some methods require authentication. Check out Vimeo's guides for {Web Based authentication}[http://www.vimeo.com/api/docs/web-auth] and {Desktop Based authentication}[http://www.vimeo.com/api/docs/desktop-auth].
+All methods require authentication. Check out Vimeo's guides for {Web Based authentication}[http://www.vimeo.com/api/docs/web-auth] and {Desktop Based authentication}[http://www.vimeo.com/api/docs/desktop-auth].
 
 The wrapper for the Advanced API consists of the following classes and methods:
 
+=== Authorization (as a website)
+
+You have to acquire an authorized for each user. At first you will have to send the user to Vimeo to authorize your application.
+
+  vimeo = Vimeo::Advanced::Auth.new(VIMEO_API_KEY, VIMEO_SECRET)
+  token = vimeo.request_token
+  
+  # token.callback_confirmed? should be true
+  
+  # store these values in a database/session
+  @the_token = token.token
+  @the_secret = token.secret
+  
+  redirect_to token.authorize_url
+  
+Time passes, user will be redirected back to your site with a GET +oauth_verifier+ parameter. You now need to authorize the token:
+  
+  vimeo = Vimeo::Advanced::Auth.new(VIMEO_API_KEY, VIMEO_SECRET)
+  authorized_token = vimeo.authorize(@the_token, @the_secret, :oauth_verifier => @oauth_verifier)
+  
+  # store these values in a database/session
+  @vimeo_oauth_token = authorized_token.token
+  @vimeo_oauth_secret = authorized_token.secret
+  
+You now have acquired the required OAuth credentials. Now you need to re-establish the OAuth connection and start
+using the API.
+
+  video = Vimeo::Advanced::Video.new(VIMEO_API_KEY, VIMEO_SECRET,
+    :token => @vimeo_oauth_token,
+    :secret => @vimeo_oauth_secret)
+    
+  # get the users profile-data (and vimeo-user-id)
+  user_data = video.check_access_token
+  user_id = user_data["oauth"]["user"]["id"]
+  
+  # and start the fun!
+  videos = video.get_likes(user_id)
+
 === Vimeo::Advanced::Album
 
-  album = Vimeo::Advanced::Album.new("api_key", "secret")
+  album = Vimeo::Advanced::Album.new("authorization_data")
   
   album.add_video("auth_token", "album_id", "video_id")
   album.create("auth_token", "title", "video_id", { :description => "description", "videos" => "123,124,125" })
@@ -130,14 +168,13 @@ The wrapper for the Advanced API consists of the following classes and methods:
   
 === Vimeo::Advanced::Base
 
-  base = Vimeo::Advanced::Base.new("api_key", "secret")
-
-  base.web_login_link("permissions")
-  base.desktop_login_link("permissions")
+  base = Vimeo::Advanced::Base.new("authorization_data")
+  
+  base.check_access_token
   
 === Vimeo::Advanced::Channel
 
-  channel = Vimeo::Advanced::Channel.new("api_key", "secret")
+  channel = Vimeo::Advanced::Channel.new("authorization_data")
   
   channel.add_video("auth_token", "channel_id", "video_id")
   channel.get_all({ :page => "1", :per_page => "25", :sort => "newest"})
@@ -151,7 +188,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::Contact
 
-  contact = Vimeo::Advanced::Contact.new("api_key", "secret")
+  contact = Vimeo::Advanced::Contact.new("authorization_data")
 
   contact.get_all(user_id, { :page => "1", :per_page => "25", :sort => "newest" })
   contact.get_mutual(user_id, { :page => "1", :per_page => "25", :sort => "newest" })
@@ -160,7 +197,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::Group
 
-  group = Vimeo::Advanced::Group.new("api_key", "secret")
+  group = Vimeo::Advanced::Group.new("authorization_data")
 
   group.add_video("auth_token", "group_id", "video_id")
   group.get_all({ :page => "1", :per_page => "25", :sort => "newest" })
@@ -175,7 +212,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::GroupEvents
 
-  group_events = Vimeo::Advanced::GroupEvents.new("api_key", "secret")
+  group_events = Vimeo::Advanced::GroupEvents.new("authorization_data")
 
   group_events.get_month("group_id", { :page => "1", :per_page => "25", :month => nil, :year => nil })
   group_events.get_past("group_id", { :page => "1", :per_page => "25" })
@@ -183,14 +220,14 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::GroupForums
 
-  group_forums = Vimeo::Advanced::GroupForums.new("api_key", "secret")
+  group_forums = Vimeo::Advanced::GroupForums.new("authorization_data")
 
   group_forums.get_topic_comments("group_id", "topic_id", { :page => "1", :per_page => "25" })
   group_forums.get_topics("group_id", { :page => "1", :per_page => "25" })
 
 === Vimeo::Advanced::Person
 
-  person = Vimeo::Advanced::Person.new("api_key", "secret")
+  person = Vimeo::Advanced::Person.new("authorization_data")
 
   person.add_contact("auth_token", "user_id")
   person.add_subscription("auth_token", "user_id", "types") # Types is a comma-delimited string. Valid: "likes", "appears", "uploads"
@@ -203,7 +240,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::Test
 
-  test = Vimeo::Advanced::Test.new("api_key", "secret")
+  test = Vimeo::Advanced::Test.new("authorization_data")
 
   test.echo
   test.null(auth_token)
@@ -211,7 +248,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::Upload
 
-  upload = Vimeo::Advanced::Upload.new("api_key", "secret")
+  upload = Vimeo::Advanced::Upload.new("authorization_data")
   
   upload.confirm("auth_token", "ticket_id", "json_manifest")
   upload.get_quota("auth_token")
@@ -221,7 +258,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 
 === Vimeo::Advanced::Video
 
-  video = Vimeo::Advanced::Video.new("api_key", "secret")
+  video = Vimeo::Advanced::Video.new("authorization_data")
 
   video.add_cast("auth_token", "video_id", "user_id", { :role => nil })
   video.add_photos("auth_token", "video_id", "photo_urls")
@@ -255,7 +292,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
                   
 === Vimeo::Advanced::VideoEmbed
 
-  video_embed = Vimeo::Advanced::VideoEmbed.new("api_key", "secret")
+  video_embed = Vimeo::Advanced::VideoEmbed.new("authorization_data")
 
   video_embed.get_presets("auth_token", { :page => "1", :per_page => "25" })
   video_embed.set_preset("auth_token", "video_id", "preset_id")
@@ -265,7 +302,7 @@ The wrapper for the Advanced API consists of the following classes and methods:
 Uploads are a little bit tricky, so I figured I'd help you guys with a short tutorial.
 
   # Start by creating an instance of the Upload class.
-  upload = Vimeo::Advanced::Upload.new("api_key", "secret")
+  upload = Vimeo::Advanced::Upload.new("authorization_data")
   # I'm going to assume you've got that user's auth token stored somewhere and that they have upload access.
   auth_token = "..."
   
