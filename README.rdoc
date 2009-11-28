@@ -127,14 +127,6 @@ The wrapper for the Advanced API consists of the following classes and methods:
   album.set_description("auth_token", "album_id", "description")
   album.get_password("auth_token", "album_id", "password")
   album.get_title("auth_token", "album_id", "title")
-
-=== Vimeo::Advanced::Auth
-
-  auth = Vimeo::Advanced::Auth.new("api_key", "secret")
-
-  auth.get_token("frob")
-  auth.get_frob
-  auth.check_token("auth_token")
   
 === Vimeo::Advanced::Base
 

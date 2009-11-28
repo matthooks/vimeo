@@ -1,7 +1,6 @@
 $:.unshift(File.dirname(__FILE__))
 require 'advanced/base'
 require 'advanced/album'
-require 'advanced/auth'
 require 'advanced/channel'
 require 'advanced/contact'
 require 'advanced/group'
