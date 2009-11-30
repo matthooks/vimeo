@@ -10,7 +10,7 @@ class UploadTest < Test::Unit::TestCase
 
     should "be able confirm an upload" do
       stub_post("?api_key=12345&ticket_id=ticket_id&format=json&auth_token=token&api_sig=576b41966709651aead8754b3c5d370d&method=vimeo.videos.upload.confirm", "advanced/upload/confirm.json")
-      response = @upload.confirm("ticket_id", "json_manifest")
+      response = @upload.confirm("ticket_id")
 
       assert_equal "ticket_id", response["ticket"]["id"]
     end
@@ -41,7 +41,7 @@ class UploadTest < Test::Unit::TestCase
     # TODO: Make sure this manifest fixture file is right.
     should "be able to verify a file manifest" do
       stub_post("?api_key=12345&ticket_id=ticket_id&format=json&auth_token=token&api_sig=3b1c022ba0be09e5901bd91fb5a4426c&method=vimeo.videos.upload.verifyManifest", "advanced/upload/verify_manifest.json")
-      response = @upload.verify_manifest("ticket_id", "json_manifest")
+      response = @upload.verify_manifest("ticket_id")
       
       assert_equal "ticket_id", response["ticket"]["id"]
     end

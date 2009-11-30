@@ -5,13 +5,13 @@ module Vimeo
       # Adds a user to your contact list.
       create_api_method :add_contact,
                         "vimeo.people.addContact",
-                        :required => [:user_id]
+                        :required => [:auth_token, :user_id]
                         
       # Adds a subscription to your subscriptions.
       # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
       create_api_method :add_subscription,
                         "vimeo.people.addSubscription",
-                        :required => [:user_id, :types]
+                        :required => [:auth_token, :user_id, :types]
 
       # Finds a user by their e-mail.
       create_api_method :find_by_email,
@@ -19,7 +19,8 @@ module Vimeo
                         :required => [:user_id]
 
       create_api_method :get_hd_embeds,
-                        "vimeo.people.getHDEmbeds"
+                        "vimeo.people.getHDEmbeds",
+                        :required => [:auth_token]
 
       # Returns a user's information
       create_api_method :get_info,
@@ -34,13 +35,13 @@ module Vimeo
       # Removes a user from your contact list.
       create_api_method :remove_contact,
                         "vimeo.people.removeContact",
-                        :required => [:user_id]
+                        :required => [:auth_token, :user_id]
       
       # Removes a subscription to your subscriptions.
       # Types is a comma-delimited string. Valid options: "likes", "appears", "uploads"
       create_api_method :remove_subscription,
                         "vimeo.people.removeSubscription",
-                        :required => [:user_id, :types]
+                        :required => [:auth_token, :user_id, :types]
 
     end # Person
   end # Advanced

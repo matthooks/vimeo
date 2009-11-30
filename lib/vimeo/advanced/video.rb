@@ -4,24 +4,24 @@ module Vimeo
 
       create_api_method :add_cast,
                         "vimeo.videos.addCast",
-                        :required => [:video_id, :user_id],
+                        :required => [:auth_token, :video_id, :user_id],
                         :optional => [:role]
 
       create_api_method :add_photos,
                         "vimeo.videos.addPhotos",
-                        :required => [:video_id, :photo_urls]
+                        :required => [:auth_token, :video_id, :photo_urls]
 
       create_api_method :add_tags,
                         "vimeo.videos.addTags",
-                        :required => [:video_id, :tags]
+                        :required => [:auth_token, :video_id, :tags]
 
       create_api_method :clear_tags,
                         "vimeo.videos.clearTags",
-                        :required => [:video_id]
+                        :required => [:auth_token, :video_id]
 
       create_api_method :delete,
                         "vimeo.videos.delete",
-                        :required => [:video_id]
+                        :required => [:auth_token, :video_id]
 
       create_api_method :get_all,
                         "vimeo.videos.getAll",
@@ -78,11 +78,11 @@ module Vimeo
 
       create_api_method :remove_cast,
                         "vimeo.videos.removeCast",
-                        :required => [:video_id, :user_id]
+                        :required => [:auth_token, :video_id, :user_id]
 
       create_api_method :remove_tag,
                         "vimeo.videos.removeTag",
-                        :required => [:video_id, :tag_id]
+                        :required => [:auth_token, :video_id, :tag_id]
 
       create_api_method :search,
                         "vimeo.videos.search",
@@ -91,35 +91,35 @@ module Vimeo
 
       create_api_method :set_description,
                         "vimeo.videos.setDescription",
-                        :required => [:video_id, :description]
+                        :required => [:auth_token, :video_id, :description]
 
       create_api_method :set_like,
                         "vimeo.videos.setLike",
-                        :required => [:video_id, :like]
+                        :required => [:auth_token, :video_id, :like]
 
       create_api_method :set_privacy,
                         "vimeo.videos.setPrivacy",
-                        :required => [:video_id, :privacy],
+                        :required => [:auth_token, :video_id, :privacy],
                         :optional => [:users, :password]
 
       create_api_method :set_title,
                         "vimeo.videos.setTitle",
-                        :required => [:video_id, :title]
+                        :required => [:auth_token, :video_id, :title]
 
       
       # comments
       create_api_method :add_comment,
                         "vimeo.videos.comments.addComment",
-                        :required => [:video_id, :comment_text],
+                        :required => [:auth_token, :video_id, :comment_text],
                         :optional => [:reply_to_comment_id]
 
       create_api_method :delete_comment,
                         "vimeo.videos.comments.deleteComment",
-                        :required => [:video_id, :comment_id]
+                        :required => [:auth_token, :video_id, :comment_id]
 
       create_api_method :edit_comment,
                         "vimeo.videos.comments.editComment",
-                        :required => [:video_id, :comment_id, :comment_text]
+                        :required => [:auth_token, :video_id, :comment_id, :comment_text]
 
       create_api_method :get_comments_list,
                         "vimeo.videos.comments.getList",

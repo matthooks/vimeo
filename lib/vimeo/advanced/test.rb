@@ -21,12 +21,14 @@ module Vimeo
       # Tests if the user associated to this token
       # is able to make authenticated calls.      
       create_api_method :login,
-                        "vimeo.test.login"
+                        "vimeo.test.login",
+                        :required => [:auth_token]
 
 
       # A simple ping test.
       create_api_method :null,
-                        "vimeo.test.null"
+                        "vimeo.test.null",
+                        :required => [:auth_token]
       
     end
 

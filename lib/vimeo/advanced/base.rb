@@ -16,6 +16,8 @@ module CreateApiMethod
     raise ArgumentError, 'Required parameters must be an array.' unless options[:required].is_a? Array
     raise ArgumentError, 'Optional parameters must be an array.' unless options[:optional].is_a? Array
     
+    auth_token = options[:required].delete :auth_token
+    
     required = options[:required].map { |r| r.to_s }.join(",")
     optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
     
@@ -27,6 +29,7 @@ module CreateApiMethod
         raise ArgumentError, 'Options must be a hash.' unless options.is_a? Hash
         
         sig_options = {
+          #{ ":oauth_token => @oauth_token," if auth_token}
           :method => "#{vimeo_method}",
           :format => "json"
         }
@@ -73,6 +76,7 @@ module Vimeo
       # Requires your API key and secret phrase.
       # The API key and secret are prepended to every request.
       def initialize(api_key, secret, options = {})
+        @oauth_token = options[:token]
         super(options.merge(:consumer_key => api_key, :consumer_secret => secret))
       end
       

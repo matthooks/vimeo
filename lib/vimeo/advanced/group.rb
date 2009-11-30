@@ -5,7 +5,7 @@ module Vimeo
       # Adds a video to a group.
       create_api_method :add_video,
                         "vimeo.groups.addVideo",
-                        :required => [:group_id, :video_id]
+                        :required => [:auth_token, :group_id, :video_id]
 
       # Returns a list of all groups.
       create_api_method :get_all,
@@ -53,12 +53,12 @@ module Vimeo
       # Joins a group.
       create_api_method :join,
                         "vimeo.groups.join",
-                        :required => [:group_id]
+                        :required => [:auth_token, :group_id]
       
       # Leaves a group.
       create_api_method :leave,
                         "vimeo.groups.leave",
-                        :required => [:group_id]
+                        :required => [:auth_token, :group_id]
 
     end # Group
   end # Advanced
