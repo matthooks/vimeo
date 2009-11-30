@@ -1,3 +1,5 @@
+= OAuth support coming soon! Check out {Sirlantis' branch}[http://github.com/sirlantis/vimeo] in the mean time.
+
 = Vimeo API Gem
 
 This gem implements a full-featured Ruby interface for the Vimeo API v2.
@@ -7,7 +9,7 @@ things aren't working as they should -- in my experience the Vimeo API has a num
 
 == Install
 
-First, install Gemcutter:[http://gemcutter.org], then you can:
+First, install {Gemcutter}[http://gemcutter.org], then you can:
 
   sudo gem install vimeo
   

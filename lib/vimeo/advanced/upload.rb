@@ -10,8 +10,7 @@ module Vimeo
       # Confirms the upload process.
       create_api_method :confirm,
                         "vimeo.videos.upload.confirm",
-                        :required => [:ticket_id],
-                        :unsigned => [:json_manifest]
+                        :required => [:ticket_id, :json_manifest]
       
       # "{\"files\":[{\"md5\":\"731f09145a1ea9ec9dad689de6fa0358\"}]}"
 
@@ -46,8 +45,7 @@ module Vimeo
       # Verifies a file manifest.
       create_api_method :verify_manifest,
                         "vimeo.videos.upload.verifyManifest",
-                        :required => [:ticket_id],
-                        :unsigned => [:json_manifest]
+                        :required => [:ticket_id, :json_manifest]
 
       # TODO: Make this more flexible for split uploads?
       def self.create_json_manifest(md5s)

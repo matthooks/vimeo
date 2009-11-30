@@ -7,25 +7,20 @@ module CreateApiMethod
   # @param [Hash] options Some optional parameters.
   # @option options [Array] :required An array of required parameters.
   # @option options [Array] :optional An array of optional parameters.
-  # @option options [Array] :unsigned An array of required parameters that should not be included in the api_sig.
-  # FIXME: remove unsigned options (not available with oauth API)
   def create_api_method(method, vimeo_method, options={})
-    options = { :required => [], :optional => [], :unsigned => [] }.merge(options)
+    options = { :required => [], :optional => [] }.merge(options)
     
     method = method.to_s
     camelized_method = camelize(method, false)
     
     raise ArgumentError, 'Required parameters must be an array.' unless options[:required].is_a? Array
     raise ArgumentError, 'Optional parameters must be an array.' unless options[:optional].is_a? Array
-    raise ArgumentError, 'Unsigned parameters must be an array.' unless options[:optional].is_a? Array
     
-    required = (options[:required] + options[:unsigned]).map { |r| r.to_s }.join(",")
-    required_hash = options[:required].map { |r| ":#{r} => #{r}" }.join(",")
-    optional_hash = options[:optional].map { |o| ":#{o} => nil" }.join(",")
-    unsigned_hash = options[:unsigned].map { |u| ":#{u} => #{u}" }.join(",")
+    required = options[:required].map { |r| r.to_s }.join(",")
+    optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
     
-    parameters = "(#{required unless required.blank?}#{',' unless required.blank?}options={#{optional_hash}})"
-      
+    parameters = "(#{required unless required.blank?}#{',' unless required.blank?}options={#{optional}})"
+    
     method_string = <<-method
 
       def #{method}#{parameters}
@@ -39,7 +34,7 @@ module CreateApiMethod
         #{ options[:required].map { |r| "sig_options.merge! :#{r} => #{r}"}.join("\n") }
         #{ options[:optional].map { |o| "sig_options.merge! :#{o} => options[:#{o}] unless options[:#{o}].nil?" }.join("\n") }
         
-        make_request sig_options#{ ", :unsigned => {" + unsigned_hash + "}" unless options[:unsigned].empty? }
+        make_request sig_options
       end
       
       alias #{camelized_method} #{method}
@@ -83,15 +78,14 @@ module Vimeo
       
       private
 
-      # FIXME remove all calls with the deprecated hash (see :unsigned)
-      def make_request(options, deprecated = {})
+      def make_request(options)
         result = json.post "/api/rest/v2", (options || {})
         validate_response! result
         result
       end
 
       create_api_method :check_access_token,
-        "vimeo.oauth.checkAccessToken"
+                        "vimeo.oauth.checkAccessToken"
       
       # Raises an exception if the response does contain a +stat+ different from "ok"
       def validate_response!(response)
