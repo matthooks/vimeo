@@ -5,7 +5,7 @@ This gem implements a full-featured Ruby interface for the Vimeo API v2.
 For a more in depth look at the API check out {Vimeo's Simple API Documentation}[http://www.vimeo.com/api/docs/simple-api] or {Vimeo's Advanced API Documentation}[http://www.vimeo.com/api/docs/advanced-api]. I would also recommend checking out the {API Forums}[http://www.vimeo.com/forum:api] if
 things aren't working as they should.
 
-**I have been experiencing trouble with intermittent 303 errors (Invalid Signature). As far as I can tell, this is a server-side issue.**
+__I have been experiencing trouble with intermittent 303 errors (Invalid Signature). As far as I can tell, this is a server-side issue.__
 
 == Install
 
