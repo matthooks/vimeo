@@ -5,7 +5,7 @@ class TestTest < Test::Unit::TestCase
   context "vimeo advanced test" do
     
     setup do
-      @test = Vimeo::Advanced::Test.new("12345", "secret")
+      @test = Vimeo::Advanced::Test.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to get an echo" do

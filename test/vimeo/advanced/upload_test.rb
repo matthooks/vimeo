@@ -5,7 +5,7 @@ class UploadTest < Test::Unit::TestCase
   context "vimeo advanced upload" do
     
     setup do
-      @upload = Vimeo::Advanced::Upload.new("12345", "secret")
+      @upload = Vimeo::Advanced::Upload.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able confirm an upload" do

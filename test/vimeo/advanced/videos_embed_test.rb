@@ -5,7 +5,7 @@ class VideoEmbedTest < Test::Unit::TestCase
   context "vimeo advanced video embed" do
     
     setup do
-      @video_embed = Vimeo::Advanced::VideoEmbed.new("12345", "secret")
+      @video_embed = Vimeo::Advanced::VideoEmbed.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to get a list presets for video embeds" do

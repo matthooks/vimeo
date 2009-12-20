@@ -10,19 +10,17 @@ module Vimeo
       # Confirms the upload process.
       create_api_method :confirm,
                         "vimeo.videos.upload.confirm",
-                        :required => [:auth_token, :ticket_id]
+                        :required => [:ticket_id]
       
       # "{\"files\":[{\"md5\":\"731f09145a1ea9ec9dad689de6fa0358\"}]}"
 
       # Returns the space and HD uploads left for a user.
       create_api_method :get_quota,
-                        "vimeo.videos.upload.getQuota",
-                        :required => [:auth_token]
+                        "vimeo.videos.upload.getQuota"
                         
       # Returns an upload ticket.
       create_api_method :get_ticket,
-                        "vimeo.videos.upload.getTicket",
-                        :required => [:auth_token]
+                        "vimeo.videos.upload.getTicket"
 
       # Upload +file+ to vimeo with +ticket_id+ and +auth_token+
       # Returns the json manifest necessary to confirm the upload.

@@ -12,13 +12,12 @@ module Vimeo
       create_api_method :get_mutual,
                         "vimeo.contacts.getMutual",
                         :required => [:user_id],
-                        :optional => [:page, :per_page, :sort]
+                        :optional => [:page, :per_page]
 
       # Returns a list of your contacts who are online.
-      # FIXME: Shouldn't this have optional params?
       create_api_method :get_online,
                         "vimeo.contacts.getOnline",
-                        :optional => [:page, :per_page, :sort]
+                        :optional => [:page, :per_page]
       
       # Returns a list of users who added a user as a contact.
       create_api_method :get_who_added,

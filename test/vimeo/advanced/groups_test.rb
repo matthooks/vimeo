@@ -5,7 +5,7 @@ class GroupTest < Test::Unit::TestCase
   context "vimeo advanced group" do
     
     setup do
-      @group = Vimeo::Advanced::Group.new("12345", "secret")
+      @group = Vimeo::Advanced::Group.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to add a video to a group" do

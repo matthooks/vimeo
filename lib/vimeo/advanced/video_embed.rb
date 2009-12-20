@@ -3,7 +3,6 @@ module Vimeo
     class VideoEmbed < Vimeo::Advanced::Base
 
       # Returns a list of presets for a video embed.
-      # FIXME: Needs a page optional as well...?
       create_api_method :get_presets,
                         "vimeo.video.embed.getPresets",
                         :required => [:auth_token],
@@ -12,7 +11,7 @@ module Vimeo
       # Sets a preset for a video embed.
       create_api_method :set_preset,
                         "vimeo.video.embed.setPreset",
-                        :required => [:auth_token, :video_id, :preset_id]
+                        :required => [:video_id, :preset_id]
 
     end # VideoEmbed
   end # Advanced

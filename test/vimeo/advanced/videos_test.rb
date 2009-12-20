@@ -5,7 +5,7 @@ class VideoTest < Test::Unit::TestCase
   context "vimeo advanced video" do
     
     setup do
-      @video = Vimeo::Advanced::Video.new("12345", "secret")
+      @video = Vimeo::Advanced::Video.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to add cast to a video" do

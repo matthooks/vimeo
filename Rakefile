@@ -23,6 +23,7 @@ begin
     gem.add_dependency "httparty", ">= 0.4.5"
     gem.add_dependency "json", ">= 1.1.9"
     gem.add_dependency "oauth-client", ">= 0.1.0"
+    gem.add_dependency "oauth", ">= 0.3.6"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

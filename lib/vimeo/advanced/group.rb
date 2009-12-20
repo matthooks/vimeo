@@ -5,26 +5,23 @@ module Vimeo
       # Adds a video to a group.
       create_api_method :add_video,
                         "vimeo.groups.addVideo",
-                        :required => [:auth_token, :group_id, :video_id]
+                        :required => [:group_id, :video_id]
 
       # Returns a list of all groups.
       create_api_method :get_all,
                         "vimeo.groups.getAll",
-                        :optional => [:page, :per_page, :sort]
+                        :optional => [:page, :per_page, :sort, :user_id]
       
       # Returns a list of a group's files.
-      # FIXME: Sort optional param?
       create_api_method :get_files,
                         "vimeo.groups.getFiles",
                         :required => [:group_id],
                         :optional => [:page, :per_page]
 
       # Returns information about a group.
-      # FIXME: Does this need pagination options?
       create_api_method :get_info,
                         "vimeo.groups.getInfo",
-                        :required => [:group_id],
-                        :optional => [:page, :per_page]
+                        :required => [:group_id]
 
       # Returns a list of the members in a group.
       create_api_method :get_members,
@@ -53,12 +50,12 @@ module Vimeo
       # Joins a group.
       create_api_method :join,
                         "vimeo.groups.join",
-                        :required => [:auth_token, :group_id]
+                        :required => [:group_id]
       
       # Leaves a group.
       create_api_method :leave,
                         "vimeo.groups.leave",
-                        :required => [:auth_token, :group_id]
+                        :required => [:group_id]
 
     end # Group
   end # Advanced

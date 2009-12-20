@@ -5,84 +5,71 @@ class AlbumTest < Test::Unit::TestCase
   context "vimeo advanced album" do
     
     setup do
-      @album = Vimeo::Advanced::Album.new("12345", "secret")
+      @album = Vimeo::Advanced::Album.new("12345", "secret", :token => "token", :secret => "secret")
     end
     
-    # context "making api calls" do
+    should "be able to add a video to an album" do
+      stub_custom_post("?oauth_nonce=3MFt5up5QljUQKJS8u9bOPzX9DXn3Xll1vdLLV2bwo&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=SgRuPWsG%2BSHGOdw6HVbfHtqSXsY%3D", "advanced/album/add_video.json")
+      response = @album.add_video("album_id", "video_id")
       
-      should "be able to add a video to an album" do
-        # @album.stubs(:generate_api_sig).returns("287d134442136f37d967243f93028fc3")
-        stub_post("?api_key=12345&video_id=video_id&album_id=album_id&auth_token=token&format=json&api_sig=287d134442136f37d967243f93028fc3&method=vimeo.albums.addVideo", "advanced/album/add_video.json")
-        response = @album.add_video("album_id", "video_id")
-        
-        assert_equal "ok", response["stat"]
-      end
+      assert_equal "ok", response["stat"]
+    end
+    
+    should "be able to create an album" do
+      stub_post("?oauth_nonce=UkAfw5mrHZ2RiYl85vBxd9dGlpdOB1HiMs7ZXa7YGE&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=ZTGMAKrk4voVelv9Hzu2XzwlKbo%3D", "advanced/album/create.json")
+      response = @album.create("title", "video_id")
       
-      should "be able to create an album" do
-        # @album.stubs(:generate_api_sig).returns("0c5ba48ca249a0e4b3e5d13adbbe48ff")
-        stub_post("?api_key=12345&video_id=video_id&auth_token=token&format=json&api_sig=0c5ba48ca249a0e4b3e5d13adbbe48ff&title=title&method=vimeo.albums.create", "advanced/album/create.json")
-        response = @album.create("title", "video_id")
-        
-        assert_equal "129683", response["album"]["id"]
-      end
+      assert_equal "129683", response["album"]["id"]
+    end
+    
+    should "be able to delete an album" do
+      stub_post("?oauth_nonce=zyARBYynTJnBn9HiiKTQAGRVuDymj5kUkH72JPE9IBE&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=14SAeavDzDfbO6XY%2Bd4a05kJGGs%3D", "advanced/album/delete.json")
+      response = @album.delete("album_id")
       
-      should "be able to delete an album" do
-        # @album.stubs(:generate_api_sig).returns("71787010d4225ec36036c8037cc397c1")
-        stub_post("?api_key=12345&format=json&album_id=album_id&auth_token=token&api_sig=71787010d4225ec36036c8037cc397c1&method=vimeo.albums.delete", "advanced/album/delete.json")
-        response = @album.delete("album_id")
-        
-        assert_equal "ok", response["stat"]
-      end
+      assert_equal "ok", response["stat"]
+    end
+    
+    should "be able to get a list of a user's albums" do
+      stub_post("?oauth_nonce=4wZJ82yZnNtdnu4ccKaxBpAnyDLvf9xfiH4RrgRgK8o&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=KDczd%2F%2BEjPW64v0r6IbYL%2BJYcYs%3D", "advanced/album/get_all.json")
+      response = @album.get_all("user_id")
       
-      should "be able to get a list of a user's albums" do
-        # @album.stubs(:generate_api_sig).returns("5103ce16eece56247c8208100f3a0606")
-        stub_post("?api_key=12345&format=json&api_sig=5103ce16eece56247c8208100f3a0606&method=vimeo.albums.getAll&user_id=user_id", "advanced/album/get_all.json")
-        response = @album.get_all("user_id")
-        
-        assert_equal "3", response["albums"]["total"]
-      end
+      assert_equal "3", response["albums"]["total"]
+    end
+    
+    should "be able to list the videos in an album" do
+      stub_post("?oauth_nonce=yCIHyp8VXtFtxVzuKwMbHMwV7Z2eqKxDEeRTgOkwc&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=TwPJGzgvrYB4vOzyUKJueNTLMcI%3D", "advanced/album/get_videos.json")
+      response = @album.get_videos("album_id")
       
-      should "be able to list the videos in an album" do
-        # @album.stubs(:generate_api_sig).returns("91027cc9465a37a1cc69bcd9714fe308")
-        stub_post("?format=json&api_key=12345&album_id=album_id&method=vimeo.albums.getVideos&auth_token=token&api_sig=91027cc9465a37a1cc69bcd9714fe308", "advanced/album/get_videos.json")
-        response = @album.get_videos("album_id")
-        
-        assert_equal "2", response["videos"]["total"]
-      end
+      assert_equal "2", response["videos"]["total"]
+    end
+    
+    should "be able to remove a video from an album" do
+      stub_post("?oauth_nonce=fKXbUdxBFZoynegg9zzE0DS0AzhaHcNcOclSEo0&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=tztcS72SjTJxyioP3JN7KgQVUSI%3D", "advanced/album/remove_video.json")
+      response = @album.remove_video("album_id", "video_id")
       
-      should "be able to remove a video from an album" do
-        # @album.stubs(:generate_api_sig).returns("b87c3ccea7fe3f64a76a4a9eeb37446e")
-        stub_post("?album_id=album_id&api_key=12345&auth_token=token&api_sig=b87c3ccea7fe3f64a76a4a9eeb37446e&format=json&method=vimeo.albums.removeVideo&video_id=video_id", "advanced/album/remove_video.json")
-        response = @album.remove_video("album_id", "video_id")
-        
-        assert_equal "ok", response["stat"]
-      end
+      assert_equal "ok", response["stat"]
+    end
+    
+    should "be able to set the description of an album" do
+      stub_post("?oauth_nonce=45zc84rri7doHXSDHtk5w3nDpfVU8EIj3do8z23tld8&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=xTB0pnxTlZsr1P42cpfFZ50EnkA%3D", "advanced/album/set_description.json")
+      response = @album.set_description("album_id", "description")
       
-      should "be able to set the description of an album" do
-        # @album.stubs(:generate_api_sig).returns("1cbba27b53a83446bf94c856ae60f3ed")
-        stub_post("?album_id=album_id&api_key=12345&auth_token=token&api_sig=1cbba27b53a83446bf94c856ae60f3ed&format=json&method=vimeo.albums.setDescription&description=description", "advanced/album/set_description.json")
-        response = @album.set_description("album_id", "description")
-        
-        assert_equal "ok", response["stat"]
-      end
+      assert_equal "ok", response["stat"]
+    end
+    
+    should "be able to set the password of an album" do
+      stub_post("?oauth_nonce=ctucSZ9WBeP6lkmcmjT8tEmvQu5AJS7K5OZReGSzMk&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=7YcUkFMRryJAYRZGpBj47JFoFsQ%3D", "advanced/album/set_password.json")
+      response = @album.set_password("album_id", "password")
       
-      should "be able to set the password of an album" do
-        # @album.stubs(:generate_api_sig).returns("a31a865876d15eb23c4bae6de460c132")
-        stub_post("?album_id=album_id&api_key=12345&auth_token=token&password=password&api_sig=a31a865876d15eb23c4bae6de460c132&format=json&method=vimeo.albums.setPassword", "advanced/album/set_password.json")
-        response = @album.set_password("album_id", "password")
-        
-        assert_equal "ok", response["stat"]
-      end
+      assert_equal "ok", response["stat"]
+    end
+    
+    should "be able to set the title of an album" do
+      stub_post("?oauth_nonce=nqVTjX53HqEvBR43v2qloK90TBJHbU7N7SdlisWHNGk&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=CpnakG4IBSfugNsi%2FUeVSN9zGu0%3D", "advanced/album/set_title.json")
+      response = @album.set_title("album_id", "title")
       
-      should "be able to set the title of an album" do
-        # @album.stubs(:generate_api_sig).returns("b4e72980c9c6aacabdd341cb0bf535ba")
-        stub_post("?album_id=album_id&api_key=12345&auth_token=token&api_sig=b4e72980c9c6aacabdd341cb0bf535ba&format=json&title=title&method=vimeo.albums.setTitle", "advanced/album/set_title.json")
-        response = @album.set_title("album_id", "title")
-        
-        assert_equal "ok", response["stat"]
-      end
+      assert_equal "ok", response["stat"]
+    end
       
-    # end
-
   end
 end

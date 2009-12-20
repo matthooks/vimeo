@@ -5,7 +5,7 @@ class GroupForumsTest < Test::Unit::TestCase
   context "vimeo advanced group events" do
     
     setup do
-      @group_forums = Vimeo::Advanced::GroupForums.new("12345", "secret")
+      @group_forums = Vimeo::Advanced::GroupForums.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to get a list comments for a group forum topic" do

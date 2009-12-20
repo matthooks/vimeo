@@ -5,7 +5,7 @@ class PersonTest < Test::Unit::TestCase
   context "vimeo advanced person" do
     
     setup do
-      @person = Vimeo::Advanced::Person.new("12345", "secret")
+      @person = Vimeo::Advanced::Person.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to add a contact" do

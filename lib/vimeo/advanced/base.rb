@@ -1,6 +1,6 @@
 module CreateApiMethod
   
-  # Small DSL that creates a method that calls a Vimeo method through the advanced API.
+  # Creates a method that calls a Vimeo Method through the Advanced API.
   #
   # @param [String] method The name of the method being created.
   # @param [String] vimeo_method The name of the advanced API Method the function should call.
@@ -16,8 +16,6 @@ module CreateApiMethod
     raise ArgumentError, 'Required parameters must be an array.' unless options[:required].is_a? Array
     raise ArgumentError, 'Optional parameters must be an array.' unless options[:optional].is_a? Array
     
-    auth_token = options[:required].delete :auth_token
-    
     required = options[:required].map { |r| r.to_s }.join(",")
     optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
     
@@ -29,7 +27,6 @@ module CreateApiMethod
         raise ArgumentError, 'Options must be a hash.' unless options.is_a? Hash
         
         sig_options = {
-          #{ ":oauth_token => @oauth_token," if auth_token}
           :method => "#{vimeo_method}",
           :format => "json"
         }
@@ -64,39 +61,45 @@ module Vimeo
 
     class RequestFailed < StandardError; end
 
-    class Base < OAuthClient::Client
-      http_method :post
-      site 'http://vimeo.com'
-
-      # schemes are [:body, :query_string, :header]
-      scheme :header
-      request_scheme :query_string
+    class Base
       extend CreateApiMethod
 
-      # Requires your API key and secret phrase.
-      # The API key and secret are prepended to every request.
-      def initialize(api_key, secret, options = {})
-        @oauth_token = options[:token]
-        super(options.merge(:consumer_key => api_key, :consumer_secret => secret))
+      def initialize(consumer_key, consumer_secret, options = {})
+        @oauth_consumer = OAuth::Consumer.new(consumer_key, consumer_secret, :site => 'http://vimeo.com', :http_method => :get, :scheme => :query_string)
+        unless options[:token].nil? && options[:secret].nil?
+          @access_token = OAuth::AccessToken.new(@oauth_consumer, options[:token], options[:secret])
+        end
       end
+      
+      def authorize_url(permission = "delete")
+        get_request_token.authorize_url :permission => permission
+      end
+      
+      def get_access_token(oauth_token=nil, oauth_verifier=nil)
+        @access_token ||= get_request_token.get_access_token :oauth_token => oauth_token, :oauth_verifier => oauth_verifier
+      end
+      
+      # TODO: Move this to OAuth
+      create_api_method :check_access_token,
+                        "vimeo.oauth.checkAccessToken"
       
       private
 
-      def make_request(options)
-        result = json.post "/api/rest/v2", (options || {})
-        validate_response! result
-        result
+      def get_request_token
+        @request_token ||= @oauth_consumer.get_request_token :scheme => :query_string
       end
 
-      create_api_method :check_access_token,
-                        "vimeo.oauth.checkAccessToken"
+      def make_request(options)
+        response = Crack::JSON.parse @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", get_access_token, {}, options).body
+        validate_response! response
+        response
+      end
       
       # Raises an exception if the response does contain a +stat+ different from "ok"
       def validate_response!(response)
         raise "empty response" unless response
         
         status = response["stat"]
-                
         if status and status != "ok"
           error = response["err"]
           if error
@@ -108,6 +111,5 @@ module Vimeo
       end
 
     end # Base
-
   end # Advanced
 end # Vimeo

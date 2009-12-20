@@ -5,7 +5,7 @@ class ChannelTest < Test::Unit::TestCase
   context "vimeo advanced channel" do
     
     setup do
-      @channel = Vimeo::Advanced::Channel.new("12345", "secret")
+      @channel = Vimeo::Advanced::Channel.new("12345", "secret", :token => "token", :secret => "secret")
     end
     
     # context "making api calls" do

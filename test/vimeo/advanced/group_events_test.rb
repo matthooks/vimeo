@@ -5,7 +5,7 @@ class GroupEventsTest < Test::Unit::TestCase
   context "vimeo advanced group events" do
     
     setup do
-      @group_events = Vimeo::Advanced::GroupEvents.new("12345", "secret")
+      @group_events = Vimeo::Advanced::GroupEvents.new("12345", "secret", :token => "token", :secret => "secret")
     end
 
     should "be able to get a list of events by month" do

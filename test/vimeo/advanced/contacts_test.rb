@@ -5,7 +5,7 @@ class ContactTest < Test::Unit::TestCase
   context "vimeo advanced channel" do
     
     setup do
-      @contact = Vimeo::Advanced::Contact.new("12345", "secret")
+      @contact = Vimeo::Advanced::Contact.new("12345", "secret", :token => "token", :secret => "secret")
     end
       
     should "be able to get a list of contacts for a specified user" do
