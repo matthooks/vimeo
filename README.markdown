@@ -24,11 +24,11 @@ There are two modules:
     Vimeo::Simple
     Vimeo::Advanced
 
-Let's look at the Simple first.
-
 ## Simple API
 
-The wrapper for the [Simple API](http://www.vimeo.com/api/docs/simple-api) consists of several classes. To use the Simple API, just call one of the class methods. For example:
+Let's look at the [Simple API](http://www.vimeo.com/api/docs/simple-api) first.
+
+The wrapper for the Simple API consists of several classes. To use the Simple API, just call one of the class methods. For example:
 
     user_info = Vimeo::Simple::User.info("matthooks")
     # =>
@@ -60,7 +60,7 @@ Thanks to HTTParty, the data is parsed and ready to use.
     user_info["location"]
     # => "Chicago, IL"
 
-Here's a quick overview of all Simple API methods.
+## Overview of the Simple API
 
 ### Vimeo::Simple::Activity
 
@@ -106,7 +106,7 @@ Here's a quick overview of all Simple API methods.
 
 ## Advanced API
 
-To use the Advanced API, first you must authenticate your user using OAuth.
+To use the [Advanced API](http://www.vimeo.com/api/docs/advanced-api), first you must authenticate your user using OAuth.
 
 ### Authentication Example using Rails
 
@@ -140,7 +140,7 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
 
     video.get_all("matthooks", :page => "2", :per_page => "50")
 
-Here's a quick overview of all the Advanced API methods:
+## Overview of the Advanced API
 
 ### Vimeo::Advanced::Album
 
@@ -289,33 +289,7 @@ Here's a quick overview of all the Advanced API methods:
 
 ## Uploads
 
-Uploads are a little bit tricky, so I figured I'd help you guys with a short tutorial.
-
-    # Start by creating an instance of the Upload class.
-    upload = Vimeo::Advanced::Upload.new("authorization_data")
-    # I'm going to assume you've got that user's auth token stored somewhere and that they have upload access.
-    auth_token = "..."
-
-    # Let's check the user's quota.
-    # You should let the user know if they don't have enough quota free and/or if their video can be uploaded in HD
-    quota = upload.get_quota(auth_token)
-    free_space = quota["user"]["upload_space"]["free"]
-    hd = quota["user"]["hq_quota"]
-
-    # Now let's get an upload ticket.
-    ticket = upload.get_ticket(auth_token)
-    ticket_id = get_ticket["ticket"]["id"]
-    endpoint = get_ticket["ticket"]["endpoint"]
-
-    # Cool! Let's post the video.
-    # The file path should be absolute.
-    file_path = "..."
-    json_manifest = upload.upload(auth_token, file_path, ticket_id, endpoint)
-
-    # After the upload completes...
-    upload.confirm(auth_token, ticket_id, json_manifest)
-  
-There are a few steps along the way where things can go wrong.
+__Uploads are not working since the move to OAuth. They will be fixed shortly.__
 
 ## Todo
 
