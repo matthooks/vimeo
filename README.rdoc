@@ -5,7 +5,7 @@ This gem implements a full-featured Ruby interface for the Vimeo API v2.
 For a more in depth look at the API check out {Vimeo's Simple API Documentation}[http://www.vimeo.com/api/docs/simple-api] or {Vimeo's Advanced API Documentation}[http://www.vimeo.com/api/docs/advanced-api]. I would also recommend checking out the {API Forums}[http://www.vimeo.com/forum:api] if
 things aren't working as they should.
 
-*I have been experiencing trouble with intermittent 303 errors (Invalid Signature). As far as I can tell, this is a server-side issue.*
+**I have been experiencing trouble with intermittent 303 errors (Invalid Signature). As far as I can tell, this is a server-side issue.**
 
 == Install
 
@@ -118,7 +118,7 @@ Then, send your user to the authorization URL:
 
   redirect_to base.authorize_url
 
-Once the user has allowed your application to access their account, they will be redirected to the callback URL you set up for your application. You will be given two parameters @oauth_token@ and @oauth_verifier@. Re-instantiate your Base class, then get an access token:
+Once the user has allowed your application to access their account, they will be redirected to the callback URL you set up for your application. You will be given two parameters `oauth_token` and `oauth_verifier`. Re-instantiate your Base class, then get an access token:
 
   base = Vimeo::Advanced::Base.new("consumer_key", "consumer_secret")
   access_token = base.get_access_token(params[:oauth_token], params[:oauth_verifier])
