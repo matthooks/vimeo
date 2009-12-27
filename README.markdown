@@ -301,12 +301,12 @@ __Uploads are not working since the move to OAuth. They will be fixed shortly.__
 
 ## Contributors
 
-* {matthooks}[http://github.com/matthooks]
-* {sirlantis}[http://github.com/sirlantis]
+* [matthooks](http://github.com/matthooks)
+* [sirlantis](http://github.com/sirlantis)
 
 ## Thanks to
 
-* {HTTParty}[http://github.com/jnunemaker/httparty/tree/master]: Easily one of the best tools I have used since I started using Ruby.
-* {Jeweler}[http://github.com/technicalpickles/jeweler/tree/master]: Great tool for creating gems for Github.
+* [HTTParty](http://github.com/jnunemaker/httparty): Easily one of the best tools I have used since I started using Ruby.
+* [Jeweler](http://github.com/technicalpickles/jeweler): Great tool for creating gems for Github.
 
 ### Copyright (c) 2009 Matt Hooks. See LICENSE for details.
