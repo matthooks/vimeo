@@ -114,15 +114,20 @@ First, instantiate the Base class:
 
     base = Vimeo::Advanced::Base.new("consumer_key", "consumer_secret")
 
+Get a request token, and save the token secret in the session hash.
+
+	request_token = base.get_request_token
+	session[:oauth_secret] = request_token.secret
+
 Then, send your user to the authorization URL:
 
     redirect_to base.authorize_url
 
-Once the user has allowed your application to access their account, they will be redirected to the callback URL you set up for your application. You will be given two parameters `oauth_token` and `oauth_verifier`. Re-instantiate your Base class, then get an access token:
+Once the user has allowed your application to access their account, they will be redirected to the callback URL you set up for your application. You will be given two parameters `oauth_token` and `oauth_verifier`. Re-instantiate your Base class, then get an access token.
 
     base = Vimeo::Advanced::Base.new("consumer_key", "consumer_secret")
-    access_token = base.get_access_token(params[:oauth_token], params[:oauth_verifier])
-    # You'll want to hold on to the user's token and secret. I'll save it to the database.
+    access_token = base.get_access_token(params[:oauth_token], session[:oauth_secret], params[:oauth_verifier])
+    # You'll want to hold on to the user's access token and secret. I'll save it to the database.
     user.token = access_token.token
     user.secret = access_token.secret
     user.save

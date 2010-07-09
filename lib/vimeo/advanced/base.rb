@@ -75,19 +75,19 @@ module Vimeo
         get_request_token.authorize_url :permission => permission
       end
       
-      def get_access_token(oauth_token=nil, oauth_verifier=nil)
-        @access_token ||= get_request_token.get_access_token :oauth_token => oauth_token, :oauth_verifier => oauth_verifier
+      def get_request_token
+        @request_token ||= @oauth_consumer.get_request_token :scheme => :query_string
+      end
+      
+      def get_access_token(oauth_token=nil, oauth_secret=nil, oauth_verifier=nil)
+        @access_token ||= OAuth::RequestToken.new(@oauth_consumer, oauth_token, oauth_secret).get_access_token :oauth_verifier => oauth_verifier
       end
       
       # TODO: Move this to OAuth
       create_api_method :check_access_token,
                         "vimeo.oauth.checkAccessToken"
       
-      private
-
-      def get_request_token
-        @request_token ||= @oauth_consumer.get_request_token :scheme => :query_string
-      end
+private
 
       def make_request(options)
         response = Crack::JSON.parse @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", get_access_token, {}, options).body
