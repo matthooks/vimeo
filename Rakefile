@@ -11,9 +11,10 @@ begin
     gem.homepage = "http://github.com/matthooks/vimeo"
     gem.authors = ["Matt Hooks"]
     gem.rubyforge_project = "vimeo"
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 2.10.2"
+    gem.add_development_dependency "shoulda", ">= 2.11.3"
     gem.add_development_dependency "fakeweb", ">= 1.2.6"
     gem.add_development_dependency "crack", ">= 0.1.4"
+    gem.add_development_dependency "ruby-prof", ">= 0.9.2"
     
     gem.has_rdoc = true
     
@@ -23,6 +24,7 @@ begin
     gem.add_dependency "httparty", ">= 0.4.5"
     gem.add_dependency "json", ">= 1.1.9"
     gem.add_dependency "oauth", ">= 0.3.6"
+    gem.add_dependency "httpclient", ">= 2.1.5.2"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

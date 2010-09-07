@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{vimeo}
-  s.version = "1.1.0"
+  s.version = "1.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Hooks"]
-  s.date = %q{2009-12-20}
+  s.date = %q{2010-09-07}
   s.description = %q{A full featured Ruby implementation of the Vimeo API.}
   s.email = %q{matthooks@gmail.com}
   s.extra_rdoc_files = [
@@ -187,7 +187,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.rdoc", "--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{vimeo}
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{A full featured Ruby implementation of the Vimeo API.}
   s.test_files = [
     "test/test_helper.rb",
@@ -219,33 +219,33 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 2.10.2"])
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.6"])
       s.add_development_dependency(%q<crack>, [">= 0.1.4"])
+      s.add_development_dependency(%q<ruby-prof>, [">= 0.9.2"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.4.5"])
       s.add_runtime_dependency(%q<json>, [">= 1.1.9"])
       s.add_runtime_dependency(%q<oauth>, [">= 0.3.6"])
-      s.add_runtime_dependency(%q<oauth-client>, [">= 0.1.0"])
       s.add_runtime_dependency(%q<httpclient>, [">= 2.1.5.2"])
     else
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.2"])
+      s.add_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_dependency(%q<fakeweb>, [">= 1.2.6"])
       s.add_dependency(%q<crack>, [">= 0.1.4"])
+      s.add_dependency(%q<ruby-prof>, [">= 0.9.2"])
       s.add_dependency(%q<httparty>, [">= 0.4.5"])
       s.add_dependency(%q<json>, [">= 1.1.9"])
       s.add_dependency(%q<oauth>, [">= 0.3.6"])
-      s.add_dependency(%q<oauth-client>, [">= 0.1.0"])
       s.add_dependency(%q<httpclient>, [">= 2.1.5.2"])
     end
   else
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 2.10.2"])
+    s.add_dependency(%q<shoulda>, [">= 2.11.3"])
     s.add_dependency(%q<fakeweb>, [">= 1.2.6"])
     s.add_dependency(%q<crack>, [">= 0.1.4"])
+    s.add_dependency(%q<ruby-prof>, [">= 0.9.2"])
     s.add_dependency(%q<httparty>, [">= 0.4.5"])
     s.add_dependency(%q<json>, [">= 1.1.9"])
     s.add_dependency(%q<oauth>, [">= 0.3.6"])
-    s.add_dependency(%q<oauth-client>, [">= 0.1.0"])
     s.add_dependency(%q<httpclient>, [">= 2.1.5.2"])
   end
 end

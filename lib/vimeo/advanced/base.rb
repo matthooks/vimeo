@@ -1,3 +1,5 @@
+require 'oauth'
+
 module CreateApiMethod
   
   # Creates a method that calls a Vimeo Method through the Advanced API.
