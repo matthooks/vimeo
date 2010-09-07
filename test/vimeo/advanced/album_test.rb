@@ -9,7 +9,7 @@ class AlbumTest < Test::Unit::TestCase
     end
     
     should "be able to add a video to an album" do
-      stub_custom_post("?oauth_nonce=3MFt5up5QljUQKJS8u9bOPzX9DXn3Xll1vdLLV2bwo&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=SgRuPWsG%2BSHGOdw6HVbfHtqSXsY%3D", "advanced/album/add_video.json")
+      stub_post("?oauth_nonce=3MFt5up5QljUQKJS8u9bOPzX9DXn3Xll1vdLLV2bwo&oauth_signature_method=HMAC-SHA1&oauth_token=token&oauth_timestamp=1261345197&oauth_consumer_key=12345&oauth_version=1.0&oauth_signature=SgRuPWsG%2BSHGOdw6HVbfHtqSXsY%3D", "advanced/album/add_video.json")
       response = @album.add_video("album_id", "video_id")
       
       assert_equal "ok", response["stat"]

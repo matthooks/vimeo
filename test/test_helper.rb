@@ -19,6 +19,9 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'vimeo'
 
 class Test::Unit::TestCase
+  def setup
+    FakeWeb.clean_registry
+  end
 end
 
 def fixture_file(filename)
