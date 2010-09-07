@@ -68,7 +68,7 @@ module Vimeo
       extend CreateApiMethod
 
       def initialize(consumer_key, consumer_secret, options = {})
-        @oauth_consumer = OAuth::Consumer.new(consumer_key, consumer_secret, :site => 'http://vimeo.com', :http_method => :get, :scheme => :query_string)
+        @oauth_consumer = OAuth::Consumer.new(consumer_key, consumer_secret, :site => 'http://vimeo.com', :http_method => :get, :scheme => :header)
         unless options[:token].nil? && options[:secret].nil?
           @access_token = OAuth::AccessToken.new(@oauth_consumer, options[:token], options[:secret])
         end
@@ -79,7 +79,7 @@ module Vimeo
       end
       
       def get_request_token
-        @request_token ||= @oauth_consumer.get_request_token :scheme => :query_string
+        @request_token ||= @oauth_consumer.get_request_token :scheme => :header
       end
       
       def get_access_token(oauth_token=nil, oauth_secret=nil, oauth_verifier=nil)
