@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{vimeo}
-  s.version = "1.2.1"
+  s.version = "1.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Hooks"]
@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
      "test/fixtures/advanced/album/set_description.json",
      "test/fixtures/advanced/album/set_password.json",
      "test/fixtures/advanced/album/set_title.json",
+     "test/fixtures/advanced/auth/access_token.txt",
      "test/fixtures/advanced/auth/check_access_token.json",
      "test/fixtures/advanced/auth/check_token.json",
      "test/fixtures/advanced/auth/get_frob.json",
