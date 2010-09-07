@@ -20,6 +20,7 @@ module CreateApiMethod
     
     required = options[:required].map { |r| r.to_s }.join(",")
     optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
+    authorized = options.fetch(:authorized, true)
     
     parameters = "(#{required unless required.blank?}#{',' unless required.blank?}options={#{optional}})"
     
@@ -36,7 +37,7 @@ module CreateApiMethod
         #{ options[:required].map { |r| "sig_options.merge! :#{r} => #{r}"}.join("\n") }
         #{ options[:optional].map { |o| "sig_options.merge! :#{o} => options[:#{o}] unless options[:#{o}].nil?" }.join("\n") }
         
-        make_request sig_options
+        make_request sig_options, #{authorized ? "true" : "false"}
       end
       
       alias #{camelized_method} #{method}
@@ -91,8 +92,14 @@ module Vimeo
       
 private
 
-      def make_request(options)
-        response = Crack::JSON.parse @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", get_access_token, {}, options).body
+      def make_request(options, authorized)
+        if authorized
+          raw_response = @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", get_access_token, {}, options).body
+        else
+          raw_response = @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", nil, {}, options).body
+        end
+        
+        response = Crack::JSON.parse(raw_response)
         validate_response! response
         response
       end

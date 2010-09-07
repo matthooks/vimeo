@@ -87,7 +87,8 @@ module Vimeo
       create_api_method :search,
                         "vimeo.videos.search",
                         :required => [:query],
-                        :optional => [:page, :per_page, :full_response, :sort, :user_id]
+                        :optional => [:page, :per_page, :full_response, :sort, :user_id],
+                        :authorized => false
 
       create_api_method :set_description,
                         "vimeo.videos.setDescription",
