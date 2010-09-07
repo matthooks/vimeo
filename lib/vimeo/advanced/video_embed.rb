@@ -5,7 +5,6 @@ module Vimeo
       # Returns a list of presets for a video embed.
       create_api_method :get_presets,
                         "vimeo.video.embed.getPresets",
-                        :required => [:auth_token],
                         :optional => [:page, :per_page]
 
       # Sets a preset for a video embed.

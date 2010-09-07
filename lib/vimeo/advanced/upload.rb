@@ -45,7 +45,7 @@ module Vimeo
       # Verifies a file manifest.
       create_api_method :verify_manifest,
                         "vimeo.videos.upload.verifyManifest",
-                        :required => [:auth_token, :ticket_id]
+                        :required => [:ticket_id]
 
       # TODO: Make this more flexible for split uploads?
       def self.create_json_manifest(md5s)
