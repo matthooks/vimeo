@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Hooks"]
-  s.date = %q{2010-09-07}
+  s.date = %q{2010-09-18}
   s.description = %q{A full featured Ruby implementation of the Vimeo API.}
   s.email = %q{matthooks@gmail.com}
   s.extra_rdoc_files = [
