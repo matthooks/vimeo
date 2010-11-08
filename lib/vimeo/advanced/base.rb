@@ -66,6 +66,8 @@ module Vimeo
 
     class Base
       extend CreateApiMethod
+      
+      ENDPOINT = "http://vimeo.com/api/rest/v2"
 
       def initialize(consumer_key, consumer_secret, options = {})
         @oauth_consumer = OAuth::Consumer.new(consumer_key, consumer_secret, :site => 'http://vimeo.com', :http_method => :get, :scheme => :header)
@@ -94,9 +96,9 @@ private
 
       def make_request(options, authorized)
         if authorized
-          raw_response = @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", get_access_token, {}, options).body
+          raw_response = @oauth_consumer.request(:post, Vimeo::Advanced::Base::ENDPOINT, get_access_token, {}, options).body
         else
-          raw_response = @oauth_consumer.request(:post, "http://vimeo.com/api/rest/v2", nil, {}, options).body
+          raw_response = @oauth_consumer.request(:post, Vimeo::Advanced::Base::ENDPOINT, nil, {}, options).body
         end
         
         response = Crack::JSON.parse(raw_response)

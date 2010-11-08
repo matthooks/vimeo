@@ -55,6 +55,36 @@ task :test => :check_dependencies
 
 task :default => :test
 
+namespace :vimeo do
+  desc "Multi-step wizard to acquire an access_token. CONSUMER_KEY and CONSUMER_SECRET required."
+  task :auth do
+    require 'vimeo'
+  
+    def ask(message)
+      print message
+      STDOUT.flush
+      STDIN.gets.chomp
+    end
+  
+    consumer_key = ENV['CONSUMER_KEY']
+    consumer_secret = ENV['CONSUMER_SECRET']
+    base = Vimeo::Advanced::Base.new(consumer_key, consumer_secret)
+  
+    request_token = base.get_request_token
+    oauth_secret = request_token.secret
+  
+    puts "Please visit: #{base.authorize_url}"
+  
+    oauth_token = ask("oauth_token=")
+    oauth_verifier = ask("oauth_verifier=")
+  
+    access_token = base.get_access_token(oauth_token, oauth_secret, oauth_verifier)
+  
+    puts "token: #{access_token.token}"
+    puts "secret: #{access_token.secret}"
+  end
+end
+
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
   if File.exist?('VERSION')

@@ -6,52 +6,75 @@ module Vimeo
 
     class Upload < Vimeo::Advanced::Base
 
-      # TODO: Make this work with either a JSON or an XML manifest.
-      # Confirms the upload process.
-      create_api_method :confirm,
-                        "vimeo.videos.upload.confirm",
+      # Check to make sure an upload ticket is still valid.
+      create_api_method :check_ticket,
+                        "vimeo.videos.upload.checkTicket",
                         :required => [:ticket_id]
-      
-      # "{\"files\":[{\"md5\":\"731f09145a1ea9ec9dad689de6fa0358\"}]}"
+
+      # Complete the upload process.
+      create_api_method :complete,
+                        "vimeo.videos.upload.complete",
+                        :required => [:filename, :ticket_id]
+
+      # Returns an upload ticket.
+      create_api_method :get_ticket,
+                        "vimeo.videos.upload.getTicket",
+                        :optional => [:video_id]
 
       # Returns the space and HD uploads left for a user.
       create_api_method :get_quota,
                         "vimeo.videos.upload.getQuota"
-                        
-      # Returns an upload ticket.
-      create_api_method :get_ticket,
-                        "vimeo.videos.upload.getTicket"
+
+      # Verify that the chunks were uploaded properly.
+      create_api_method :verify_chunks,
+                        "vimeo.videos.upload.verifyChunks",
+                        :required => [:ticket_id]
+
+
+      def upload_chunk(data, endpoint, options = {})
+        pp @oauth_consumer.request(:post, endpoint, get_access_token, {}, options).body
+      end
 
       # Upload +file+ to vimeo with +ticket_id+ and +auth_token+
       # Returns the json manifest necessary to confirm the upload.
-      def upload(auth_token, file_path, ticket_id, end_point)
-        params = {
-          :auth_token => auth_token,
-          :ticket_id  => ticket_id
-        }
-        params[:api_sig] = generate_api_sig params
+      def upload(file_path)
+        size      = File.size(file_path)
+        basename  = File.basename(file_path)
+        file      = File.open(file_path)
+        file.binmode
         
-        params.merge!({ :file_data => File.open(file_path) })
+        chunk_size  = 2 * 1024 * 1024       # 2 megabytes
         
-        client = HTTPClient.new
-        response = client.post(end_point, params)
-        md5 = response.content
-
-        self.class.create_json_manifest(md5)
+        ticket_response = get_ticket
+        pp ticket_response
+        ticket      = ticket_response["ticket"]
+        ticket_id   = ticket["id"]
+        endpoint    = ticket["endpoint"] 
+        
+        chunk_count = (size.to_f / chunk_size.to_f).ceil
+        chunk_sizes = {}
+        
+        chunk_count.times do |chunk_index|
+          last = (chunk_index == chunk_count - 1)
+          data = last ? file.read : file.read(chunk_size)
+          
+          chunk_sizes[chunk_index] = data.size
+          upload_chunk(data, endpoint, :chunk_id => chunk_index, :ticket_id => ticket_id)
+        end
+        
+        verification    = verify_chunks(:ticket_id => ticket_id)["ticket"]
+        received_chunks = Hash[(verification["chunk"] || []).map do |chunk|
+          [chunk["id"], chunk["size"]]
+        end]
+        
+        chunk_sizes.all? do |id, size|
+          received_chunks[id] == size
+        end
+        
+        complete(:ticket_id => ticket_id, :filename => basename).tap do
+          file.close
+        end
       end
-
-      # TODO: Make this work with either json or xml manifest.
-      # FIXME: Ticket id is required?
-      # Verifies a file manifest.
-      create_api_method :verify_manifest,
-                        "vimeo.videos.upload.verifyManifest",
-                        :required => [:ticket_id]
-
-      # TODO: Make this more flexible for split uploads?
-      def self.create_json_manifest(md5s)
-        { :files => md5s.map { |md5| { :md5 => md5 } } }.to_json
-      end
-
     end # Upload
   end # Advanced
 end # Vimeo
