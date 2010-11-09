@@ -15,16 +15,17 @@ begin
     gem.add_development_dependency "fakeweb", ">= 1.2.6"
     gem.add_development_dependency "crack", ">= 0.1.4"
     gem.add_development_dependency "ruby-prof", ">= 0.9.2"
-    
+
     gem.has_rdoc = true
-    
+
     gem.rdoc_options = ['--main', 'README.rdoc', '--inline-source', '--charset=UTF-8']
     gem.extra_rdoc_files = ['README.rdoc', 'LICENSE', 'CHANGELOG.rdoc']
-    
+
     gem.add_dependency "httparty", ">= 0.4.5"
     gem.add_dependency "json", ">= 1.1.9"
-    gem.add_dependency "oauth", ">= 0.3.6"
+    gem.add_dependency "oauth", ">= 0.4.3"
     gem.add_dependency "httpclient", ">= 2.1.5.2"
+    gem.add_dependency "multipart-post", ">= 1.0.1"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
@@ -59,27 +60,27 @@ namespace :vimeo do
   desc "Multi-step wizard to acquire an access_token. CONSUMER_KEY and CONSUMER_SECRET required."
   task :auth do
     require 'vimeo'
-  
+
     def ask(message)
       print message
       STDOUT.flush
       STDIN.gets.chomp
     end
-  
+
     consumer_key = ENV['CONSUMER_KEY']
     consumer_secret = ENV['CONSUMER_SECRET']
     base = Vimeo::Advanced::Base.new(consumer_key, consumer_secret)
-  
+
     request_token = base.get_request_token
     oauth_secret = request_token.secret
-  
+
     puts "Please visit: #{base.authorize_url}"
-  
+
     oauth_token = ask("oauth_token=")
     oauth_verifier = ask("oauth_verifier=")
-  
+
     access_token = base.get_access_token(oauth_token, oauth_secret, oauth_verifier)
-  
+
     puts "token: #{access_token.token}"
     puts "secret: #{access_token.secret}"
   end
