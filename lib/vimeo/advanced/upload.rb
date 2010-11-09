@@ -7,9 +7,9 @@ module Vimeo
       class UploadError < RuntimeError; end
 
       # 2 megabytes
-      # CHUNK_SIZE = 2 * 1024 * 1024
-      CHUNK_SIZE = 6000
+      CHUNK_SIZE = 2 * 1024 * 1024
 
+      # multipart boundary
       BOUNDARY = "-----------RubyMultipartPost"
 
       # Check to make sure an upload ticket is still valid.
