@@ -74,7 +74,7 @@ Thanks to HTTParty, the data is parsed and ready to use.
 
     Vimeo::Simple::Album.videos("album_id")
     Vimeo::Simple::Album.info("album_id")
-  
+
 ### Vimeo::Simple::Channel
 
     Vimeo::Simple::Channel.videos("channelname")
@@ -116,8 +116,8 @@ First, instantiate the Base class:
 
 Get a request token, and save the token secret in the session hash.
 
-	request_token = base.get_request_token
-	session[:oauth_secret] = request_token.secret
+  request_token = base.get_request_token
+  session[:oauth_secret] = request_token.secret
 
 Then, send your user to the authorization URL:
 
@@ -131,7 +131,7 @@ Once the user has allowed your application to access their account, they will be
     user.token = access_token.token
     user.secret = access_token.secret
     user.save
-  
+
 Now you've got everything you need to use the Advanced API. Let's get a user's videos:
 
     video = Vimeo::Advanced::Video.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
@@ -160,13 +160,13 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
     album.set_description("album_id", "description")
     album.get_password("album_id", "password")
     album.get_title("album_id", "title")
-  
+
 ### Vimeo::Advanced::Base
 
     base = Vimeo::Advanced::Base.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
 
     base.check_access_token
-  
+
 ### Vimeo::Advanced::Channel
 
     channel = Vimeo::Advanced::Channel.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
@@ -245,11 +245,14 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
 
     upload = Vimeo::Advanced::Upload.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
 
-    upload.confirm("ticket_id", "json_manifest")
-    upload.get_quota
+    upload.check_ticket("ticket_id")
+    upload.complete("ticket_id", "filename")
     upload.get_ticket
-    upload.upload("path_to_file", "ticket_id", "end_point")
-    upload.verify_manifest("ticket_id", "json_manifest")
+    upload.get_quota
+    upload.verify_chunks("ticket_id")
+
+    # supports File, String (a file path), #read
+    upload.upload("movie.mp4")
 
 ### Vimeo::Advanced::Video
 
