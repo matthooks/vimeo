@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{vimeo}
-  s.version = "1.2.2"
+  s.version = "1.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Hooks"]
-  s.date = %q{2010-11-09}
+  s.date = %q{2010-11-12}
   s.description = %q{A full featured Ruby implementation of the Vimeo API.}
   s.email = %q{matthooks@gmail.com}
   s.extra_rdoc_files = [
@@ -100,12 +100,9 @@ Gem::Specification.new do |s|
      "test/fixtures/advanced/test/echo.json",
      "test/fixtures/advanced/test/login.json",
      "test/fixtures/advanced/test/null.json",
-     "test/fixtures/advanced/upload/confirm.json",
      "test/fixtures/advanced/upload/get_quota.json",
      "test/fixtures/advanced/upload/get_ticket.json",
-     "test/fixtures/advanced/upload/manifest_to_upload.json",
      "test/fixtures/advanced/upload/sample_iTunes.mov",
-     "test/fixtures/advanced/upload/verify_manifest.json",
      "test/fixtures/advanced/video/add_cast.json",
      "test/fixtures/advanced/video/add_comment.json",
      "test/fixtures/advanced/video/add_photos.json",

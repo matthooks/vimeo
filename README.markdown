@@ -2,8 +2,7 @@
 
 This gem implements a full-featured Ruby interface for the Vimeo API v2.
 
-For a more in depth look at the API check out [Vimeo's Simple API Documentation](http://www.vimeo.com/api/docs/simple-api) or [Vimeo's Advanced API Documentation](http://www.vimeo.com/api/docs/advanced-api). I would also recommend checking out the [API Forums](http://www.vimeo.com/forum:api) if
-things aren't working as they should.
+For a more in depth look at the API check out [Vimeo's Simple API Documentation](http://www.vimeo.com/api/docs/simple-api) or [Vimeo's Advanced API Documentation](http://www.vimeo.com/api/docs/advanced-api). I would also recommend checking out the [API Forums](http://www.vimeo.com/forum:api) if things aren't working as they should.
 
 ## Install
 
@@ -14,6 +13,10 @@ First, install [Gemcutter](http://gemcutter.org), then:
 If you're using Rails, add the following to your environment.rb file:
 
     config.gem "vimeo"
+
+Or for bundler:
+
+gem 'vimeo'
 
 ## How to Use
 
@@ -41,7 +44,7 @@ The wrapper for the Simple API consists of several classes. To use the Simple AP
     #   "bio":"",
     #   "profile_url":"http:\/\/vimeo.com\/matthooks",
     #   "videos_url":"http:\/\/vimeo.com\/matthooks\/videos",
-    #   "total_videos_uploaded":2,
+    #   "total_videos_appears_ined":2,
     #   "total_videos_appears_in":0,
     #   "total_videos_liked":2,
     #   "total_contacts":3,
@@ -114,8 +117,8 @@ First, instantiate the Base class:
 
 Get a request token, and save the token secret in the session hash.
 
-  request_token = base.get_request_token
-  session[:oauth_secret] = request_token.secret
+    request_token = base.get_request_token
+    session[:oauth_secret] = request_token.secret
 
 Then, send your user to the authorization URL:
 
@@ -243,6 +246,7 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
 
     upload = Vimeo::Advanced::Upload.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
 
+    # Other than get_quota, none of these methods should be called directly. The 'upload' method uses these internally.
     upload.check_ticket("ticket_id")
     upload.complete("ticket_id", "filename")
     upload.get_ticket
@@ -295,7 +299,15 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
 
 ## Uploads
 
-__Uploads are not working since the move to OAuth. They will be fixed shortly.__
+Uploads are working! In order to upload a file, create your upload object, like so:
+
+    upload = Vimeo::Advanced::Upload.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
+
+Then call the upload method:
+
+    upload.upload("/path/to/file") # You can also pass a File object or any IO.
+
+The upload method will automatically get an upload ticket, perform the multipart POST, verify the file chunks and then complete the upload.
 
 ## Todo
 
