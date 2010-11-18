@@ -327,4 +327,4 @@ The upload method will automatically get an upload ticket, perform the multipart
 * [HTTParty](http://github.com/jnunemaker/httparty): Easily one of the best tools I have used since I started using Ruby.
 * [Jeweler](http://github.com/technicalpickles/jeweler): Great tool for creating gems for Github.
 
-### Copyright (c) 2009 Matt Hooks. See LICENSE for details.
+### Copyright (c) 2009-2010 Matt Hooks. See LICENSE for details.
