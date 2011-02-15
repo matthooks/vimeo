@@ -105,7 +105,7 @@ module Vimeo
 
       create_api_method :set_title,
                         "vimeo.videos.setTitle",
-                        :required => [:title, :video_id]
+                        :required => [:video_id, :title]
       
       # comments
       create_api_method :add_comment,
