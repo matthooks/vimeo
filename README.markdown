@@ -282,7 +282,7 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
     video.set_description("video_id", "description")
     video.set_like("video_id", "like")
     video.set_privacy("video_id", "privacy", { :users => nil, :password => nil })
-    video.set_title("video_id", "title")
+    video.set_title("title", "video_id")
 
     # comments
     video.add_comment("video_id", "comment_text", { :reply_to_comment_id => nil })
