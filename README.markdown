@@ -253,8 +253,8 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
     upload.get_quota
     upload.verify_chunks("ticket_id")
 
-    # supports File, String (a file path), #read
-    upload.upload("movie.mp4")
+    # all-in-one solution, supports File, String (a file path), #read
+    video_id = upload.upload("movie.mp4")
 
 ### Vimeo::Advanced::Video
 
