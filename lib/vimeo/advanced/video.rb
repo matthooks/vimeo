@@ -125,6 +125,16 @@ module Vimeo
                         "vimeo.videos.comments.getList",
                         :required => [:video_id],
                         :optional => [:page, :per_page]
+      
+      # embed
+      # getPresets has a bug right now: the response is blank http://www.vimeo.com/forums/topic:32411
+      # create_api_method :get_presets,
+      #                   "vimeo.videos.embed.getPresets",
+      #                   :optional => [:page, :per_page]
+
+      create_api_method :set_preset,
+                        "vimeo.videos.embed.setPreset",
+                        :required => [:preset_id, :video_id]
 
     end # Video
   end # Advanced
