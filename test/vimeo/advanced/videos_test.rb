@@ -198,6 +198,15 @@ class VideoTest < Test::Unit::TestCase
       
       assert_equal "ok", response["stat"]
     end
+    
+    # embed
+    
+    should "be able to set a preset" do
+      stub_post("?preset_id=preset_id&video_id=video_id&api_key=12345&format=json&method=vimeo.videos.embed.getPresets&api_sig=ed4c2455eabcaad041d44b659b002ff8", "advanced/video/set_preset.json")
+      response = @video.set_preset("preset_id", "video_id")
+      
+      assert_equal "ok", response["stat"]
+    end
 
   end
 end
