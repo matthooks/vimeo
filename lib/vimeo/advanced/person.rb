@@ -16,7 +16,7 @@ module Vimeo
       # Finds a user by their e-mail.
       create_api_method :find_by_email,
                         "vimeo.people.findByEmail",
-                        :required => [:user_id]
+                        :required => [:email]
 
       create_api_method :get_hd_embeds,
                         "vimeo.people.getHDEmbeds"
