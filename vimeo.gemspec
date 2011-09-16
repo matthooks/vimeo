@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<shoulda>, [">= 2.11.3"])
   s.add_development_dependency(%q<fakeweb>, [">= 1.2.6"])
   s.add_development_dependency(%q<activesupport>, [">= 3.0"])
-  s.add_development_dependency(%q<yajl-ruby>, [">= 3.0"])
+  s.add_development_dependency(%q<yajl-ruby>, [">= 0.8.3"])
   s.add_development_dependency(%q<ruby-prof>, [">= 0.9.2"])
 end
 
