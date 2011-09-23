@@ -12,8 +12,13 @@ module Vimeo
       # Returns a list of a user's videos.
       #
       # @param [String] username The user's id or username.
-      def self.videos(username)
-        get("/#{username}/videos.json")
+      # @param [Integer] page, is the desired Page (1, 2, or 3. Default is 1) 
+      def self.videos(username, page=1)
+        if page
+          get("/#{username}/videos.json?page=#{page}")          
+        else
+          get("/#{username}/videos.json")
+        end
       end
     
       # Returns a list of a user's liked videos.
