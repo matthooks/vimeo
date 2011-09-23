@@ -22,7 +22,7 @@ module CreateApiMethod
     optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
     authorized = options.fetch(:authorized, true)
     
-    parameters = "(#{required unless required.blank?}#{',' unless required.blank?}options={#{optional}})"
+    parameters = "(#{required if required.to_s != ''}#{',' if required.to_s != ''}options={#{optional}})"
     
     method_string = <<-method
 
@@ -101,7 +101,7 @@ private
           raw_response = @oauth_consumer.request(:post, Vimeo::Advanced::Base::ENDPOINT, nil, {}, options).body
         end
         
-        response = Crack::JSON.parse(raw_response)
+        response = Vimeo.parse_json(raw_response)
         validate_response! response
         response
       end

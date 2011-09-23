@@ -1,14 +1,12 @@
 require 'rubygems'
 require 'test/unit'
 
-gem 'thoughtbot-shoulda', ">= 2.10.2"
-gem 'fakeweb', ">= 1.2.6"
-gem 'crack', ">= 0.1.4"
-gem 'mocha', ">= 0.9.8"
+#gem 'shoulda', ">= 2.10.2"
+#gem 'fakeweb', ">= 1.2.6"
+#gem 'mocha', ">= 0.9.8"
 
 require 'shoulda'
 require 'fakeweb'
-require 'Crack'
 require 'mocha'
 require 'ruby-prof'
 
