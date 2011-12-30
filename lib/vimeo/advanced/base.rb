@@ -22,7 +22,7 @@ module CreateApiMethod
     optional = options[:optional].map { |o| ":#{o} => nil" }.join(",")
     authorized = options.fetch(:authorized, true)
     
-    parameters = "(#{required unless required.blank?}#{',' unless required.blank?}options={#{optional}})"
+    parameters = "(#{required unless required.empty?}#{',' unless required.empty?}options={#{optional}})"
     
     method_string = <<-method
 
