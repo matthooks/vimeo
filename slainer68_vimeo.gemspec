@@ -48,6 +48,7 @@ Gem::Specification.new do |s|
     "lib/vimeo/simple/group.rb",
     "lib/vimeo/simple/user.rb",
     "lib/vimeo/simple/video.rb",
+    "slainer68_vimeo.gemspec",
     "test/fixtures/advanced/album/add_video.json",
     "test/fixtures/advanced/album/create.json",
     "test/fixtures/advanced/album/delete.json",
@@ -181,8 +182,7 @@ Gem::Specification.new do |s|
     "test/vimeo/simple/user_test.rb",
     "test/vimeo/simple/video_test.rb",
     "test/vimeo/simple_test.rb",
-    "test/vimeo_test.rb",
-    "vimeo.gemspec"
+    "test/vimeo_test.rb"
   ]
   s.homepage = "http://github.com/matthooks/vimeo"
   s.rdoc_options = ["--main", "README.rdoc", "--inline-source", "--charset=UTF-8"]
