@@ -9,7 +9,7 @@ module Vimeo
       # Uploads data (IO streams or files) to Vimeo.
       def upload(uploadable)
         case uploadable
-        when File
+        when File, Tempfile
           upload_file(uploadable)
         when String
           upload_file(File.new(uploadable))
