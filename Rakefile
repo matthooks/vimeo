@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "vimeo"
+    gem.name = "slainer68_vimeo"
     gem.summary = %Q{A full featured Ruby implementation of the Vimeo API.}
     gem.description = %Q{A full featured Ruby implementation of the Vimeo API.}
     gem.email = "matthooks@gmail.com"
