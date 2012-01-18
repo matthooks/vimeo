@@ -101,7 +101,7 @@ private
           raw_response = @oauth_consumer.request(:post, Vimeo::Advanced::Base::ENDPOINT, nil, {}, options).body
         end
         
-        response = Crack::JSON.parse(raw_response)
+        response = MultiJson.decode(raw_response)
         validate_response! response
         response
       end
