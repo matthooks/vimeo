@@ -1,4 +1,5 @@
 require 'oauth'
+require 'crack'
 
 module CreateApiMethod
   
