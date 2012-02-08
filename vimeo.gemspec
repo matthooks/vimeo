@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "vimeo"
-  s.version = "1.4.3"
+  s.version = "1.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Hooks"]
-  s.date = "2011-12-30"
+  s.date = "2012-02-08"
   s.description = "A full featured Ruby implementation of the Vimeo API."
   s.email = "matthooks@gmail.com"
   s.extra_rdoc_files = [
@@ -48,11 +48,14 @@ Gem::Specification.new do |s|
     "lib/vimeo/simple/group.rb",
     "lib/vimeo/simple/user.rb",
     "lib/vimeo/simple/video.rb",
+    "test/fixtures/advanced/album/add_to_watch_later.json",
     "test/fixtures/advanced/album/add_video.json",
     "test/fixtures/advanced/album/create.json",
     "test/fixtures/advanced/album/delete.json",
     "test/fixtures/advanced/album/get_all.json",
     "test/fixtures/advanced/album/get_videos.json",
+    "test/fixtures/advanced/album/get_watch_later.json",
+    "test/fixtures/advanced/album/remove_from_watch_later.json",
     "test/fixtures/advanced/album/remove_video.json",
     "test/fixtures/advanced/album/set_description.json",
     "test/fixtures/advanced/album/set_password.json",
@@ -197,7 +200,6 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.6"])
-      s.add_development_dependency(%q<crack>, [">= 0.1.4"])
       s.add_development_dependency(%q<ruby-prof>, [">= 0.9.2"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.4.5"])
       s.add_runtime_dependency(%q<json>, [">= 1.1.9"])
@@ -207,7 +209,6 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_dependency(%q<fakeweb>, [">= 1.2.6"])
-      s.add_dependency(%q<crack>, [">= 0.1.4"])
       s.add_dependency(%q<ruby-prof>, [">= 0.9.2"])
       s.add_dependency(%q<httparty>, [">= 0.4.5"])
       s.add_dependency(%q<json>, [">= 1.1.9"])
@@ -218,7 +219,6 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<shoulda>, [">= 2.11.3"])
     s.add_dependency(%q<fakeweb>, [">= 1.2.6"])
-    s.add_dependency(%q<crack>, [">= 0.1.4"])
     s.add_dependency(%q<ruby-prof>, [">= 0.9.2"])
     s.add_dependency(%q<httparty>, [">= 0.4.5"])
     s.add_dependency(%q<json>, [">= 1.1.9"])
