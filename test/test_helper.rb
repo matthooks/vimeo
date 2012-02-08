@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'test/unit'
 
-gem 'thoughtbot-shoulda', ">= 2.10.2"
+gem 'shoulda', ">= 2.10.2"
 gem 'fakeweb', ">= 1.2.6"
 gem 'crack', ">= 0.1.4"
 gem 'mocha', ">= 0.9.8"
@@ -43,7 +43,7 @@ def advanced_vimeo_url(url = "")
 end
 
 def stub_get(url, filename, status=nil)
-  # FIXME: We have to specify content type, otherwise HTTParty will not parse the 
+  # FIXME: We have to specify content type, otherwise HTTParty will not parse the
   # body correctly. Is there any way we can get around this? Or is this a limitation
   # of using FakeWeb?
   options = { :body => fixture_file(filename), :content_type => 'application/json' }
