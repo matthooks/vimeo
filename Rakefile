@@ -13,7 +13,6 @@ begin
     gem.rubyforge_project = "vimeo"
     gem.add_development_dependency "shoulda", ">= 2.11.3"
     gem.add_development_dependency "fakeweb", ">= 1.2.6"
-    gem.add_development_dependency "crack", ">= 0.1.4"
     gem.add_development_dependency "ruby-prof", ">= 0.9.2"
 
     gem.has_rdoc = true
