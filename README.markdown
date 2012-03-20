@@ -133,10 +133,15 @@ Once the user has allowed your application to access their account, they will be
     user.secret = access_token.secret
     user.save
 
+*Note*: if you are trying to get your access tokens manually, then the above block of code will be a little different:
+
+  - `params[:oauth_token]` is the same as `request_token.token`
+  - `params[:oauth_verifier]` is the code you see on Vimeo after you visit `base.authorize_url` and allow access to your account.
+
 Now you've got everything you need to use the Advanced API. Let's get a user's videos:
 
     video = Vimeo::Advanced::Video.new("consumer_key", "consumer_secret", :token => user.token, :secret => user.secret)
-    video.get_videos("matthooks")
+    video.get_all("matthooks")
 
     # => {"videos"=> { ... }, "stat"=>"ok", "generated_in"=>"0.5753"}
 
