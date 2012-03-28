@@ -57,6 +57,10 @@ module Vimeo
                         "vimeo.videos.getInfo",
                         :required => [:video_id]
 
+      create_api_method :get_collections,
+                        "vimeo.videos.getCollections",
+                        :required => [:video_id]
+
       create_api_method :get_likes,
                         "vimeo.videos.getLikes",
                         :required => [:user_id],
