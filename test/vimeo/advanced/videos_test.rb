@@ -85,6 +85,13 @@ class VideoTest < Test::Unit::TestCase
       assert_equal "ok", response["stat"]
     end
     
+    should "be able to get collections for a video" do
+      stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.getCollections&api_sig=0f1a7df7325961a0cf352da6264e913f", "advanced/video/get_collections.json")
+      response = @video.get_info("video_id")
+      
+      assert_equal "ok", response["stat"]
+    end
+    
     should "be able to get info about a video" do
       stub_post("?video_id=video_id&api_key=12345&format=json&method=vimeo.videos.getInfo&api_sig=0f1a7df7325961a0cf352da6264e913f", "advanced/video/get_info.json")
       response = @video.get_info("video_id")

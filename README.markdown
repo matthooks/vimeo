@@ -276,6 +276,7 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
     video.get_cast("video_id", { :page => "1", :per_page => "25" })
     video.get_contacts_liked("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
     video.get_contacts_uploaded("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
+    video.get_collections("video_id")
     video.get_info("video_id")
     video.get_likes("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
     video.get_subscriptions("user_id", { :page => "1", :per_page => "25", :full_response => "0", :sort => "newest" })
