@@ -69,7 +69,7 @@ module Vimeo
 
         # Returns a hash of the sent chunks and their respective sizes.
         def sent_chunk_sizes
-          Hash[chunks.map { |chunk| [chunk.id, chunk.size] }]
+          Hash[chunks.map { |chunk| [chunk.index.to_s, chunk.size] }]
         end
 
         # Returns a of Vimeo's received chunks and their respective sizes.
