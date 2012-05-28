@@ -18,7 +18,7 @@ module Vimeo
 
         # Performs the upload via Multipart.
         def upload
-          endpoint = "#{task.endpoint}&chunk_id=#{index}"
+          endpoint = "#{task.endpoint}"
 
           response = task.oauth_consumer.request(:post, endpoint, vimeo.get_access_token, {}, {}) do |req|
             req.set_content_type("multipart/form-data", { "boundary" => MULTIPART_BOUNDARY })
@@ -29,6 +29,8 @@ module Vimeo
             def io.content_type; "application/octet-stream"; end
 
             parts = []
+            parts << Parts::ParamPart.new(MULTIPART_BOUNDARY, "ticket_id", task.id)
+            parts << Parts::ParamPart.new(MULTIPART_BOUNDARY, "chunk_id", index)
             parts << Parts::FilePart.new(MULTIPART_BOUNDARY, "file_data", io)
             parts << Parts::EpiloguePart.new(MULTIPART_BOUNDARY)
 
