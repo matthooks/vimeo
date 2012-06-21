@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "vimeo"
-  s.version = "1.5.2"
+  s.version = "1.5.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Hooks"]
-  s.date = "2012-03-29"
+  s.date = "2012-06-21"
   s.description = "A full featured Ruby implementation of the Vimeo API."
   s.email = "matthooks@gmail.com"
   s.extra_rdoc_files = [
