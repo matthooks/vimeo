@@ -128,7 +128,8 @@ module Vimeo
       create_api_method :get_comments_list,
                         "vimeo.videos.comments.getList",
                         :required => [:video_id],
-                        :optional => [:page, :per_page]
+                        :optional => [:page, :per_page],
+                        :authorized => false
       
       # embed
       # getPresets has a bug right now: the response is blank http://www.vimeo.com/forums/topic:32411
