@@ -139,6 +139,7 @@ Gem::Specification.new do |s|
     "test/fixtures/advanced/video/set_title.json",
     "test/fixtures/advanced/video_embed/get_presets.json",
     "test/fixtures/advanced/video_embed/set_preset.json",
+    "test/fixtures/advanced/video_embed/set_privacy.json",
     "test/fixtures/simple/activity/contacts_did.json",
     "test/fixtures/simple/activity/everyone_did.json",
     "test/fixtures/simple/activity/happened_to_contacts.json",

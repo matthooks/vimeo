@@ -23,5 +23,12 @@ class VideoEmbedTest < Test::Unit::TestCase
       assert_equal "ok", response["stat"]
     end
 
+    should "be able to set the privacy for a video embed" do
+      stub_post("?privacy=privacy&video_id=video_id&api_key=12345&format=json&method=vimeo.video.embed.setPrivacy&auth_token=token&api_sig=29c01ef0013d2e0aa1d0dbd3fd19b8cc", "advanced/video_embed/set_privacy.json")
+      response = @video_embed.set_privacy("video_id", "privacy")
+      
+      assert_equal "ok", response["stat"]
+    end
+
   end
 end
