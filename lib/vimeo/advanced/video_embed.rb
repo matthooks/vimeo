@@ -12,6 +12,12 @@ module Vimeo
                         "vimeo.videos.embed.setPreset",
                         :required => [:video_id, :preset_id]
 
+      # Sets the privacy for a video embed.
+      create_api_method :set_privacy,
+                        "vimeo.videos.embed.setPrivacy",
+                        :required => [:video_id, :privacy],
+                        :optional => [:approved_domains]
+
     end # VideoEmbed
   end # Advanced
 end # Vimeo

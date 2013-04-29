@@ -302,6 +302,7 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
 
     video_embed.get_presets({ :page => "1", :per_page => "25" })
     video_embed.set_preset("video_id", "preset_id")
+    video_embed.set_privacy("video_id", "privacy", { :approved_domains => ["example.com"].to_json })
 
 ## Uploads
 
