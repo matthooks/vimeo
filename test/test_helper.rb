@@ -42,23 +42,36 @@ def advanced_vimeo_url(url = "")
   vimeo_base_url("/api/rest/v2#{url}")
 end
 
+def default_url_options(filename)
+  {:body => fixture_file(filename), :content_type => 'application/json'}.dup
+end
+
 def stub_get(url, filename, status=nil)
   # FIXME: We have to specify content type, otherwise HTTParty will not parse the
   # body correctly. Is there any way we can get around this? Or is this a limitation
   # of using FakeWeb?
-  options = { :body => fixture_file(filename), :content_type => 'application/json' }
+  options = default_url_options(filename)
   options.merge!({:status => status}) unless status.nil?
   FakeWeb.register_uri(:get, vimeo_url(url), options)
 end
 
-def stub_post(url, filename)
-  FakeWeb.register_uri(:post, advanced_vimeo_url, :body => fixture_file(filename), :content_type => 'application/json')
+def stub_post(url, filename, opts=nil)
+  options = default_url_options(filename)
+  options.merge!(opts) if opts
+
+  FakeWeb.register_uri(:post, advanced_vimeo_url, options)
 end
 
-def stub_custom_get(url, filename)
-  FakeWeb.register_uri(:get, vimeo_base_url(url), :body => fixture_file(filename), :content_type => 'application/json')
+def stub_custom_get(url, filename, opts=nil)
+  options = default_url_options(filename)
+  options.merge!(opts) if opts
+
+  FakeWeb.register_uri(:get, vimeo_base_url, options)
 end
 
-def stub_custom_post(url, filename)
-  FakeWeb.register_uri(:post, vimeo_base_url(url), :body => fixture_file(filename), :content_type => 'application/json')
+def stub_custom_post(url, filename, opts=nil)
+  options = default_url_options(filename)
+  options.merge!(opts) if opts
+
+  FakeWeb.register_uri(:post, vimeo_base_url(url), options)
 end
