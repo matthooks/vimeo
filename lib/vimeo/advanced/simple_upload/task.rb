@@ -26,6 +26,25 @@ module Vimeo
           return video_id
         end
 
+        def stream(&block)
+          raise ArgumentError, "A block is required to stream uploads" unless block_given?
+
+          check_quota
+          authorize
+
+          yield self
+
+          raise UploadError.new, "Validation of chunks failed." unless valid?
+          complete
+          video_id
+        end
+
+        def <<(data)
+          chunk = Chunk.new(self, data)
+          chunk.upload
+          chunks << chunk
+        end
+
         protected
 
         # Checks whether the file can be uploaded.
