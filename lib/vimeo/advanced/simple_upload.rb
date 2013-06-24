@@ -6,6 +6,11 @@ module Vimeo
       autoload :Task,         'vimeo/advanced/simple_upload/task'
       autoload :Chunk,        'vimeo/advanced/simple_upload/chunk'
 
+      def stream(filename, size, &block)
+        task = Task.new(self, @oauth_consumer, nil, size, filename)
+        task.stream(&block)
+      end
+
       # Uploads data (IO streams or files) to Vimeo.
       def upload(uploadable)
         case uploadable
