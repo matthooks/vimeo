@@ -1,6 +1,8 @@
 # Vimeo API Gem
 
-[![Build Status](https://secure.travis-ci.org/matthooks/vimeo.png?branch=master)](http://travis-ci.org/matthooks/vimeo) [![Dependency Status](https://gemnasium.com/matthooks/vimeo.png?travis)](https://gemnasium.com/matthooks/vimeo) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/matthooks/vimeo)
+[![Build Status](https://secure.travis-ci.org/matthooks/vimeo.png?branch=master)](http://travis-ci.org/matthooks/vimeo)
+[![Dependency Status](https://gemnasium.com/matthooks/vimeo.png?travis)](https://gemnasium.com/matthooks/vimeo)
+[![Code Climate](https://codeclimate.com/github/matthooks/vimeo.png)](https://codeclimate.com/github/matthooks/vimeo)
 
 This gem implements a full-featured Ruby interface for the Vimeo API v2.
 
