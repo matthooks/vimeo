@@ -1,18 +1,17 @@
 require 'rubygems'
+require 'bundler'
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
 require 'test/unit'
-
-gem 'shoulda', ">= 2.10.2"
-gem 'fakeweb', ">= 1.2.6"
-gem 'crack', ">= 0.1.4"
-gem 'mocha', ">= 0.9.8"
-
 require 'shoulda'
 require 'fakeweb'
-require 'Crack'
-require 'mocha'
+require 'mocha/setup'
 require 'ruby-prof'
-
-FakeWeb.allow_net_connect = false
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
@@ -20,6 +19,7 @@ require 'vimeo'
 
 class Test::Unit::TestCase
   def setup
+    FakeWeb.allow_net_connect = false
     FakeWeb.clean_registry
   end
 end
