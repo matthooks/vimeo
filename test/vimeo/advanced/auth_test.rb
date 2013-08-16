@@ -15,7 +15,7 @@ class AuthTest < Test::Unit::TestCase
       stub_custom_get("/oauth/request_token", "advanced/auth/request_token.txt")
       token = @auth.get_request_token
       assert_equal true, token.callback_confirmed?
-      assert_equal "http://vimeo.com/oauth/authorize?oauth_token=#{TOKEN}", token.authorize_url
+      assert_equal "https://vimeo.com/oauth/authorize?oauth_token=#{TOKEN}", token.authorize_url
     end
 
     should "receive the user's credentials after checking the OAuth token" do

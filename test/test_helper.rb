@@ -31,7 +31,7 @@ def fixture_file(filename)
 end
 
 def vimeo_base_url(url = "/")
-  "http://vimeo.com#{url}"
+  "https://vimeo.com#{url}"
 end
 
 def vimeo_url(url = "")
