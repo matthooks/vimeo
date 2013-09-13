@@ -7,14 +7,14 @@ module Vimeo
       autoload :Chunk,        'vimeo/advanced/simple_upload/chunk'
 
       # Uploads data (IO streams or files) to Vimeo.
-      def upload(uploadable)
+      def upload(uploadable, size = 0)
         case uploadable
         when File, Tempfile
           upload_file(uploadable)
         when String
           upload_file(File.new(uploadable))
         else
-          upload_io(uploadable)
+          upload_io(uploadable, size)
         end
       end
 
