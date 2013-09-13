@@ -12,14 +12,14 @@ module Vimeo
       end
 
       # Uploads data (IO streams or files) to Vimeo.
-      def upload(uploadable)
+      def upload(uploadable, *args)
         case uploadable
         when File, Tempfile
           upload_file(uploadable)
         when String
           upload_file(File.new(uploadable))
         else
-          upload_io(uploadable)
+          upload_io(uploadable, *args)
         end
       end
 
