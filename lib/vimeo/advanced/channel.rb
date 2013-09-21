@@ -33,8 +33,9 @@ module Vimeo
       create_api_method :get_videos,
                         "vimeo.channels.getVideos",
                         :required => [:channel_id],
-                        :optional => [:page, :per_page, :full_response]
+                        :optional => [:page, :per_page, :full_response],
                         
+                        :authorized => false
       # Removes a video from a channel.
       create_api_method :remove_video,
                         "vimeo.channels.removeVideo",
