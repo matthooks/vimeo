@@ -168,7 +168,7 @@ Some methods have optional variables. Pass these as a hash at the end of a call.
     album.get_videos("album_id", { :page => "1", :per_page => "25", :full_response => "0", :password => nil })
     album.remove_video("album_id", "video_id")
     album.set_description("album_id", "description")
-    album.get_password("album_id", "password")
+    album.set_password("album_id", "password")
     album.get_title("album_id", "title")
 
 ### Vimeo::Advanced::Base
