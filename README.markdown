@@ -8,19 +8,12 @@ This gem implements a full-featured Ruby interface for the Vimeo API v2.
 
 For a more in depth look at the API check out [Vimeo's Simple API Documentation](http://www.vimeo.com/api/docs/simple-api) or [Vimeo's Advanced API Documentation](http://www.vimeo.com/api/docs/advanced-api). I would also recommend checking out the [API Forums](http://www.vimeo.com/forum:api) if things aren't working as they should.
 
-## Install
+## Getting Started
+To install Vimeo, add the gem to your Gemfile
 
-First, install [Gemcutter](http://gemcutter.org), then:
+    gem 'vimeo'
 
-    sudo gem install vimeo
-
-If you're using Rails, add the following to your environment.rb file:
-
-    config.gem "vimeo"
-
-Or for bundler:
-
-gem 'vimeo'
+make sure to `bundle` afterwards. If you're not using bundler then `gem install vimeo`
 
 ## How to Use
 
