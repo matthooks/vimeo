@@ -1,4 +1,5 @@
 # rspec extensions
+require 'rspec/its'
 require "vcr"
 require "webmock"
 
