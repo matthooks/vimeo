@@ -28,7 +28,7 @@ module Vimeo
 
     protected
     def user_agent
-      "ruby-vimeo/#{Vimeo::Version} (https://github.com/matthooks/vimeo)"
+      "ruby-vimeo/#{Vimeo::VERSION} (https://github.com/matthooks/vimeo)"
     end
 
     def headers
