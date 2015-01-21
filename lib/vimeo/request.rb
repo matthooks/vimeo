@@ -32,7 +32,7 @@ module Vimeo
     end
 
     def headers
-      Hash["User-Agent", user_agent, "Authorization", "bearer #{client.auth_token}"]
+      Hash["User-Agent", user_agent, "Authorization", "bearer #{@client.access_token}"]
     end
   end
 end
