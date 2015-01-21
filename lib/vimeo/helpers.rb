@@ -5,7 +5,7 @@ module Vimeo
     end
 
     def perform_request(method, path, options)
-      Vimeo::Request.new(method, path, options).perform
+      Vimeo::Request.new(self, method, path, options).perform
     end
 
     def perform_request_with_object(method, path, options, klass)
