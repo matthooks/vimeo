@@ -1,7 +1,6 @@
 # rspec extensions
 require 'rspec/its'
 require "vcr"
-require "webmock"
 
 # support files
 require "support/vcr"
@@ -13,7 +12,7 @@ require "vimeo"
 # Most requests should already be recorded with VCR so it shouldn't be
 # nessesary to change this value. If there is a request not recorded in
 # VCR then edit this to the access token given by Vimeo.
-$vimeo_access_token = 'ah'
+$vimeo_access_token = '410a277e3d688943bd398fda8b781b09'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
