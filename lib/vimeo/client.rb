@@ -24,5 +24,9 @@ module Vimeo
       end
       yield self if block_given?
     end
+
+    def access_token?
+      !!(access_token)
+    end
   end
 end
