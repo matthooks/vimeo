@@ -1,5 +1,5 @@
 module Vimeo
-  module Entites
+  module Entities
     class Category < Vimeo::Base
 
       ##
