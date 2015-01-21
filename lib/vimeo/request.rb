@@ -23,7 +23,6 @@ module Vimeo
     def perform
       # make and parse the response from Vimeo
       response = @conn.public_send(@method, @path, @options, headers)
-      byebug
     end
 
     protected
