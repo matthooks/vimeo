@@ -1,7 +1,7 @@
 module Vimeo
   module Helpers
     def perform_get_with_object(path, options, klass)
-      perform_request_with_object(:GET, path, options, klass)
+      perform_request_with_object(:get, path, options, klass)
     end
 
     def perform_request(method, path, options)
