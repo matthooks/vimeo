@@ -1,6 +1,7 @@
 require "vimeo/version"
 require "vimeo/request"
 require "vimeo/helpers"
+require "vimeo/base"
 require "vimeo/entities/category"
 require "Vimeo/entities/channel"
 require "Vimeo/entities/group"
