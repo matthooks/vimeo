@@ -1,4 +1,6 @@
 require "vimeo/version"
+require "vimeo/headers"
+require "vimeo/response"
 require "vimeo/request"
 require "vimeo/helpers"
 require "vimeo/base"
