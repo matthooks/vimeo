@@ -1,7 +1,6 @@
-module Vimeo
-  class Base
+require "hashie"
 
-    def intialize
-    end
+module Vimeo
+  class Base < ::Hashie::Mash
   end
 end
