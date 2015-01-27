@@ -29,5 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-its", "~> 1.1"
   spec.add_development_dependency "vcr", "~> 2.9"
   spec.add_development_dependency "webmock", "~> 1.20"
+  spec.add_development_dependency "byebug"
 end
 
