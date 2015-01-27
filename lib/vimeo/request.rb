@@ -1,9 +1,13 @@
 require "faraday"
 
 module Vimeo
+  ##
+  #
   class Request
     BASE = "https://api.vimeo.com"
 
+    ##
+    #
     def initialize(client, method, path, options = {})
       # set our dependencies
       @client, @method, @path, @options = client, method, path, options
@@ -12,7 +16,7 @@ module Vimeo
       # if it hasn't been set
       raise Vimeo::AccessTokenNotSet unless @client.access_token?
 
-      # create a new faraday instance to use as our HTTP client to Vimeo
+      # create a new faraday instance to use as our HTTP client
       @conn = Faraday.new(url: BASE) do |faraday|
         faraday.request  :url_encoded             # form-encode POST params
         faraday.response :logger                  # log requests to STDOUT
@@ -21,17 +25,11 @@ module Vimeo
     end
 
     def perform
+      # construct the headers for the requset for given params
+      headers  = Vimeo::Headers.new(@client).request_headers
       # make and parse the response from Vimeo
       response = @conn.public_send(@method, @path, @options, headers)
-    end
-
-    protected
-    def user_agent
-      "ruby-vimeo/#{Vimeo::VERSION} (https://github.com/matthooks/vimeo)"
-    end
-
-    def headers
-      Hash["User-Agent", user_agent, "Authorization", "bearer #{@client.access_token}"]
+      Vimeo::Response.new(response).parse_response_or_fail
     end
   end
 end
