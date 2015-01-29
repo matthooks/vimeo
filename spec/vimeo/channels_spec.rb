@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Vimeo::Categories do
+describe Vimeo::Channels do
 
   let(:client) do
     Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }
