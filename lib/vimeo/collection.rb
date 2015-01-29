@@ -1,5 +1,5 @@
 module Vimeo
-  class Collection < Array
+  class Collection
     def initialize items, options = {}
       @items = items
     end
