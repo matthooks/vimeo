@@ -5,6 +5,7 @@ module Vimeo
     include Vimeo::Categories
     include Vimeo::Channels
     include Vimeo::Groups
+    include Vimeo::Tags
 
     # Vimeo access token (see: https://developer.vimeo.com/apps)
     attr_accessor :access_token
