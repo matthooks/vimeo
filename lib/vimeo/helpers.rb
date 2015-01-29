@@ -17,11 +17,18 @@ module Vimeo
       end
     end
 
-    def build_collection_from_response response, klass
-      raw_items = response[:data]
+    def build_collection_from_response(response, klass)
+      raw_items = response.fetch(:data)
       items = raw_items.collect do |i|
         klass.new i
       end
+
+      keys    = [:page, :per_page, :pages]
+      values  = response.values_at(:page, :per_page, :paging)
+
+      options = Hash[keys.zip(values)]
+
+      Vimeo::Collection.new(items, options)
     end
 
     def response_is_collection? response
