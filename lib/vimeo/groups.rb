@@ -1,11 +1,11 @@
 module Vimeo
   module Groups
     def groups options = {}
-      get_request_with_object("/channels.json", options, Vimeo::Entities::Category)
+      perform_get_with_object("/groups", options, Vimeo::Entities::Group)
     end
 
     def group id, options = {}
-      get_request_with_object("/channels/#{id}.json", options, Vimeo::Entities::Category)
+      perform_get_with_object("/groups/#{id}", options, Vimeo::Entities::Group)
     end
   end
 end
