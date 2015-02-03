@@ -17,6 +17,10 @@ module Vimeo
     def num_pages
     end
 
-    protected
+    private
+    # delegate any missing methods to @items
+    def method_missing(meth, *args, &block)
+      @items.__send__(meth, *args, &block)
+    end
   end
 end
