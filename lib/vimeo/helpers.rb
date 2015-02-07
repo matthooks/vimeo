@@ -5,7 +5,8 @@ module Vimeo
     end
 
     def perform_request(method, path, options)
-      Vimeo::Request.new(self, method, path, options).perform
+      client = get_client_object
+      Vimeo::Request.new(client, method, path, options).perform
     end
 
     def perform_request_with_object(method, path, options, klass)
@@ -20,7 +21,7 @@ module Vimeo
     def build_collection_from_response(response, klass)
       raw_items = response.fetch(:data)
       items = raw_items.collect do |i|
-        klass.new i
+        klass.new self, i
       end
 
       keys    = [:page, :per_page, :pages]
@@ -33,6 +34,10 @@ module Vimeo
 
     def response_is_collection? response
       !!response.include?(:page)
+    end
+
+    def get_client_object
+      @client || self
     end
   end
 end
