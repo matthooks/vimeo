@@ -4,6 +4,14 @@ module Vimeo
       perform_request_with_object(:get, path, options, klass)
     end
 
+    def perform_patch(path, options)
+      perform_request(:patch, path, options)
+    end
+
+    def perform_post(path, options)
+      perform_request(:post, path, options)
+    end
+
     def perform_request(method, path, options)
       client = get_client_object
       Vimeo::Request.new(client, method, path, options).perform
