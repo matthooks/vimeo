@@ -29,11 +29,6 @@ module Vimeo
       # Delete a channel
       def delete
       end
-
-      private
-      def get_id
-        id || uri.match(/(\d+)/)[0]
-      end
     end
   end
 end

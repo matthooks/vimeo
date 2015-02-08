@@ -6,5 +6,10 @@ module Vimeo
       @client = client
       super attrs
     end
+
+    private
+    def get_id
+      id || uri.match(/(\d+)/)[0]
+    end
   end
 end
