@@ -9,7 +9,7 @@ module Vimeo
 
     private
     def get_id
-      id || uri.match(/(\d+)/)[0]
+      id || uri.match(/(\d+)/).captures.first
     end
   end
 end
