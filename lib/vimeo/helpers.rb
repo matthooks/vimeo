@@ -4,6 +4,10 @@ module Vimeo
       perform_request_with_object(:get, path, options, klass)
     end
 
+    def perform_get(path, options)
+      perform_request(:get, path, options)
+    end
+
     def perform_patch(path, options)
       perform_request(:patch, path, options)
     end
