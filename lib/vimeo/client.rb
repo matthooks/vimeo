@@ -2,11 +2,11 @@ module Vimeo
   ##
   # This class provides the public APIs' used to interface with the Vimeo API
   class Client
-    include Vimeo::Categories
-    include Vimeo::Channels
-    include Vimeo::Groups
-    include Vimeo::Tags
-    include Vimeo::Me
+    include Vimeo::Endpoints::Categories
+    include Vimeo::Endpoints::Channels
+    include Vimeo::Endpoints::Groups
+    include Vimeo::Endpoints::Tags
+    include Vimeo::Endpoints::Me
 
     # Vimeo access token (see: https://developer.vimeo.com/apps)
     attr_accessor :access_token

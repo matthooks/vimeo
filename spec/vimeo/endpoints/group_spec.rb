@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Vimeo::Groups do
+describe Vimeo::Endpoints::Groups do
 
   let(:client) do
     Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }

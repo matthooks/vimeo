@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.vimeo.com/categories/1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Ruby-Vimeo/2.0.0 (https://github.com/matthooks/vimeo)
+      Authorization:
+      - "<ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 401
+      message: Authorization Required
+    headers:
+      Date:
+      - Mon, 16 Mar 2015 11:54:42 GMT
+      Server:
+      - nginx
+      Content-Type:
+      - application/vnd.vimeo.error+json
+      Cache-Control:
+      - no-cache, max-age=315360000
+      Www-Authenticate:
+      - Bearer error="invalid_token"
+      Expires:
+      - Thu, 13 Mar 2025 11:54:42 GMT
+      Content-Length:
+      - '66'
+      Accept-Ranges:
+      - bytes
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-syd1620-SYD
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1426506881.949684,VS0,VE261
+      Vary:
+      - Accept,Vimeo-Client-Id,Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":"A valid user token must be passed."}'
+    http_version: 
+  recorded_at: Mon, 16 Mar 2015 11:54:42 GMT
+recorded_with: VCR 2.9.3
