@@ -47,4 +47,18 @@ describe Vimeo::Entities::Category do
       expect(subject.first).to be_a_kind_of(Vimeo::Entities::Video)
     end
   end
+
+  describe '#has_video?', :vcr do
+    context 'video exists' do
+      it 'is true' do
+        expect(category.video_exists?(1084537)).to eq true # Video is Big Buck Bunny
+      end
+    end
+
+    context 'video doesn\'t exist' do
+      it 'is false' do
+        expect(category.video_exists?(0)).to eq false
+      end
+    end
+  end
 end
