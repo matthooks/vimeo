@@ -30,7 +30,7 @@ module Vimeo
       ##
       # Check if a category contains a video
       def has_video? video_id
-        !!perform_get("/categories/#{name}/videos/#{video_id}", {})
+        perform_get_with_object("categories/#{name}/videos/#{video_id}", {}, Vimeo::Entities::Video)
       end
     end
   end

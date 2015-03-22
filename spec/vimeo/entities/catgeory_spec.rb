@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe Vimeo::Entities::Category do
 
-  let(:client) do
-    Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }
-  end
-
+  let(:client) { Vimeo::Client.new access_token: $vimeo_access_token }
   let(:category) { Vimeo::Entities::Category.new client, name: 'animation' }
 
   describe '#channel', :vcr do
@@ -48,17 +45,15 @@ describe Vimeo::Entities::Category do
     end
   end
 
-  describe '#has_video?', :vcr do
-    context 'video exists' do
-      it 'is true' do
-        expect(category.video_exists?(1084537)).to eq true # Video is Big Buck Bunny
-      end
+  describe '#has_video?' do
+    context 'it exists' do
+      subject { category.has_video?(1084537) }
+      it { is_expected.to be_a_kind_of Vimeo::Entities::Video }
     end
 
-    context 'video doesn\'t exist' do
-      it 'is false' do
-        expect(category.video_exists?(0)).to eq false
-      end
+    context 'video exists' do
+      subject { category.has_video(0) }
+      it { is_expected.to be nil }
     end
   end
 end
