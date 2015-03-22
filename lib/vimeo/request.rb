@@ -14,7 +14,7 @@ module Vimeo
 
       # we're required to have the access token now so raise an exception
       # if it hasn't been set
-      raise Vimeo::AccessTokenNotSet unless @client.access_token?
+      raise Vimeo::Error::AccessTokenNotSet unless @client.access_token?
 
       # create a new faraday instance to use as our HTTP client
       @conn = Faraday.new(url: BASE) do |faraday|
