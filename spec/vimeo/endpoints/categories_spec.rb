@@ -17,7 +17,7 @@ describe Vimeo::Endpoints::Categories do
   end
 
   describe '.category', :vcr do
-    subject { client.category 1 }
+    subject { client.category 'animation' }
 
     it { is_expected.to be_a_kind_of(Vimeo::Entities::Category) }
   end

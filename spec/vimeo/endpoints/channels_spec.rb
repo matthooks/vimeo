@@ -17,7 +17,7 @@ describe Vimeo::Endpoints::Channels do
   end
 
   describe '.channel', :vcr do
-    subject { client.channel 1 }
+    subject { client.channel 'staffpicks' }
 
     it { is_expected.to be_a_kind_of(Vimeo::Entities::Channel) }
   end
