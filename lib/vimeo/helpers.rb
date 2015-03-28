@@ -1,3 +1,5 @@
+require 'uri'
+
 module Vimeo
   module Helpers
     def perform_get_with_object(path, options, klass)
@@ -9,11 +11,13 @@ module Vimeo
     end
 
     def perform_patch(path, options)
-      perform_request(:patch, path, options)
+      body = JSON.generate(options)
+      perform_request(:patch, path, encoded_options)
     end
 
     def perform_post(path, options)
-      perform_request(:post, path, options)
+      encoded_options = JSON.generate(options)
+      perform_request(:post, path, encoded_options)
     end
 
     def perform_request(method, path, options)
