@@ -8,7 +8,8 @@ module Vimeo
       headers = {}
       headers[:user_agent]    = user_agent
       headers[:authorization] = authorization
-      headers[:content_type]  = 'application/vnd.vimeo.video+json'
+      headers[:content_type]  = 'application/json'
+      headers[:accept]        = 'application/vnd.vimeo.*+json;version=3.2'
       headers
     end
 
