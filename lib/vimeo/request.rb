@@ -18,7 +18,6 @@ module Vimeo
 
       # create a new faraday instance to use as our HTTP client
       @conn = Faraday.new(url: BASE) do |faraday|
-        faraday.request  :url_encoded             # form-encode POST params
         faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
       end
     end
