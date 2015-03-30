@@ -3,6 +3,14 @@ module Vimeo
     class Channel < Vimeo::Base
       include Vimeo::Helpers
 
+      class << self
+        def create client, options = {}
+          instance = new(client, options)
+          instance.perform_post("/channels", options)
+          instance
+        end
+      end
+
       ##
       # Get a list of the users who follow the channel
       def users options = {}
@@ -17,17 +25,14 @@ module Vimeo
 
       ##
       # Edit a channel's information
-      def update
-      end
-
-      ##
-      # Create a new channel
-      def create
+      def update options = {}
+        perform_post("/channels/#{get_id}", options)
       end
 
       ##
       # Delete a channel
       def delete
+        perform_delete("/channels/#{get_id}")
       end
     end
   end

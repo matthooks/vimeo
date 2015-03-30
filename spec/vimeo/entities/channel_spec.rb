@@ -27,4 +27,12 @@ describe Vimeo::Entities::Channel do
       expect(subject.first).to be_a_kind_of(Vimeo::Entities::Video)
     end
   end
+
+  describe '.create' do
+    let(:options) { { name: 'test', description: 'test', privacy: 'users'} }
+    subject { Vimeo::Entities::Channel.create client, options }
+
+    it { is_expected.to be_a_kind_of described_class }
+  end
+
 end
