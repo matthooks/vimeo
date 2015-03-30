@@ -14,6 +14,10 @@ module Vimeo
       perform_request(:patch, path, options)
     end
 
+    def perform_put(path, options)
+      perform_request(:put, path, options)
+    end
+
     def perform_delete(path, options = {})
       perform_request(:delete, path, options)
     end

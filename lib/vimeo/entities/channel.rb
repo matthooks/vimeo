@@ -25,14 +25,32 @@ module Vimeo
 
       ##
       # Edit a channel's information
-      def update options = {}
-        perform_post("/channels/#{get_id}", options)
+      def update options
+        perform_patch("/channels/#{get_id}", options)
       end
 
       ##
       # Delete a channel
       def delete
-        !!perform_delete("/channels/#{get_id}")
+        !!perform_delete("/channels/#{get_id}", )
+      end
+
+      ##
+      # Check if the channel contains a video.
+      def has_video? video_id
+        !!perform_get("/channels/#{get_id}/videos/#{video_id}")
+      end
+
+      ##
+      # Add a video to a Channel
+      def add_video video_id
+        !!perform_put("/channels/#{get_id}/videos/#{video_id}")
+      end
+
+      ##
+      # Remove a video from a Channel
+      def remove_video video_id
+        !!perform_delete("/channels/#{channel_id}/videos/#{video_id}")
       end
     end
   end
