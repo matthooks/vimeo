@@ -32,7 +32,7 @@ module Vimeo
       ##
       # Delete a channel
       def delete
-        perform_delete("/channels/#{get_id}")
+        !!perform_delete("/channels/#{get_id}")
       end
     end
   end

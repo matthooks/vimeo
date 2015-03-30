@@ -6,7 +6,7 @@ describe Vimeo::Entities::Channel do
     Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }
   end
 
-  let(:channel) { Vimeo::Entities::Channel.new client, id: 873758 }
+  let(:channel) { Vimeo::Entities::Channel.new client, id: 898459 }
 
   describe '#users', :vcr do
     subject { channel.users }
@@ -35,4 +35,8 @@ describe Vimeo::Entities::Channel do
     it { is_expected.to be_a_kind_of described_class }
   end
 
+  describe '#delete' do
+    subject { channel.delete }
+    it { is_expected.to be true }
+  end
 end

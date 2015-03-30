@@ -3,7 +3,7 @@ require 'uri'
 module Vimeo
   module Helpers
     def perform_get_with_object(path, options, klass)
-      perform_request_with_object(:get, path, options, klass)
+      perform_request_with_object :get, path, options, klass
     end
 
     def perform_get(path, options)
@@ -11,18 +11,21 @@ module Vimeo
     end
 
     def perform_patch(path, options)
-      body = JSON.generate(options)
-      perform_request(:patch, path, encoded_options)
+      perform_request(:patch, path, options)
+    end
+
+    def perform_delete(path, options = {})
+      perform_request(:delete, path, options)
     end
 
     def perform_post(path, options)
-      encoded_options = JSON.generate(options)
-      perform_request(:post, path, encoded_options)
+      perform_request(:post, path, options)
     end
 
     def perform_request(method, path, options)
       client = get_client_object
-      Vimeo::Request.new(client, method, path, options).perform
+      encoded_options = encoded_options(options)
+      Vimeo::Request.new(client, method, path, encoded_options).perform
     end
 
     def perform_request_with_object(method, path, options, klass)
@@ -54,6 +57,10 @@ module Vimeo
 
     def get_client_object
       @client || self
+    end
+
+    def encode_params params
+      JSON.generate(options)
     end
   end
 end
