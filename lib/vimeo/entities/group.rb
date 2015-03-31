@@ -37,10 +37,14 @@ module Vimeo
         !!perform_get("/groups/#{get_id}/videos/#{video_id}")
       end
 
+      ##
+      # Add a video to a Group.
       def add_video video_id
         !!perform_put("/groups/#{get_id}/videos/#{video_id}")
       end
 
+      ##
+      # Remove a video from a Group.
       def remove_video video_id
         !!perform_delete("/groups/#{get_id}/videos/#{video_id}")
       end
