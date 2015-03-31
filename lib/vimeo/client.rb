@@ -6,6 +6,7 @@ module Vimeo
     include Vimeo::Endpoints::Channels
     include Vimeo::Endpoints::Groups
     include Vimeo::Endpoints::Tags
+    include Vimeo::Endpoints::Users
     include Vimeo::Endpoints::Me
 
     # Vimeo access token (see: https://developer.vimeo.com/apps)
