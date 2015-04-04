@@ -1,20 +1,20 @@
 module Vimeo
   class Collection
-    def initialize items, options = {}
-      @items = items
-    end
+    include Vimeo::Helpers
 
-    def [](i)
-      @items[i]
+    def initialize client, items, klass, options = {}
+      @client, @items, @klass, @options = client, items, klass, options
     end
 
     def next_page
+      page = @options[:pages][:next]
+      false if page.nil?
+      perform_get_with_object(page, {}, @klass)
     end
 
     def previous_page
-    end
-
-    def num_pages
+      page = @options[:pages][:previous]
+      perform_get_with_object(page, {}, @klass)
     end
 
     private
