@@ -28,7 +28,7 @@ module Vimeo
 
     def perform_request(method, path, options)
       client = get_client_object
-      encoded_options = encoded_options(options)
+      encoded_options = encode_params(options)
       Vimeo::Request.new(client, method, path, encoded_options).perform
     end
 
@@ -64,7 +64,7 @@ module Vimeo
     end
 
     def encode_params params
-      JSON.generate(options)
+      JSON.generate(params)
     end
   end
 end
