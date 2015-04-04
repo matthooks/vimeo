@@ -41,6 +41,7 @@ module Vimeo
     end
 
     def build_collection_from_response(response, klass)
+      client = get_client_object
       raw_items = response.fetch(:data)
       items = raw_items.collect do |i|
         klass.new self, i
@@ -51,7 +52,7 @@ module Vimeo
 
       options = Hash[keys.zip(values)]
 
-      Vimeo::Collection.new(items, options)
+      Vimeo::Collection.new(client, items, klass, options)
     end
 
     def response_is_collection? response
