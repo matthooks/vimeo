@@ -176,6 +176,90 @@ module Vimeo
       end
 
       ##
+      # Create a new picture resource.
+      def create_picture
+        perform_post("/users/#{get_id}/pictures")
+      end
+
+      ##
+      # Check if a user has a portrait.
+      def has_picture? picture_id
+        perform_get("/users/#{get_id}/pictures/#{picture_id}")
+      end
+
+      ##
+      # Edit a portrait.
+      def edit_picture picture_id, options = {}
+        perform_patch("/users/#{get_id}/pictures/#{picture_id}", options)
+      end
+
+      ##
+      # Get a list of Portfolios created by a user.
+      def portfolios options = {}
+        perform_get("/users/#{get_id}/portfolios")
+      end
+
+      ##
+      # Get a Portfolio.
+      def portfolio portfolio_id, options = {}
+        perform_get("/users/#{get_id}/portfolios/#{portfolio_id}")
+      end
+
+      ##
+      # Get the videos in this Portfolio.
+      def portfilio_videos portfolio_id, options = {}
+        perform_get("/users/#{get_id}/portfolios/#{portfolio_id}/videos")
+      end
+
+      ##
+      # Check if a Portfolio contains a video.
+      def portfolio_has_video? portfolio_id, video_id
+        perform_get("/users/#{get_id}/portfolios/#{portfolio_id}/videos/#{video_id}")
+      end
+
+      ##
+      # Add a video to the Portfolio
+      def add_video_to_portfolio portfolio_id, video_id
+        perform_put("/users/#{get_id}/portfolio/#{portfolio_id}/videos/#{video_id}")
+      end
+
+      ##
+      # Remove a video from the Portfolio.
+      def remove_video_from_portfolio portfolio_id, video_id
+        perform_delete("/users/#{get_id}/portfoilio/#{portfolio_id}/videos/#{video_id}")
+      end
+
+      ##
+      # Get all presets created by the authenticated user.
+      def presets options = {}
+        perform_get("/users/#{get_id}/presets")
+      end
+
+      ##
+      # Get a preset.
+      def preset preset_id
+        perform_get("/users/#{get_id}/presets/#{preset_id}")
+      end
+
+      ##
+      # Edit a preset.
+      def edit_preset preset_id, attributes
+        perform_patch("/usres/#{get_id}/presets/#{preset_id}")
+      end
+
+      ##
+      # Get videos that have the provided preset.
+      def preset_videos preset_id
+        perform_get("/users/#{get_id}/presets/#{preset_id}/videos")
+      end
+  
+      ##
+      # Get a list of videos uploaded by a user.
+      def videos options = {}
+        perform_get("/users/#{get_id}/videos", options)
+      end
+
+      ##
       # Get a list of the users that a user is following.
       def following
         perform_get_with_object("/users/#{get_id}/following", options, Vimeo::Entities::User)
