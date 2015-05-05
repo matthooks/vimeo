@@ -100,6 +100,91 @@ module Vimeo
       ##
       # Check if a video has a specific comment
       def has_comment? comment_id
+        perform_get("/videos/#{get_id}/comments/#{comment_id}")
+      end
+
+      def edit_comment attributes
+        perform_patch("/videos/#{get_id}/comments/#{comment_id}", attributes)
+      end
+
+      def delete_comment comment_id
+        perform_delete("/videos/#{get_id}/comments/#{comment_id}")
+      end
+
+      def comment_replies comment_id
+        perform_get("/videos/#{get_id}/comments/#{comment_id}/replies")
+      end
+
+      def reply_to_comment comment_id, attributes
+        perform_post("/videos/#{get_id}/comments/#{comment_id}", attributes)
+      end
+
+      def pictures
+        perform_get("/videos/#{get_id}/pictures")
+      end
+
+      def add_picture attributes
+        perform_post("/videos/#{get_id}/pictures", pictures)
+      end
+
+      def picture picture_id
+        perform_get("/videos/#{get_id}/pictures/#{picture_id}")
+      end
+
+      def modify_picture picture_id, attributes 
+        perform_patch("/videos/#{get_id}/pictures/#{picture_id}", attributes)
+      end
+
+      def delete_picture picture_id
+        perform_delete("/videos/#{get_id}/pictures/#{picture_id}")
+      end
+
+      def likes options = {}
+        perform_get("/videos/#{get_id}/likes", options)
+      end
+
+      def presets preset_id
+        perform_get("/videos/#{get_id}/presets/#{preset_id}")
+      end
+
+      def tags
+        perform_get("/videos/#{get_id}/tags")
+      end
+
+      def has_tag? word
+        perform_get("/videos/#{get_id}/tags/#{word}")
+      end
+
+      def add_tag word
+        perform_put("/videos/#{get_id}/tags/#{word}")
+      end
+
+      def delete_tag word
+        perform_put("/videos/#{get_id}/tags/#{word}")
+      end
+
+      def users
+        perform_get("/videos/#{get_id}/privacy/users")
+      end
+
+      def add_user user_id
+        perform_put("/vidoes/#{get_id}/privacy/users/#{user_id}")
+      end
+
+      def remove_user user_id
+        perform_delete("/videos/#{get_id}/privacy/users/#{user_id}")
+      end
+
+      def embed_domains embed_id
+        perform_get("/videos/#{get_id}/privacy/domains/#{embed_id}")
+      end
+
+      def add_embed_domain domain
+        perform_put("/videos/#{get_id}/privacy/domains/#{domain}")
+      end
+
+      def remove_embed_domain domain
+        perform_delete("/videos/#{get_id}/privacy/domains/#{domain}")
       end
     end
   end
