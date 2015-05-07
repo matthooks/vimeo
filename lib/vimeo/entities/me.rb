@@ -162,6 +162,14 @@ module Vimeo
         perform_get_with_object("/me/videos", options, Vimeo::Entities::Video)
       end
 
+      def new_video attributes
+        perform_post("/me/videos", attributes)
+      end
+
+      def has_video? video_id
+        perform_get("/me/videos/#{video_id}", {})
+      end
+
       def watch_later options = {}
         perform_get_with_object("/me/watchlater", options, Vimeo::Entities::Video)
       end

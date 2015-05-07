@@ -1,6 +1,10 @@
 module Vimeo
   module Entities
     class Video < Vimeo::Base
+      def replace attributes
+        perform_put("/videos/#{get_id}", attributes)
+      end
+
       ##
       # Get a list of users credited on a video.
       def credits
