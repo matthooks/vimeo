@@ -1,6 +1,15 @@
 module Vimeo
   module Entities
     class Video < Vimeo::Base
+
+      def edit attributes
+        perform_patch("/videos/#{get_id}", attributes)
+      end
+
+      def delete
+        perform_delete("/videos/#{get_id}", attributes)
+      end
+
       def replace attributes
         perform_put("/videos/#{get_id}", attributes)
       end
