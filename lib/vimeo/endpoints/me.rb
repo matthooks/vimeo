@@ -6,7 +6,7 @@ module Vimeo
       ##
       # Get the current user
       def me
-        perform_get_with_object("/me", {}, Vimeo::Entities::User)
+        perform_get_with_object("/me", {}, Vimeo::Entities::Me)
       end
     end
   end

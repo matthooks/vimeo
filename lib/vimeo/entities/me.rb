@@ -1,6 +1,7 @@
 module Vimeo
   module Entities
-    class Me < Vimeo::User
+    class Me < Vimeo::Base
+      include Vimeo::Helpers
 
       def update attributes
         perform_patch("/me", attributes)

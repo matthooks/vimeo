@@ -8,6 +8,7 @@ module Vimeo
     include Vimeo::Endpoints::Tags
     include Vimeo::Endpoints::Users
     include Vimeo::Endpoints::Me
+    include Vimeo::Upload
 
     # Vimeo access token (see: https://developer.vimeo.com/apps)
     attr_accessor :access_token
