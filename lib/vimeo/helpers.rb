@@ -41,6 +41,11 @@ module Vimeo
       end
     end
 
+    def post_upload file, ticket
+	request = { file_data: file }
+	perform_post(ticket.uri, ticket)
+    end
+
     def build_collection_from_response(response, klass)
       client = get_client_object
       raw_items = response.fetch(:data)
