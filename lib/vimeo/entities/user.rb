@@ -256,7 +256,7 @@ module Vimeo
       ##
       # Get a list of videos uploaded by a user.
       def videos options = {}
-        perform_get("/users/#{get_id}/videos", options)
+        perform_get_with_object("/users/#{get_id}/videos", options, Vimeo::Entities::Video)
       end
 
       ##
