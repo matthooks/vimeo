@@ -25,16 +25,6 @@ describe Vimeo::Entities::Category do
     end
   end
 
-  describe '#users', :vcr do
-    subject { category.users }
-
-    it { is_expected.to be_a_kind_of(Vimeo::Collection) }
-
-    it 'has a collection of users' do
-      expect(subject.first).to be_a_kind_of(Vimeo::Entities::User)
-    end
-  end
-
   describe '#videos', :vcr do
     subject { category.videos }
 
@@ -45,7 +35,7 @@ describe Vimeo::Entities::Category do
     end
   end
 
-  describe '#has_video?' do
+  describe '#has_video?', :vcr do
     context 'it exists' do
       subject { category.has_video?(1084537) }
       it { is_expected.to be_a_kind_of Vimeo::Entities::Video }

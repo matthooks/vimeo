@@ -112,7 +112,7 @@ module Vimeo
       def has_video? video_id
         begin
           perform_get_with_object("categories/#{name}/videos/#{video_id}", {}, Vimeo::Entities::Video)
-        rescue Vimeo::NotFound
+        rescue Vimeo::Error::NotFound
           false
         end
       end
