@@ -32,7 +32,7 @@ module Vimeo
     end
 
     def perform_request_with_object(method, path, options, klass)
-	client = get_client_object
+      client = get_client_object
       response = perform_request(method, path, options)
       if response_is_collection? response
         build_collection_from_response(response, klass)
@@ -42,8 +42,8 @@ module Vimeo
     end
 
     def post_upload file, ticket
-	request = { file_data: file }
-	perform_post(ticket.uri, ticket)
+			request = { file_data: file }
+			perform_post(ticket.uri, ticket)
     end
 
     def build_collection_from_response(response, klass)
