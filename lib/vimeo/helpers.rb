@@ -6,7 +6,7 @@ module Vimeo
       perform_request_with_object :get, path, options, klass
     end
 
-    def perform_get(path, options)
+    def perform_get(path, options = {})
       perform_request(:get, path, options)
     end
 
