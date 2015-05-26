@@ -10,11 +10,11 @@ module Vimeo
       perform_request(:get, path, options)
     end
 
-    def perform_patch(path, options)
-      perform_request(:patch, path, options)
+    def perform_patch(path, body, options = {})
+      perform_request(:patch, path, options, body)
     end
 
-    def perform_put(path, options)
+    def perform_put(path, body, options = {})
       perform_request(:put, path, options)
     end
 
@@ -22,18 +22,18 @@ module Vimeo
       perform_request(:delete, path, options)
     end
 
-    def perform_post(path, options)
-      perform_request(:post, path, options)
+    def perform_post(path, body, options = {})
+      perform_request(:post, path, options, body)
     end
 
-    def perform_request(method, path, options)
+    def perform_request(method, path, options, body)
       client = get_client_object
-      Vimeo::Request.new(client, method, path, options).perform
+      Vimeo::Request.new(client, method, path, options, body).perform
     end
 
     def perform_request_with_object(method, path, options, klass)
       client = get_client_object
-      response = perform_request(method, path, options)
+      response = perform_request(method, path, options, {})
       if response_is_collection? response
         build_collection_from_response(response, klass)
       else
