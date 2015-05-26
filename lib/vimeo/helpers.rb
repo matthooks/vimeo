@@ -3,7 +3,7 @@ require 'uri'
 module Vimeo
   module Helpers
     def perform_get_with_object(path, options, klass)
-      perform_request_with_object :get, path, options, klass
+      perform_request_with_object(:get, path, options, klass)
     end
 
     def perform_get(path, options = {})
