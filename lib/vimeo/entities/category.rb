@@ -24,6 +24,7 @@ module Vimeo
 
       ##
       # Get a list of channels related to this category.
+      # *options:* a hash of search options
       # === options
       # [page]
       #  (int) The page number to show.
@@ -49,6 +50,7 @@ module Vimeo
 
       ##
       # Get a list of groups related to this category
+      # *options:*  a hash of serach options
       # === options
       # [page]
       #  (int) The page number to show.
@@ -74,6 +76,7 @@ module Vimeo
 
       ##
       # Get a list of videos related to this category
+      # *options:* a hash of search options
       # === options
       # [page]
       #  (int) The page number to show.
