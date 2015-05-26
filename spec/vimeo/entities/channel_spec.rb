@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe Vimeo::Entities::Channel do
 
-  let(:client) do
-    Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }
-  end
-
-  let(:channel) { Vimeo::Entities::Channel.new client, id: 898459 }
+  let(:channel_options) { { name: 'test channel', description: 'test description', privacy: 'anybody' } }
+  let(:client) { Vimeo::Client.new access_token: $vimeo_access_token }
+  let(:channel) { Vimeo::Entities::Channel.new client, id: 919982 }
 
   describe '#users', :vcr do
     subject { channel.users }
@@ -15,6 +13,7 @@ describe Vimeo::Entities::Channel do
 
     it 'has a collection of users' do
       expect(subject.first).to be_a_kind_of(Vimeo::Entities::User)
+      expect(subject.first.name).to_not be_empty
     end
   end
 
@@ -28,15 +27,20 @@ describe Vimeo::Entities::Channel do
     end
   end
 
-  describe '.create' do
-    let(:options) { { name: 'test', description: 'test', privacy: 'users'} }
-    subject { Vimeo::Entities::Channel.create client, options }
-
-    it { is_expected.to be_a_kind_of described_class }
+  describe '#delete', :vcr do
+    let(:channel) { Vimeo::Entities::Channel.create client, channel_options }
+    subject { channel.delete }
+    it { is_expected.to be true }
   end
 
-  describe '#delete' do
-    subject { channel.delete }
+  describe '#update' do
+    let(:channel) { Vimeo::Entities::Channel.create client, channel_options }
+    subject { channel.update name: 'test channel 123' }
+    it { is_expected.to be true }
+  end
+
+  describe '.create' do
+    subject { Vimeo::Entities::Channel.create client, channel_options }
     it { is_expected.to be true }
   end
 end
