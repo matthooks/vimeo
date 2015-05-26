@@ -33,13 +33,13 @@ describe Vimeo::Entities::Channel do
     it { is_expected.to be true }
   end
 
-  describe '#update' do
+  describe '#update', :vcr do
     let(:channel) { Vimeo::Entities::Channel.create client, channel_options }
     subject { channel.update name: 'test channel 123' }
     it { is_expected.to be true }
   end
 
-  describe '.create' do
+  describe '.create', :vcr do
     subject { Vimeo::Entities::Channel.create client, channel_options }
     it { is_expected.to be true }
   end
