@@ -6,8 +6,6 @@ module Vimeo
   ##
   #
   class Request
-    BASE = "https://api.vimeo.com"
-
     def initialize(client, method, path, params = {}, body)
       # set our dependencies
       @client, @method, @path, @params, @body = client, method, path, params, body
@@ -15,7 +13,7 @@ module Vimeo
       # if it hasn't been set
       raise Vimeo::Error::AccessTokenNotSet unless @client.access_token?
       # create a new faraday instance to use as our HTTP client
-      @conn = Faraday.new(url: BASE) do |faraday|
+      @conn = Faraday.new(url: @client.BASE) do |faraday|
         faraday.request  :multipart
         faraday.request  :url_encoded
         faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP

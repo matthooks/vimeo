@@ -1,3 +1,5 @@
+require "oauth2"
+
 module Vimeo
   ##
   # This class provides the public APIs' used to interface with the Vimeo API
@@ -10,8 +12,17 @@ module Vimeo
     include Vimeo::Endpoints::Me
     include Vimeo::Upload
 
+    BASE = "https://api.vimeo.com"
+
     # Vimeo access token (see: https://developer.vimeo.com/apps)
     attr_accessor :access_token
+
+    class << self
+      def NewOAuthRequest client_id, client_secret, state, scope = ["public"]
+        params = { scope: scope.join(' '), state: state }
+        OAuth2::Client.new(client_id, client_secret, site: BASE, connection_opts: { params: params })
+      end
+    end
 
     ##
     # Create a new Client object. You can either supply a hash of +options+
