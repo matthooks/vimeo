@@ -1,24 +1,90 @@
 module Vimeo
   module Entities
+    ##
+    # == Description
+    # This provides an interface to the +me+ resource
     class Me < Vimeo::Base
       include Vimeo::Helpers
 
+      ##
+      # Update the user's profile
+      #
+      # *attributes:* a hash of user attributes to update
+      #
+      # === attributes
+      # [name]
+      #   (string) The user's display name
+      # [location]
+      #   (string) The user's location
+      # [bio]
+      #   (string) The user's bio
       def update attributes
         perform_patch("/me", attributes)
       end
 
+      ##
+      # Get a list of the user's albums
+      #
+      # *options:* a hash of search options
+      #
+      # === options
+      # [page]
+      #   (integer) The page number to show.
+      # [per_page]
+      #   (integer) Number of items to show on each page. Max 50.
+      # [query]
+      #   (integer) Search query.
+      # [sort]
+      #   (string) Technique used to sort the results.
+      #   * date
+      #   * alphabetical
+      #   * videos
+      #   * duration
+      # [direction]
+      #   (string) The direction that the results are sorted.
+      #   * asc
+      #   * desc
       def albums options = {}
         perform_get("/me/albums", options)
       end
 
+      ##
+      # Create a new album
+      #
+      # *attributes:* a hash of the albumns properties
+      #
+      # === attributes
+      # [name]
+      #   (string) The Album title
+      # [description]
+      #   (string) The Album description
+      # [privacy]
+      #   (string) The Album's privacy level
+      # [password]
+      #   (string) Required if privacy=password. The Album's password
+      # [sort]
+      #   (string) The default sort order of an Album's videos
+      #   * arranged
+      #   * newest
+      #   * oldest
+      #   * plays
+      #   * comments
+      #   * likes
+      #   * added_first
+      #   * added_last
+      #   * alphabetical
       def create_album attributes
         perform_post("/me/albums", attributes)
       end
 
+      ##
+      # Get info on an album
       def album album_id
         perform_get("/me/albums/#{album_id}", {})
       end
 
+      ##
+      #
       def edit_album album_id, attributes
         perform_patch("/me/albums/#{album_id}", attributes)
       end
@@ -156,7 +222,7 @@ module Vimeo
       end
 
       def preset_videos preset_id
-        perform_get_with_object("/me/presets/#{preset_id}/videos", {}, Vimeo::Entities::Video) 
+        perform_get_with_object("/me/presets/#{preset_id}/videos", {}, Vimeo::Entities::Video)
       end
 
       def videos options = {}
@@ -176,7 +242,7 @@ module Vimeo
       end
 
       def watch_later_has_video? video_id
-        perform_get("/me/watchlater/#{video_id}", {}) 
+        perform_get("/me/watchlater/#{video_id}", {})
       end
 
       def add_video_to_watch_later video_id
@@ -184,7 +250,7 @@ module Vimeo
       end
 
       def remove_video_from_watch_later video_id
-        perform_delete("/me/watchlater/#{video_id}", {}) 
+        perform_delete("/me/watchlater/#{video_id}", {})
       end
 
       def on_demand_pages options = {}
