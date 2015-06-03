@@ -5,14 +5,24 @@ module Vimeo
 
       ##
       # Get a list of the top level categories
+      #
+      # *options:* a hash of serach options
+      #
+      # === options
+      # [page]
+      #   (integer) The page number to show.
+      # [per_page]
+      #   (integer) Number of items to show on each page. Max 50.
       def categories options = {}
         perform_get_with_object("/categories", options, Vimeo::Entities::Category)
       end
 
       ##
       # Get a category
-      def category id, options = {}
-        perform_get_with_object("/categories/#{id}", options, Vimeo::Entities::Category)
+      #
+      # *category:* the category's unique identifer (typically the name). ie: animation
+      def category category
+        perform_get_with_object("/categories/#{category_id}", {}, Vimeo::Entities::Category)
       end
     end
   end
