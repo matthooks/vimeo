@@ -31,7 +31,7 @@ module Vimeo
         [@method, @path, params, headers] : [@method, @path, @body, headers]
       # perform the request with faraday
       response = @conn.public_send *args
-      # parse the response2
+      # parse the response
       Vimeo::Response.new(response).parse_response_or_fail
     end
 

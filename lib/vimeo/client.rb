@@ -12,6 +12,7 @@ module Vimeo
     include Vimeo::Endpoints::Me
     include Vimeo::Upload
 
+    # base url for the vimeo api endpoint
     BASE = "https://api.vimeo.com"
 
     # Vimeo access token (see: https://developer.vimeo.com/apps)
