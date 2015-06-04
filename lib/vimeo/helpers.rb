@@ -37,7 +37,7 @@ module Vimeo
       if response_is_collection? response
         build_collection_from_response(response, klass)
       else
-        klass.new client, response
+        klass.new response.merge(client: client)
       end
     end
 
@@ -48,9 +48,9 @@ module Vimeo
 
     def build_collection_from_response(response, klass)
       client = get_client_object
-      raw_items = response.fetch(:data)
+      raw_items = response.fetch(:data).merge(client: client)
       items = raw_items.collect do |i|
-        klass.new self, i
+        klass.new i
       end
 
       keys    = [:page, :per_page, :pages]

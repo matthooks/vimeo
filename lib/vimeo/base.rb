@@ -2,8 +2,11 @@ require "hashie"
 
 module Vimeo
   class Base < ::Hashie::Mash
-    def initialize client, attrs = {}
-      @client = client
+
+    attr_reader :client
+
+    def initialize attrs
+      @super = attrs.delete(:client)
       super attrs
     end
 
