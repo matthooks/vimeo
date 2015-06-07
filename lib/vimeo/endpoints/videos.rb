@@ -1,5 +1,5 @@
 module Vimeo
-  module Enpoints
+  module Endpoints
     module Videos
       include Vimeo::Helpers
 
