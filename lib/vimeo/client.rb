@@ -4,6 +4,7 @@ module Vimeo
   ##
   # This class provides the public APIs' used to interface with the Vimeo API
   class Client
+    include Vimeo::Endpoints::Videos
     include Vimeo::Endpoints::Categories
     include Vimeo::Endpoints::Channels
     include Vimeo::Endpoints::Groups
