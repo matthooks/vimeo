@@ -20,8 +20,8 @@ module Vimeo
     attr_accessor :access_token
 
     class << self
-      def NewOAuthRequest client_id, client_secret, state, scope = ["public"]
-        params = { scope: scope.join(' '), state: state }
+      def NewOAuthRequest client_id, client_secret, identifier, scope = ["public"]
+        params = { scope: scope.join(' '), state: identifier }
         OAuth2::Client.new(client_id, client_secret, site: BASE, connection_opts: { params: params })
       end
     end
