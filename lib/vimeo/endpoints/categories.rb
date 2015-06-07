@@ -20,8 +20,8 @@ module Vimeo
       ##
       # Get a category
       #
-      # *category:* the category's unique identifer (typically the name). ie: animation
-      def category category
+      # *category_id:* the category's unique identifer (typically the name). ie: animation
+      def category category_id
         perform_get_with_object("/categories/#{category_id}", {}, Vimeo::Entities::Category)
       end
     end

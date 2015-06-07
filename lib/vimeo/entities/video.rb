@@ -1,17 +1,71 @@
 module Vimeo
   module Entities
+    ##
+    # === Description
     class Video < Vimeo::Base
 
+      ##
+      # Edit video metadata
+      #
+      # *attributes:* a hash of attributes to be updated
+      # === Attributes
+      # [name]
+      #   (string) The new name for the video
+      # [description]
+      #   (string) The new description for the video
+      # [license]
+      #   (string) Set the Creative Commons license
+      #   * by
+      #   * by-sa
+      #   * by-nd
+      #   * by-nc
+      #   * by-nc-sa
+      #   * by-nc-nd
+      #   * cc0
+      # [privacy.view]
+      #   (string) The new privacy setting for the video
+      #   * anybody
+      #   * nobody
+      #   * contacts
+      #   * password
+      #   * disable
+      # [password]
+      #   (string) When you set privacy.view to password, you must provide the password as an additional parameter
+      # [privacy.embed]
+      #   (string) The videos new embed settings. Whitelist allows you to define all valid embed domains.
+      # [review_link]
+      #   (string) Enable or disable the review page
+      # [locale]
+      #   (string) Set the default language for this video. For a full list of valid languages use the "/languages?filter=texttracks" endpoint
+      # [content_rating]
+      #   (string) A list of values describing the content in this video. You can find the full list in the /contentrating endpoint. You must provide a list representation appropriate for your request body (comma separated for querystring, or array for JSON)
+      # [embed]
       def edit attributes
         perform_patch("/videos/#{get_id}", attributes)
       end
 
+      ##
+      # Delete the video
       def delete
         perform_delete("/videos/#{get_id}", attributes)
       end
 
-      def replace attributes
-        perform_put("/videos/#{get_id}", attributes)
+
+      ##
+      # Relace a video's source file. Get an upload ticket to replace this video file.
+      #
+      # *options:* a hash of options to create a new upload ticket
+      # === Options
+      # [type]
+      #   (string) Upload type
+      #   * POST
+      #   * streaming
+      # [redirect_url]
+      #   (string) The app redirect URL
+      # [upgrade_to_1080]
+      #   (string) Immediately upgrade to 1080p on upload complete.
+      def replace options
+        perform_put("/videos/#{get_id}", options)
       end
 
       ##
@@ -43,7 +97,7 @@ module Vimeo
       def text_track track_id
         perfrom_get("/videos/#{get_id}/texttracks/#{track_id}")
       end
-  
+
       ##
       # Edit text track metadata.
       def edit_text_track track_id, attributes
@@ -61,7 +115,7 @@ module Vimeo
       def related_videos options = {}
         perform_get_with_object("/videos/#{get_id}/videos", options, Vimeo::Entities::Video)
       end
-      
+
       ##
       # Get a list of all categories this video is in.
       def categories options = {}
@@ -106,7 +160,7 @@ module Vimeo
 
       ##
       # Post a comment on the video
-      def post_comment attributes 
+      def post_comment attributes
         perform_post("/videos/#{get_id}/comments", attributes)
       end
 
@@ -144,7 +198,7 @@ module Vimeo
         perform_get("/videos/#{get_id}/pictures/#{picture_id}")
       end
 
-      def modify_picture picture_id, attributes 
+      def modify_picture picture_id, attributes
         perform_patch("/videos/#{get_id}/pictures/#{picture_id}", attributes)
       end
 

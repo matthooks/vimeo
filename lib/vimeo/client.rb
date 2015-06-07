@@ -36,13 +36,13 @@ module Vimeo
     # Create a new Client object. You can either supply a hash of +options+
     # or a block, see example:
     #
-    # Vimeo::Client.new do |client|
-    #   client.access_token = 'mytoken'
-    # end
+    #   Vimeo::Client.new do |client|
+    #     client.access_token = 'mytoken'
+    #   end
     #
-    # // or
+    #   // or
     #
-    # Vimeo.client.new { access_token: 'mytoken' }
+    #   Vimeo.client.new { access_token: 'mytoken' }
     #
     def initialize options = {}
       options.each do |k,v|
@@ -51,6 +51,7 @@ module Vimeo
       yield self if block_given?
     end
 
+    # :nodoc:
     def access_token?
       !!(access_token)
     end
