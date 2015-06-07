@@ -16,10 +16,16 @@ module Vimeo
     # base url for the vimeo api endpoint
     BASE = "https://api.vimeo.com"
 
-    # Vimeo access token (see: https://developer.vimeo.com/apps)
+    # Access Token stores the token (see authentication) that *must* be provided
+    # to make requests to the Vimeo API
     attr_accessor :access_token
 
     class << self
+      ##
+      # If OAuth authentication is needed this method returns an instance of an Oauth2
+      # client (see https://github.com/intridea/oauth2) which as the appropiate
+      # options set.
+      # see authentication for more information.
       def NewOAuthRequest client_id, client_secret, identifier, scope = ["public"]
         params = { scope: scope.join(' '), state: identifier }
         OAuth2::Client.new(client_id, client_secret, site: BASE, connection_opts: { params: params })
@@ -28,14 +34,16 @@ module Vimeo
 
     ##
     # Create a new Client object. You can either supply a hash of +options+
-    # or a block as per the example:
+    # or a block, see example:
     #
     # Vimeo::Client.new do |client|
-    #   client.access_token = 'myvimeoaccesstoken'
+    #   client.access_token = 'mytoken'
     # end
     #
-    # options = { access_token: 'myvimeoaccesstoken' }
-    # Vimeo.client.new options
+    # // or
+    #
+    # Vimeo.client.new { access_token: 'mytoken' }
+    #
     def initialize options = {}
       options.each do |k,v|
         instance_variable_set "@#{k}", v
