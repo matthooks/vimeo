@@ -26,7 +26,7 @@ module Vimeo
       # client (see https://github.com/intridea/oauth2) which as the appropiate
       # options set.
       # see authentication for more information.
-      def NewOAuthRequest client_id, client_secret, identifier, scope = ["public"]
+      def new_oauth_request client_id, client_secret, identifier, scope = ["public"]
         params = { scope: scope.join(' '), state: identifier }
         OAuth2::Client.new(client_id, client_secret, site: BASE, connection_opts: { params: params })
       end
