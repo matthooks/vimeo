@@ -35,7 +35,7 @@ module Vimeo
       client = get_client_object
       response = perform_request(method, path, options, {})
       if response_is_collection? response
-        build_collection_from_response(response, klass)
+        build_collection_from_response(response, klass, options)
       else
         klass.new response.merge(client: client)
       end
@@ -46,17 +46,18 @@ module Vimeo
 			perform_post(ticket.uri, ticket)
     end
 
-    def build_collection_from_response(response, klass)
+    def build_collection_from_response(response, klass, options)
       client = get_client_object
-      raw_items = response.fetch(:data).merge(client: client)
+      raw_items = response.fetch(:data)
       items = raw_items.collect do |i|
-        klass.new i
+        klass.new i.merge(client: client)
       end
 
       keys    = [:page, :per_page, :pages]
       values  = response.values_at(:page, :per_page, :paging)
 
-      options = Hash[keys.zip(values)]
+      page_options = Hash[keys.zip(values)]
+      options = options.merge(page_options)
 
       Vimeo::Collection.new(client, items, klass, options)
     end
