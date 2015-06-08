@@ -1,9 +1,0 @@
-{
-  "generated_in":"0.2126",
-  "stat":"ok",
-  "ticket":{
-    "endpoint":"http:\/\/67.202.6.15\/upload_multi?ticket_id=ticket_id",
-    "id":"ticket_id",
-    "max_file_size": "512000"
-  }
-}

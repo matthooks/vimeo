@@ -1,1 +1,0 @@
-oauth_token=12345&oauth_token_secret=secret&oauth_callback_confirmed=true
