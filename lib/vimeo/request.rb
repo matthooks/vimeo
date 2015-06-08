@@ -28,7 +28,7 @@ module Vimeo
       # faraday uses a different set of method signitures depending on what
       # type of method is being called
       args = method_expects_body? ?
-        [@method, @path, params, headers] : [@method, @path, @body, headers]
+         [@method, @path, @body, headers] : [@method, @path, params, headers]
       # perform the request with faraday
       response = @conn.public_send *args
       # parse the response
