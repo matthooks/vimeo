@@ -6,6 +6,8 @@ module Vimeo
   ##
   #
   class Request
+    ##
+    #
     def initialize(client, method, path, params = {}, body)
       # set our dependencies
       @client, @method, @path, @params, @body = client, method, path, params, body
@@ -20,15 +22,15 @@ module Vimeo
       end
     end
 
+    ##
+    #
     def perform
       # construct the headers for the requset for given params
       headers = Vimeo::Headers.new(@client).request_headers
-      # make params an empty string if its empty
-      params = @params.empty? ? "" : @params
       # faraday uses a different set of method signitures depending on what
       # type of method is being called
       args = method_expects_body? ?
-         [@method, @path, @body, headers] : [@method, @path, params, headers]
+         [@method, @path, @body, headers] : [@method, @path, @params, headers]
       # perform the request with faraday
       response = @conn.public_send *args
       # parse the response
