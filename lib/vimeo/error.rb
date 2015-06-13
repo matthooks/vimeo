@@ -1,10 +1,12 @@
 module Vimeo
+  class Exception < ::Exception; end
+
   module Error
-    class AccessTokenNotSet < Exception; end
-    class NotFound < Exception; end
-    class Unauthorized < Exception; end
-    class Forbidden < Exception; end
-    class BadRequest < Exception; end
+    class AccessTokenNotSet < Vimeo::Exception; end
+    class NotFound < Vimeo::Exception; end
+    class Unauthorized < Vimeo::Exception; end
+    class Forbidden < Vimeo::Exception; end
+    class BadRequest < Vimeo::Exception; end
 
     ERRORS = {
       400 => Vimeo::Error::BadRequest,
