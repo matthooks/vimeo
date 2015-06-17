@@ -3,20 +3,24 @@ require "json"
 module Vimeo
   class Response
     def initialize response
-      @headers  = response.headers
-      @status   = response.status
-      @body     = response.body
+      @headers, @status, @body = response[:headers], response[:status], response[:body]
     end
 
     def parse_response_or_fail
+      # fetch
       error = error(@headers, @status, @response)
+      # raise an exception if an error has occured
       fail(error, error_from_response) if error
-      body  = parse(@body)
+      # parse the response body
+      body = parse(@body)
     end
 
     protected
 
     def error(headers, status, response)
+      # set a generic 500 error if the response has any 5xx status
+      status = 500 if status / 100 == 5
+      # fetch the appropiate exception by the status code
       klass = Vimeo::Error::ERRORS[status]
     end
 

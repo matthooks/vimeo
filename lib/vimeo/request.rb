@@ -58,7 +58,7 @@ module Vimeo
       # perform the request with faraday
       response = @performer.public_send *args
       # parse the response
-      Vimeo::Response.new(response).parse_response_or_fail
+      Vimeo::Response.new(response.to_hash).parse_response_or_fail
     end
   end
 end
