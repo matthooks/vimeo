@@ -1,24 +1,6 @@
 require "spec_helper"
 
 describe Vimeo::Endpoints::Categories do
-
-  let(:client) do
-    Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }
-  end
-
-  describe '.categories', :vcr do
-    subject { client.categories }
-
-    it { is_expected.to be_a_kind_of(Vimeo::Collection) }
-
-    it 'has a collection of categories' do
-      expect(subject.first).to be_a_kind_of(Vimeo::Entities::Category)
-    end
-  end
-
-  describe '.category', :vcr do
-    subject { client.category 'animation' }
-
-    it { is_expected.to be_a_kind_of(Vimeo::Entities::Category) }
-  end
+  it_behaves_like 'an endpoint', 'categories', Vimeo::Entities::Category, true
+  it_behaves_like 'an endpoint', 'category', Vimeo::Entities::Category, false, 'animation'
 end

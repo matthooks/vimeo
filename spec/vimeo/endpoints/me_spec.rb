@@ -1,13 +1,5 @@
 require "spec_helper"
 
-describe Vimeo::Endpoints::Categories do
-
-  let(:client) do
-    Vimeo::Client.new {|c| c.access_token = $vimeo_access_token }
-  end
-
-  describe '.me', :vcr do
-    subject { client.me }
-    it { is_expected.to be_a_kind_of(Vimeo::Entities::User) }
-  end
+describe Vimeo::Endpoints::Me do
+  it_behaves_like 'an endpoint', 'me', Vimeo::Entities::Me, false
 end
