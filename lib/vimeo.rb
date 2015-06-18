@@ -1,12 +1,25 @@
-require 'rubygems'
-require 'httparty'
-require 'digest/md5'
-
-require 'net/http/post/multipart'
-
-$:.unshift(File.dirname(__FILE__))
-require 'vimeo/simple'
-require 'vimeo/advanced'
-
-module Vimeo
-end
+require "vimeo/version"
+require "vimeo/error"
+require "vimeo/headers"
+require "vimeo/response"
+require "vimeo/request"
+require "vimeo/helpers"
+require "vimeo/collection"
+require "vimeo/upload"
+require "vimeo/base"
+require "vimeo/entities/category"
+require "vimeo/entities/channel"
+require "vimeo/entities/group"
+require "vimeo/entities/ondemand"
+require "vimeo/entities/tag"
+require "vimeo/entities/user"
+require "vimeo/entities/video"
+require "vimeo/entities/me"
+require "vimeo/endpoints/videos"
+require "vimeo/endpoints/categories"
+require "vimeo/endpoints/channels"
+require "vimeo/endpoints/groups"
+require "vimeo/endpoints/tags"
+require "vimeo/endpoints/users"
+require "vimeo/endpoints/me"
+require "vimeo/client"

@@ -1,8 +1,0 @@
-{
-  "generated_in":"0.1409",
-  "stat":"ok",
-  "api_key":"api_key",
-  "api_sig":"api_sig",
-  "format":"json",
-  "method":"vimeo.test.echo"
-}

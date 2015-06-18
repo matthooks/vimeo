@@ -1,9 +1,0 @@
-{
-  "token":"token",
-  "permission":"write",
-  "user":{
-    "display_name":"Brad Dougherty",
-    "id":"101193",
-    "username":"brad"
-  }
-}
