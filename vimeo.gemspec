@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "oauth2", "~> 1.0"
   spec.add_dependency "faraday", "~> 0.9.0"
+  spec.add_dependency "faraday_middleware", "~> 0.9.1"
   spec.add_dependency "hashie", "~> 3.3"
   spec.add_dependency "oauth", "~> 0.4"
   spec.add_dependency "rdoc", "~> 4.2.0"
