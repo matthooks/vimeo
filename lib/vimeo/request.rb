@@ -1,4 +1,5 @@
 require 'faraday'
+require 'faraday_middleware'
 
 module Vimeo
   ##
@@ -20,9 +21,10 @@ module Vimeo
       raise Vimeo::Error::AccessTokenNotSet unless @client.access_token?
       # create a new faraday instance to use as our HTTP client
       @performer = Faraday.new url: Vimeo::Client::BASE do |faraday|
-        faraday.request  :multipart
-        faraday.request  :url_encoded
-        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+        faraday.request :multipart
+        faraday.request :url_encoded
+        faraday.use FaradayMiddleware::EncodeJson
+        faraday.adapter Faraday.default_adapter  # make requests with Net::HTTP
       end
     end
 
