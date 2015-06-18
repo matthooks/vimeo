@@ -6,7 +6,7 @@ module Vimeo
     attr_reader :client
 
     def initialize attrs
-      @super = attrs.delete(:client)
+      @client = attrs.delete(:client)
       super attrs
     end
 
