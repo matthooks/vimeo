@@ -1,3 +1,5 @@
+require 'pry'
+
 module Vimeo
   module Simple
 
@@ -6,7 +8,7 @@ module Vimeo
       #
       # @param [String] video_id The video's id.
       def self.info(video_id)
-        get("/video/#{video_id}.json")
+        get("/oembed.json?url=https%3A//vimeo.com/#{video_id}")
       end
     end
 
