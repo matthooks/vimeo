@@ -1,10 +1,9 @@
 module Vimeo
   module Simple
     
-    class Base      
+    class Base
       include HTTParty
-      base_uri 'https://vimeo.com/api/v2'
+      base_uri 'https://vimeo.com/api'
     end # Base
-
   end # Simple
 end # Vimeo
