@@ -2,9 +2,9 @@
 
 Changes implemented per vimeo's updated api:
 
-* [Endpoint](https://developer.vimeo.com/apis/oembed#endpoint)
-* [base_uri](https://developer.vimeo.com/apis/oembed#json-example)
-* [info parameters](https://developer.vimeo.com/apis/oembed#json-example)
+* {Endpoint}{https://developer.vimeo.com/apis/oembed#endpoint}
+* {base_uri}{https://developer.vimeo.com/apis/oembed#json-example}
+* {info parameters}{https://developer.vimeo.com/apis/oembed#json-example}
 
 == 1.0.0, released 2009-09-28
 
