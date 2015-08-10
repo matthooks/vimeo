@@ -5,8 +5,9 @@ module Vimeo
       # Returns a list of a channel's videos.
       #
       # @param [String] channelname The channel's name.
-      def self.videos(channelname)
-        get("/channel/#{channelname}/videos.json")
+      # @param [Integer] page, is the desired Page (1, 2, or 3. Default is 1) 
+      def self.videos(channelname, page=1)
+        get("/channel/#{channelname}/videos.json?page=#{page}")
       end
       
       # Returns a channel's metadata.
