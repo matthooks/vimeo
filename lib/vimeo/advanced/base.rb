@@ -67,7 +67,7 @@ module Vimeo
     class Base
       extend CreateApiMethod
 
-      ENDPOINT = "https://vimeo.com/api/rest/v2"
+      ENDPOINT = "https://vimeo.com/api/oembed.json"
 
       def initialize(consumer_key, consumer_secret, options = {})
         timeout = options.fetch("timeout", 30)
