@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "httparty", ">= 0.4.5"
-gem "httpclient", ">= 2.1.5.2"
+gem "httpclient", ">= 2.5.1"
 gem "json", ">= 1.1.9"
 gem "multipart-post", ">= 1.0.1"
 gem "oauth", ">= 0.4.3"
